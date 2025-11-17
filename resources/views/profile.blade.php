@@ -127,13 +127,15 @@
       </li>
 
       <!-- Change Password -->
+      <a href="/views/change_password">   
       <li class="flex items-center justify-between px-3 py-3 hover:bg-gray-50 rounded-xl transition cursor-pointer">
         <div class="flex items-center gap-3">
           <img src="https://cdn-icons-png.flaticon.com/512/3064/3064197.png"
                class="w-6 h-6 object-contain" alt="password" />
           <span class="text-gray-800 font-medium text-[15px]">Change Password</span>
         </div>
-      </li>
+      </li></a>
+   
 
       <!-- Location -->
       <li id="locationButton"

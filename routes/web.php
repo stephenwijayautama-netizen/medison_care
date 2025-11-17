@@ -26,21 +26,7 @@ Route::get('views/metodepayment', function () {
 });
 Route::get('views/order', function () {
     return view('order');
-});
-
-Route::get('views/search', function () {
-    return view('search');
-});
-
-Route::get('views/beranda', function () {
-    return view('beranda');
-}); 
-
-Route::get('views/change_password', function () {
+ });
+ Route::get('views/change_password', function () {
     return view('change_password');
-});
-Route::get('views/change_profile', function () {
-    return view('change_profile');
-});
-
-
+ });      
