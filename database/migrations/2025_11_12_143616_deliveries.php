@@ -18,9 +18,9 @@ return new class extends Migration
         $table->string('tracking_numbers');
         $table->text('delivery_addres');
         $table->enum('status', ['preparing','shipped.in_transit','delivered','failed']);
-        $table->text('notes');
-        $table->timestamp('shipped_at');
-        $table->timestamp('delivery_at');
+        $table->text('notes')->nullable();
+        $table->timestamp('shipped_at')->nullable();
+        $table->timestamp('delivery_at')->nullable();
         
         $table->timestamps();
         $table->foreign('transaction_id')->references('id')->on('transactions')->onUpdate('cascade')->onDelete('cascade');
