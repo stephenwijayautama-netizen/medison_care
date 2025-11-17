@@ -433,6 +433,14 @@
         </div>
       </div>
 
+      <script type="module">
+    import Chatbot from "https://cdn.jsdelivr.net/npm/flowise-embed/dist/web.js"
+    Chatbot.init({
+        chatflowid: "33346acb-60a5-412f-88ba-3684627baf7b",
+        apiHost: "https://cloud.flowiseai.com",
+    })
+</script>
+
       <!-- Isi Pesan -->
       <div class="p-4 text-gray-700 text-sm bg-gray-50">
         <div class="mb-3 bg-white p-3 rounded-lg shadow-sm border border-gray-100">
