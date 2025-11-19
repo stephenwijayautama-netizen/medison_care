@@ -14,11 +14,7 @@ return new class extends Migration
         Schema::create('couriers', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->string('code');
-            $table->string('service_type');
-            $table->decimal('shopping_cost');
             $table->timestamps();
-            
         });
     }
 
