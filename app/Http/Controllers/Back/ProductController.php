@@ -27,6 +27,7 @@ class ProductController extends Controller
             ''
         ]);
     }
+
     public funtion update($id){
 
     }
@@ -34,4 +35,4 @@ class ProductController extends Controller
     public functoion delete($id){
         
     }
-}
+} 
