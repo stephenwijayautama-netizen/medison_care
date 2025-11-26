@@ -1,46 +1,42 @@
 <?php
 
+use App\Http\Controllers\Auth\AuthController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Front\HomeController;
+use App\Http\Controllers\Back\ProductController;
 
-Route::get('/', function () {
-    return view('home');
+// Login
+Route::get('/login', [AuthController::class, 'indexlogin'])->name('login');
+Route::post('/doLogin', [AuthController::class, 'dologin'])->name('doLogin');
+
+// Register
+Route::get('/register', [AuthController::class, 'indexregister'])->name('register');
+Route::post('/doRegister', [AuthController::class, 'doregister'])->name('doRegister');
+
+
+
+Route::middleware('auth')->group(function (){
+    Route::get('/', [HomeController::class, 'index'])->name('home');
+    Route::get('/profile', [HomeController::class, 'profile'])->name('profile');
 });
 
-Route::get('views/home', function () {
-    return view('home');
-});
-Route::get('views/login', function () {
-    return view('Login');
-});
-Route::get('views/register', function () {
-    return view('register');
-});
+// Alur Back Office
+// Alur CRUD Product
+Route::get('/product', [ProductController::class, 'index'])->name('products');
+
+
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
 Route::get('views/forgot', function () {
     return view('forgot');
 });
-Route::get('views/profile', function () {
-    return view('profile');
-});
+
 Route::get('views/metodepayment', function () {
     return view('metodepayment');
 });
 Route::get('views/order', function () {
     return view('order');
 });
-
-Route::get('views/search', function () {
-    return view('search');
-});
-
-Route::get('views/beranda', function () {
-    return view('beranda');
-}); 
-
 Route::get('views/change_password', function () {
     return view('change_password');
 });
-Route::get('views/change_profile', function () {
-    return view('change_profile');
-});
-
-
