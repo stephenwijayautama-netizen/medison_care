@@ -30,6 +30,14 @@ class AdminPanelProvider extends PanelProvider
             ->login()
             ->colors([
                 'primary' => Color::Amber,
+                'danger' => Color::Red,
+                'warning' => Color::Orange,
+                'success' => Color::Green,
+                'info' => Color::Blue,
+                'gray' => Color::Slate,
+                // Tambahkan warna custom di sini:
+                'royal' => Color::Purple,
+                'teal' => Color::Teal,
             ])
             ->brandName('Medison Care')
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\Filament\Resources')

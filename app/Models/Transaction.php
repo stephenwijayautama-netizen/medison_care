@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany; // <--- Jangan lupa import ini
 
 class Transaction extends Model
 {
@@ -16,8 +17,14 @@ class Transaction extends Model
         'transaction_date',
     ];
 
-    public function User(): BelongsTo
+    public function user(): BelongsTo
     {
-        return $this->belongsTo(User::class); 
+        return $this->belongsTo(User::class);
+    }
+
+    // Tambahkan ini
+    public function detailTransactions(): HasMany
+    {
+        return $this->hasMany(Detailtransaction::class);
     }
 }
