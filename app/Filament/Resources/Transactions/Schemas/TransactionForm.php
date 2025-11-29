@@ -24,21 +24,21 @@ class TransactionForm
                     ->numeric(),
                 Select::make('status')
                     ->options([
-            'pending' => 'Pending',
-            'paid' => 'Paid',
-            'processing' => 'Processing',
-            'shipped' => 'Shipped',
-            'delivered' => 'Delivered',
-            'cancelled' => 'Cancelled',
-        ])
+                        'pending' => 'Pending',
+                        'paid' => 'Paid',
+                        'processing' => 'Processing',
+                        'shipped' => 'Shipped',
+                        'delivered' => 'Delivered',
+                        'cancelled' => 'Cancelled',
+                    ])
                     ->required(),
                 Select::make('payment_method')
                     ->options([
-            'credit_card' => 'Credit card',
-            'bank_transfer' => 'Bank transfer',
-            'e-wallet' => 'E wallet',
-            'cod' => 'Cod',
-        ])
+                        'credit_card' => 'Credit card',
+                        'bank_transfer' => 'Bank transfer',
+                        'e-wallet' => 'E wallet',
+                        'cod' => 'Cod',
+                        ])
                     ->required(),
                 DateTimePicker::make('transaction_date')
                     ->required(),

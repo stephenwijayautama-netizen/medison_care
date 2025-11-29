@@ -8,6 +8,7 @@ use Filament\Actions\EditAction;
 use Filament\Actions\ViewAction;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
+use App\Models\Transaction; // Pastikan import model
 
 class TransactionsTable
 {
@@ -15,43 +16,63 @@ class TransactionsTable
     {
         return $table
             ->columns([
-                TextColumn::make('User.name')
+                // 1. Nama User (Pastikan relasi di Model Transaction bernama 'user', huruf kecil)
+                TextColumn::make('user.name')
+                    ->label('Customer')
+                    ->searchable()
                     ->sortable(),
+
+                // 2. Produk & Quantity (Digabung agar rapi)
+                TextColumn::make('detailTransactions')
+                    ->label('Items Purchased')
+                    ->formatStateUsing(function ($record) {
+                        return $record->detailTransactions->map(function ($detail) {
+                            return "• {$detail->product_name} (x{$detail->quantity})";
+                        })->implode('<br>');
+                    })
+                    ->html(),
+
+                // 3. Total Harga
                 TextColumn::make('total_amount')
                     ->numeric()
+                    ->prefix('Rp ')
                     ->sortable(),
+
+                // 4. Shipping Cost
                 TextColumn::make('shipping_cost')
                     ->numeric()
+                    ->prefix('Rp ')
                     ->sortable(),
+
+                // 5. Status (Kode warna diperbaiki)
                 TextColumn::make('status')
                     ->badge()
-                    ->colors([
-                        'danger' => 'owner',
-                        'warning' => 'admin',
-                        'success' => 'user',
-                    ]),
+                    ->color(fn (string $state): string => match ($state) {
+                        'pending', 'processing', 'shipped' => 'warning',
+                        'paid', 'delivered' => 'success',
+                        'cancelled' => 'danger',
+                        default => 'gray',
+                    }),
+
+                // 6. Payment Method
                 TextColumn::make('payment_method')
-                    ->badge(),
+                    ->label('Payment')
+                    ->badge()
+                    ->color('info'),
+
+                // 7. Transaction Date
                 TextColumn::make('transaction_date')
-                    ->dateTime()
+                    ->date('d M Y')
                     ->sortable(),
-                TextColumn::make('created_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                TextColumn::make('updated_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
                 //
             ])
-            ->recordActions([
+            ->actions([
                 ViewAction::make(),
                 EditAction::make(),
             ])
-            ->toolbarActions([
+            ->bulkActions([
                 BulkActionGroup::make([
                     DeleteBulkAction::make(),
                 ]),
