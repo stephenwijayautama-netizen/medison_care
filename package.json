@@ -14,5 +14,12 @@
         "tailwindcss": "^4.1.16",
         "tailwindcss-animate": "^1.0.7",
         "vite": "^5.0.0"
+    },
+    "autoload": {
+    "psr-4": {
+        "App\\": "app/",
+        "Database\\Factories\\": "database/factories/",
+        "Database\\Seeders\\": "database/seeders/"
     }
+}
 }

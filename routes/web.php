@@ -25,7 +25,7 @@ Route::middleware('auth')->group(function (){
 Route::get('/product', [ProductController::class, 'index'])->name('products');
 
 
-Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::get('views/forgot', function () {
     return view('forgot');
