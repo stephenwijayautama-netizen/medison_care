@@ -22,6 +22,13 @@
 <div class="mt-4 flex items-center gap-3">
 
       <div class="flex justify-center mt-[-130px] ml-[130px]  ">
+         <form action="{{ route('logout') }}" method="POST">
+        @csrf
+        <button type="submit" class="text-red-500">
+            Logout
+        </button>
+    </form>
+
   <form
     action="#"
     method="GET"
