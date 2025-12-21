@@ -22,6 +22,13 @@
 <div class="mt-4 flex items-center gap-3">
 
       <div class="flex justify-center mt-[-130px] ml-[130px]  ">
+         <form action="{{ route('logout') }}" method="POST">
+        @csrf
+        <button type="submit" class="text-red-500">
+            Logout
+        </button>
+    </form>
+
   <form
     action="#"
     method="GET"
@@ -432,6 +439,14 @@
           <p class="text-xs opacity-90">Online • Usually replies within minutes</p>
         </div>
       </div>
+
+      <script type="module">
+    import Chatbot from "https://cdn.jsdelivr.net/npm/flowise-embed/dist/web.js"
+    Chatbot.init({
+        chatflowid: "33346acb-60a5-412f-88ba-3684627baf7b",
+        apiHost: "https://cloud.flowiseai.com",
+    })
+</script>
 
       <!-- Isi Pesan -->
       <div class="p-4 text-gray-700 text-sm bg-gray-50">
