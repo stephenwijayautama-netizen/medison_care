@@ -1,16 +1,15 @@
 <?php
 
-namespace App\Http\Controllers\ChangePassword;
+namespace App\Http\Controllers\Profile;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
-
-class ChangeContoller extends Controller
+class ChangeProfileController extends Controller
 {
-    public function index(){
+      public function index(){
         return view('Change');
     }
     public function ChangePassword(Request $request){
@@ -18,6 +17,7 @@ class ChangeContoller extends Controller
             'current_password' => ['required'],
             'password' => ['required' ,'min:8' ,'confirmed'],
         ]);
+        // dd($request->all());
     $user = Auth::user();
 
         // cek password lama benar atau tidak

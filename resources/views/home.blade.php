@@ -280,48 +280,32 @@
 
 
 
-      <!-- 🤝 Supported brand -->
-   <section class="font-[inter] mt-[40px] mb-[40px]">
+    <!-- 🤝 Supported brand -->
+
+<section class="font-[inter] mt-[40px] mb-[40px]">
   <div class="text-center">
-    <!-- Judul -->
+
     <p class="font-bold text-[26px] text-gray-800 mb-6 tracking-wide">
       Our Supported Brands
     </p>
 
-    <!-- Container Brand Logo -->
     <div class="flex flex-wrap justify-center gap-6">
-      <!-- Brand 1 -->
-      <div class="bg-gradient-to-b from-white to-[#f4f7f4] p-4 rounded-2xl shadow-md hover:shadow-xl transition-all duration-500 hover:-translate-y-2 hover:scale-105">
-        <img src="photo/brand.png" alt="Brand 1" class="w-[90px] h-auto object-contain">
-      </div>
-
-      <!-- Brand 2 -->
-      <div class="bg-gradient-to-b from-white to-[#f4f7f4] p-4 rounded-2xl shadow-md hover:shadow-xl transition-all duration-500 hover:-translate-y-2 hover:scale-105">
-        <img src="photo/brand.png" alt="Brand 2" class="w-[90px] h-auto object-contain">
-      </div>
-
-      <!-- Brand 3 -->
-      <div class="bg-gradient-to-b from-white to-[#f4f7f4] p-4 rounded-2xl shadow-md hover:shadow-xl transition-all duration-500 hover:-translate-y-2 hover:scale-105">
-        <img src="photo/brand.png" alt="Brand 3" class="w-[90px] h-auto object-contain">
-      </div>
-
-      <!-- Brand 4 -->
-      <div class="bg-gradient-to-b from-white to-[#f4f7f4] p-4 rounded-2xl shadow-md hover:shadow-xl transition-all duration-500 hover:-translate-y-2 hover:scale-105">
-        <img src="photo/brand.png" alt="Brand 4" class="w-[90px] h-auto object-contain">
-      </div>
-
-      <!-- Brand 5 -->
-      <div class="bg-gradient-to-b from-white to-[#f4f7f4] p-4 rounded-2xl shadow-md hover:shadow-xl transition-all duration-500 hover:-translate-y-2 hover:scale-105">
-        <img src="photo/brand.png" alt="Brand 5" class="w-[90px] h-auto object-contain">
-      </div>
-
-      <!-- Brand 6 -->
-      <div class="bg-gradient-to-b from-white to-[#f4f7f4] p-4 rounded-2xl shadow-md hover:shadow-xl transition-all duration-500 hover:-translate-y-2 hover:scale-105">
-        <img src="photo/brand.png" alt="Brand 6" class="w-[90px] h-auto object-contain">
-      </div>
+      @forelse($brands as $brand)
+        <div class="bg-gradient-to-b from-white to-[#f4f7f4] p-4 rounded-2xl shadow-md hover:shadow-xl transition-all duration-500 hover:-translate-y-2 hover:scale-105">
+          <img 
+            src="{{ Storage::disk('public')->url('brands/' . $brand->image) }}" 
+            alt="{{ $brand->name }}" 
+            class="w-[90px] h-auto object-contain"
+          >
+        </div>
+      @empty
+        <p class="text-gray-500">Belum ada brand yang ditambahkan</p>
+      @endforelse
     </div>
+
   </div>
 </section>
+
 
 
     <section class="font-[inter] mt-[50px] mb-[50px]">
