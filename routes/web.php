@@ -7,6 +7,7 @@ use App\Http\Controllers\Back\ProductController;
 use App\Http\Controllers\Profile\ProfileController;
 use App\Http\Controllers\Profile\ChangeProfileController;
 use App\Http\Controllers\Brands\BrandsController;
+use App\Http\Controllers\Product\BController;
 
 /*
 |--------------------------------------------------------------------------
@@ -45,7 +46,15 @@ Route::middleware('auth')->group(function () {
         ->name('change-password.submit');
 
     // PRODUCT
-    Route::get('/product', [ProductController::class, 'index'])->name('products');
+Route::middleware('auth')->group(function () {
+    Route::get('/products', [ProductsController::class, 'index'])->name('products.index');
+    Route::get('/products/create', [ProductsController::class, 'create'])->name('products.create');
+    Route::post('/products', [ProductsController::class, 'store'])->name('products.store');
+    Route::get('/products/{product}/edit', [ProductsController::class, 'edit'])->name('products.edit');
+    Route::put('/products/{product}', [ProductsController::class, 'update'])->name('products.update');
+    Route::delete('/products/{product}', [ProductsController::class, 'destroy'])->name('products.destroy');
+});
+
 
     // LOGOUT
     Route::get('/logout', [AuthController::class, 'logout'])->name('logout');

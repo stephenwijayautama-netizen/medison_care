@@ -181,7 +181,6 @@
     </div>
 </section>
 
-
 <!-- PROMO SECTION -->
 <section class="mt-6 font-[inter]">
   <div class="flex items-center justify-between mb-3 px-3">
@@ -193,91 +192,52 @@
 
   <!-- SCROLL LIST -->
   <div class="overflow-x-auto snap-x snap-mandatory [-ms-overflow-style:none] [scrollbar-width:none] px-2">
-    <div class="flex gap-3 min-w-max [ &>* ]:snap-start pb-1">
-
-      <!-- CARD -->
-      <article class="relative w-40 bg-white rounded-xl border border-green-300 shadow-sm hover:shadow-lg transition-all duration-300 hover:-translate-y-1 overflow-hidden">
-        <!-- Badge PROMO -->
-        <div class="absolute top-0 left-0 w-full flex justify-center pointer-events-none">
-          <span class="inline-block bg-[#C6A252] text-white text-[10px] font-semibold px-2 py-1 rounded-b-md shadow-sm uppercase tracking-wide">
-            Promo
-          </span>
-        </div>
-
-        <div class="p-2 pt-5">
-          <!-- Gambar -->
-          <div class="h-20 flex items-center justify-center mb-2">
-            <img src="/photo/obat.webp" alt="Tempra Anggur Sirup 60ml" class="max-h-16 object-contain">
+    <div class="flex gap-3 min-w-max [&>*]:snap-start pb-1">
+      
+      @forelse($products as $product)
+        <!-- CARD DYNAMIC -->
+        <article class="relative w-40 bg-white rounded-xl border border-green-300 shadow-sm hover:shadow-lg transition-all duration-300 hover:-translate-y-1 overflow-hidden">
+          <!-- Badge PROMO -->
+          <div class="absolute top-0 left-0 w-full flex justify-center pointer-events-none">
+            <span class="inline-block bg-[#C6A252] text-white text-[10px] font-semibold px-2 py-1 rounded-b-md shadow-sm uppercase tracking-wide">
+              Promo
+            </span>
           </div>
 
-          <!-- Judul -->
-          <h3 class="text-[11px] font-semibold text-gray-900 text-center leading-snug uppercase">
-            TEMPRA ANGGUR<br>SIRUP 60ML
-          </h3>
-
-          <!-- Harga -->
-          <div class="mt-1 text-center">
-            <div class="text-[10px] text-red-500 line-through">Rp 54.021</div>
-            <div class="text-[12px] text-green-600 font-extrabold">
-              Rp 49.699,- <span class="text-gray-600 font-medium text-[10px]">/ Botol</span>
+          <div class="p-2 pt-5">
+            <!-- Gambar -->
+            <div class="h-20 flex items-center justify-center mb-2">
+              <img src="{{ asset('storage/products/' . $product->image) }}" 
+                   alt="{{ $product->name }}" 
+                   class="max-h-16 object-contain"
+                   onerror="this.src='/photo/obat.webp'">
             </div>
-            <div class="text-[10px] text-gray-500 mt-[2px]">13.4 RB+ Terjual</div>
-          </div>
-        </div>
-      </article>
 
-      <!-- CARD 2 -->
-      <article class="relative w-40 bg-white rounded-xl border border-green-300 shadow-sm hover:shadow-lg transition-all duration-300 hover:-translate-y-1 overflow-hidden">
-        <div class="absolute top-0 left-0 w-full flex justify-center pointer-events-none">
-          <span class="inline-block bg-[#C6A252] text-white text-[10px] font-semibold px-2 py-1 rounded-b-md shadow-sm uppercase tracking-wide">
-            Promo
-          </span>
-        </div>
-        <div class="p-2 pt-5">
-          <div class="h-20 flex items-center justify-center mb-2">
-            <img src="/photo/obat.webp" alt="Lacto B Sachet" class="max-h-16 object-contain">
-          </div>
-          <h3 class="text-[11px] font-semibold text-gray-900 text-center leading-snug uppercase">
-            LACTO B SACHET
-          </h3>
-          <div class="mt-1 text-center">
-            <div class="text-[10px] text-red-500 line-through">Rp 10.450</div>
-            <div class="text-[12px] text-green-600 font-extrabold">
-              Rp 9.935,- <span class="text-gray-600 font-medium text-[10px]">/ Pcs</span>
-            </div>
-            <div class="text-[10px] text-gray-500 mt-[2px]">73.2 RB+ Terjual</div>
-          </div>
-        </div>
-      </article>
+            <!-- Judul -->
+            <h3 class="text-[11px] font-semibold text-gray-900 text-center leading-snug uppercase line-clamp-2">
+              {{ Str::upper($product->name) }}
+            </h3>
 
-      <!-- CARD 3 -->
-      <article class="relative w-40 bg-white rounded-xl border border-green-300 shadow-sm hover:shadow-lg transition-all duration-300 hover:-translate-y-1 overflow-hidden">
-        <div class="absolute top-0 left-0 w-full flex justify-center pointer-events-none">
-          <span class="inline-block bg-[#C6A252] text-white text-[10px] font-semibold px-2 py-1 rounded-b-md shadow-sm uppercase tracking-wide">
-            Promo
-          </span>
-        </div>
-        <div class="p-2 pt-5">
-          <div class="h-20 flex items-center justify-center mb-2">
-            <img src="/photo/obat.webp" alt="Tolak Angin Cair Plus Madu 15ml" class="max-h-16 object-contain">
-          </div>
-          <h3 class="text-[11px] font-semibold text-gray-900 text-center leading-snug uppercase">
-            TOLAK ANGIN<br>PLUS MADU 15ML
-          </h3>
-          <div class="mt-1 text-center">
-            <div class="text-[10px] text-red-500 line-through">Rp 55.592</div>
-            <div class="text-[12px] text-green-600 font-extrabold">
-              Rp 52.811,- <span class="text-gray-600 font-medium text-[10px]">/ Dos</span>
+            <!-- Harga -->
+            <div class="mt-1 text-center">
+              @if($product->old_price)
+                <div class="text-[10px] text-red-500 line-through">Rp {{ number_format($product->old_price, 0, ',', '.') }}</div>
+              @endif
+              <div class="text-[12px] text-green-600 font-extrabold">
+                Rp {{ number_format($product->price, 0, ',', '.') }},- 
+                <span class="text-gray-600 font-medium text-[10px]">/ {{ $product->unit ?? 'Pcs' }}</span>
+              </div>
+              <div class="text-[10px] text-gray-500 mt-[2px]">13.4 RB+ Terjual</div>
             </div>
-            <div class="text-[10px] text-gray-500 mt-[2px]">10 RB+ Terjual</div>
           </div>
-        </div>
-      </article>
+        </article>
+      @empty
+        <p class="text-center text-gray-500 py-8 w-full">Belum ada produk promo</p>
+      @endforelse
 
     </div>
   </div>
 </section>
-
 
 
     <!-- 🤝 Supported brand -->

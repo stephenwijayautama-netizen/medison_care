@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Brands;
 use App\Models\News;
 use Illuminate\Http\Request;
+use App\Models\Product; // ⬅️ TAMBAH INI
 use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
@@ -18,9 +19,11 @@ class HomeController extends Controller
         $user = Auth::user();
         $brands = Brands::all(); // ← Tambah ini
         $news = News::all();
-        return view('home', compact('user', 'brands', 'news'));
-    }
+        $products = Product::all(); // ⬅️ TAMBAH INI
 
+        return view('home', compact('user', 'brands', 'products'));
+    }
+    
     public function profile()
     {
         $user = Auth::user();
