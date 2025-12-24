@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Front;
 
 use App\Http\Controllers\Controller;
 use App\Models\Brands;
-use Illuminate\Http\Request;
+use App\Models\Product; // ⬅️ TAMBAH INI
 use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
@@ -15,10 +15,12 @@ class HomeController extends Controller
     public function index()
     {
         $user = Auth::user();
-        $brands = Brands::all(); // ← Tambah ini
-        return view('home', compact('user', 'brands'));
-    }
+        $brands = Brands::all();
+        $products = Product::all(); // ⬅️ TAMBAH INI
 
+        return view('home', compact('user', 'brands', 'products'));
+    }
+    
     public function profile()
     {
         $user = Auth::user();
