@@ -21,7 +21,7 @@ class HomeController extends Controller
         $news = News::all();
         $products = Product::all(); // ⬅️ TAMBAH INI
 
-        return view('home', compact('user', 'brands', 'products'));
+        return view('home', compact('user', 'brands', "news", "products"));
     }
     
     public function profile()
