@@ -308,87 +308,49 @@
 
 
 
-    <section class="font-[inter] mt-[50px] mb-[50px]">
-  <div class="text-center ml-[-300px]">
-    <!-- Judul -->
-    <p class="font-bold text-[24px] text-gray-800 mb-8 tracking-wide ml-[280px]">What’s New</p>
+<section class="font-[inter] mt-[50px] mb-[50px]">
+  <div class="container mx-auto text-center">
+    <p class="font-bold text-[24px] text-gray-800 mb-8 tracking-wide">
+      What’s New
+    </p>
 
-    <!-- Container Card -->
-    <div class="flex justify-center">
-      <div class="bg-white border border-gray-100 rounded-2xl shadow-md w-[140px] h-[200px] flex flex-col transition-all duration-500 hover:shadow-xl hover:-translate-y-1">
+    <div class="flex flex-wrap justify-center gap-6">
+
+      @forelse($news as $item)
+        <div class="bg-white border border-gray-100 rounded-2xl shadow-md w-[140px] h-[200px] flex flex-col transition-all duration-500 hover:shadow-xl hover:-translate-y-1 overflow-hidden">
+          
+          <div class="p-2 h-[90px]">
+            <img
+              src="{{ Storage::disk('public')->url('news/' . $item->image) }}" 
+              alt="{{ $item->title }}" 
+              class="rounded-xl w-full h-full object-cover shadow-sm">
+          </div>
         
-        <!-- Gambar -->
-        <div class="p-2">
-          <img src="photo/atit.jpeg" alt="Artikel" 
-               class="rounded-xl w-full h-[80px] object-cover shadow-sm">
-        </div>
+          <div class="px-3 text-left flex-1 flex flex-col">
+            <h3 class="font-semibold text-[12px] text-[#166534] mb-0.5 leading-tight">
+              {{ Str::limit($item->title, 20) }}
+            </h3>
+            
+            <p class="text-[10px] text-gray-600 leading-tight mt-1">
+              {{ Str::limit($item->description, 35) }}
+            </p>
+          </div>
 
-        <!-- Isi -->
-        <div class="px-3 text-left flex-1">
-          <h3 class="font-semibold text-[12px] text-[#166534] mb-0.5">How To Be a Good Patient</h3>
-          <p class="text-[10px] text-gray-600 leading-tight">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit, consequuntur.
-          </p>
-        </div>
+          <a href="#" class="block">
+            <div class="bg-gradient-to-r from-[#65a30d] to-[#4d7c0f] py-1.5 text-white text-[11px] font-semibold text-center hover:opacity-90 transition">
+              Read More
+            </div>
+          </a>
 
-        <!-- Tombol -->
-        <div class="bg-gradient-to-r from-[#65a30d] to-[#4d7c0f] py-1.5 mt-2 text-white text-[11px] font-semibold rounded-b-2xl hover:opacity-90 transition">
-          Read More
         </div>
-      </div>
+      @empty
+        <p class="text-gray-500 text-sm">Belum ada berita terbaru.</p>
+      @endforelse
+
     </div>
-
-    <div class="flex justify-center ml-[300px] mt-[-200px]">
-      <div class="bg-white border border-gray-100 rounded-2xl shadow-md w-[140px] h-[200px] flex flex-col transition-all duration-500 hover:shadow-xl hover:-translate-y-1">
-        
-        <!-- Gambar -->
-        <div class="p-2">
-          <img src="photo/atit.jpeg" alt="Artikel" 
-               class="rounded-xl w-full h-[80px] object-cover shadow-sm">
-        </div>
-
-        <!-- Isi -->
-        <div class="px-3 text-left flex-1">
-          <h3 class="font-semibold text-[12px] text-[#166534] mb-0.5">How To Be a Good Patient</h3>
-          <p class="text-[10px] text-gray-600 leading-tight">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit, consequuntur.
-          </p>
-        </div>
-
-        <!-- Tombol -->
-        <div class="bg-gradient-to-r from-[#65a30d] to-[#4d7c0f] py-1.5 mt-2 text-white text-[11px] font-semibold rounded-b-2xl hover:opacity-90 transition">
-          Read More
-        </div>
-      </div>
-    </div>
-
-    
-    <div class="flex justify-center ml-[600px] mt-[-200px]">
-      <div class="bg-white border border-gray-100 rounded-2xl shadow-md w-[140px] h-[200px] flex flex-col transition-all duration-500 hover:shadow-xl hover:-translate-y-1">
-        
-        <!-- Gambar -->
-        <div class="p-2">
-          <img src="photo/atit.jpeg" alt="Artikel" 
-               class="rounded-xl w-full h-[80px] object-cover shadow-sm">
-        </div>
-
-        <!-- Isi -->
-        <div class="px-3 text-left flex-1">
-          <h3 class="font-semibold text-[12px] text-[#166534] mb-0.5">How To Be a Good Patient</h3>
-          <p class="text-[10px] text-gray-600 leading-tight">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit, consequuntur.
-          </p>
-        </div>
-
-        <!-- Tombol -->
-        <div class="bg-gradient-to-r from-[#65a30d] to-[#4d7c0f] py-1.5 mt-2 text-white text-[11px] font-semibold rounded-b-2xl hover:opacity-90 transition">
-          Read More
-        </div>
-      </div>
-    </div>
-
   </div>
 </section>
+
 <section>
   <div class="fixed bottom-20 right-6 z-50">
     <!-- Tombol Chat WhatsApp -->

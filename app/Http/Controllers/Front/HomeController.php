@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Front;
 
 use App\Http\Controllers\Controller;
 use App\Models\Brands;
+use App\Models\News;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -16,7 +17,8 @@ class HomeController extends Controller
     {
         $user = Auth::user();
         $brands = Brands::all(); // ← Tambah ini
-        return view('home', compact('user', 'brands'));
+        $news = News::all();
+        return view('home', compact('user', 'brands', 'news'));
     }
 
     public function profile()
