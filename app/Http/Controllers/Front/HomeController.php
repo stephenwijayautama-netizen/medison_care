@@ -29,4 +29,9 @@ class HomeController extends Controller
         $user = Auth::user();
         return view('profile', compact('user'));
     }
+        public function susuPage()
+    {
+        $products = Product::all();
+        return view('Susu', compact('products'));
+    }
 }

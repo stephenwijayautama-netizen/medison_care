@@ -68,7 +68,9 @@ Route::middleware('auth')->group(function () {
     Route::put('/brands/{brand}', [BrandsController::class, 'update'])->name('brands.update');
     Route::delete('/brands/{brand}', [BrandsController::class, 'destroy'])->name('brands.destroy');
 });
-
+//susu
+// Ubah dari index menjadi susuPage
+Route::get('views/Susu', [HomeController::class, 'susuPage']);
 /*
 |--------------------------------------------------------------------------
 | STATIC VIEWS (OPSIONAL)
@@ -78,3 +80,4 @@ Route::view('views/forgot', 'forgot');
 Route::view('views/metodepayment', 'metodepayment');
 Route::view('views/order', 'order');
 Route::view('views/change_password', 'change_password');
+

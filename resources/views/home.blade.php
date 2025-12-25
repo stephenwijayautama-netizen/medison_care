@@ -111,22 +111,6 @@
         Unggah Resep
       </p>
     </a>
-
-    <a href="#vaksin" class="flex flex-col items-center rounded-lg p-2 hover:bg-white hover:shadow">
-      <img src="/photo/icon-konsultasi.png" alt="Vaksin Ekspres"
-           class="w-14 h-14 object-contain drop-shadow">
-      <p class="mt-1 text-[10px] font-semibold text-gray-800 text-center leading-tight uppercase tracking-wide">
-        Vaksin<br>Ekspres
-      </p>
-    </a>
-
-    <a href="#dokter-rumah" class="flex flex-col items-center rounded-lg p-2 hover:bg-white hover:shadow">
-      <img src="/photo/icon-konsultasi.png" alt="Dokter ke Rumah"
-           class="w-14 h-14 object-contain drop-shadow">
-      <p class="mt-1 text-[10px] font-semibold text-gray-800 text-center leading-tight uppercase tracking-wide">
-        Dokter Ke<br>Rumah
-      </p>
-    </a>
   </div>
 
 </section>
@@ -136,7 +120,6 @@
 <section class="mt-6">
   <div class="flex justify-between items-center mb-3 px-2">
     <h2 class="text-lg font-semibold text-gray-800">Cari Berdasarkan Kategori</h2>
-    <a href="#semua" class="text-sm text-green-600 hover:underline font-medium">lihat semua &gt;</a>
   </div>
 
   <div class="grid grid-cols-4 gap-3">
@@ -149,7 +132,7 @@
       <p class="mt-1 text-[10px] font-semibold text-gray-800 text-center uppercase tracking-wide">Promo</p>
     </a>
 
-    <a href="#susu" class="flex flex-col items-center rounded-lg p-2 hover:bg-white hover:shadow">
+    <a href="views/Susu" class="flex flex-col items-center rounded-lg p-2 hover:bg-white hover:shadow">
       <div class="relative w-16 h-16 flex items-center justify-center">
         <div class="absolute w-12 h-12 bg-green-100 rounded-full -z-10"></div>
         <img src="/photo/icon-konsultasi.png" alt="Susu" class="w-14 h-14 object-contain drop-shadow">
@@ -157,21 +140,6 @@
       <p class="mt-1 text-[10px] font-semibold text-gray-800 text-center uppercase tracking-wide">Susu</p>
     </a>
 
-    <a href="#vitamin" class="flex flex-col items-center rounded-lg p-2 hover:bg-white hover:shadow">
-      <div class="relative w-16 h-16 flex items-center justify-center">
-        <div class="absolute w-12 h-12 bg-green-100 rounded-full -z-10"></div>
-        <img src="/photo/icon-konsultasi.png" alt="Vitamin" class="w-14 h-14 object-contain drop-shadow">
-      </div>
-      <p class="mt-1 text-[10px] font-semibold text-gray-800 text-center uppercase tracking-wide">Vitamin</p>
-    </a>
-
-    <a href="#kontrasepsi" class="flex flex-col items-center rounded-lg p-2 hover:bg-white hover:shadow">
-      <div class="relative w-16 h-16 flex items-center justify-center">
-        <div class="absolute w-12 h-12 bg-green-100 rounded-full -z-10"></div>
-        <img src="/photo/icon-konsultasi.png" alt="Kontrasepsi" class="w-14 h-14 object-contain drop-shadow">
-      </div>
-      <p class="mt-1 text-[10px] font-semibold text-gray-800 text-center uppercase tracking-wide">Kontrasepsi</p>
-    </a>
   </div>
 </section>
 
