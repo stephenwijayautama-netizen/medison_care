@@ -80,4 +80,5 @@ Route::view('views/forgot', 'forgot');
 Route::view('views/metodepayment', 'metodepayment');
 Route::view('views/order', 'order');
 Route::view('views/change_password', 'change_password');
+Route::view('views/unggah_file', 'unggah_file');
 

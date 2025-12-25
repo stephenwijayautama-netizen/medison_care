@@ -104,7 +104,7 @@
       </p>
     </a>
 
-    <a href="#unggah-resep" class="flex flex-col items-center rounded-lg p-2 hover:bg-white hover:shadow">
+    <a href="views/unggah_file" class="flex flex-col items-center rounded-lg p-2 hover:bg-white hover:shadow">
       <img src="/photo/icon-konsultasi.png" alt="Unggah Resep"
            class="w-14 h-14 object-contain drop-shadow">
       <p class="mt-1 text-[10px] font-semibold text-gray-800 text-center uppercase tracking-wide">
