@@ -9,32 +9,31 @@
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
-<body class="font-[Inter] bg-[#f4f4f4] ml-[200px]">
+<body class="font-[Inter] bg-[#f4f4f4] min-h-screen flex items-center justify-center p-4">
     <section>
-        <div>
-            <p class="text-black font-bold text-3xl ml-[480px] mt-[100px]">Register</p>
+        <div class="w-full flex justify-center">
+            <p class="text-black font-bold text-3xl mt-8 mb-4">Register</p>
         </div>
 
-        <form action="{{ route('doRegister') }}" method="POST" class="px-6">
+        <form action="{{ route('doRegister') }}" method="POST" class="w-full flex justify-center">
             @csrf
 
-            <div
-                class="bg-white w-[300px] h-auto border border-gray-400 shadow-md rounded-[45px] ml-[370px] mt-[25px] pb-6">
+            <div class="bg-white w-full max-w-[340px] border border-gray-300 shadow-md rounded-[45px] p-6">
 
                 <!-- Tombol Navigasi -->
 
                 <!-- Nama -->
-                <div class="flex flex-col space-y-1 mt-[15px] ml-[40px]">
+                <div class="flex flex-col space-y-1 mt-3">
                     <label for="nama" class="text-md font-semibold text-black">Nama</label>
                     <input type="text" id="nama" name="nama" placeholder="Masukkan nama" required
-                        class="w-[220px] h-[40px] px-3 border border-gray-300 rounded-2xl focus:outline-none focus:ring-2 focus:ring-[#597445] shadow-sm text-sm" />
+                        class="w-full h-[40px] px-3 border border-gray-300 rounded-2xl focus:outline-none focus:ring-2 focus:ring-[#597445] shadow-sm text-sm" />
                 </div>
 
                 <!-- Email -->
-                <div class="flex flex-col space-y-1 mt-[15px] ml-[40px]">
+                <div class="flex flex-col space-y-1 mt-3">
                     <label for="email" class="text-md font-semibold text-black">Email</label>
                     <input type="email" id="email" name="email" placeholder="Masukkan email" required
-                        class="w-[220px] h-[40px] px-3 border border-gray-300 rounded-2xl focus:outline-none focus:ring-2 focus:ring-[#597445] shadow-sm text-sm" />
+                        class="w-full h-[40px] px-3 border border-gray-300 rounded-2xl focus:outline-none focus:ring-2 focus:ring-[#597445] shadow-sm text-sm" />
                 </div>
 
                 <!-- Tanggal Lahir -->
@@ -45,35 +44,36 @@
                 </div> -->
 
                 <!-- Role -->
-                <div class="flex flex-col space-y-1 mt-[15px] ml-[40px]">
-                    <label for="role_id" class="text-md font-semibold text-black">Role</label>
-                    <select name="role_id" id="role_id" required
-                        class="w-[220px] h-[40px] px-3 border border-gray-300 rounded-2xl focus:outline-none focus:ring-2 focus:ring-[#597445] shadow-sm text-sm">
-                        <option value="">Pilih Roles</option>
-                        @foreach ($roles as $role)
-                            <option value="{{ $role->id }}">{{ $role->position }}</option>
-                        @endforeach
-                    </select>
-                </div>
+                @php
+                    $userRole = $roles->firstWhere('position', 'user'); 
+                @endphp
+                
+                {{-- Jika role ditemukan, buat input hidden --}}
+                @if($userRole)
+                    <input type="hidden" name="role_id" value="{{ $userRole->id }}">
+                @else
+                    {{-- Fallback jika role 'user' tidak ada di database (opsional) --}}
+                    <input type="hidden" name="role_id" value="">
+                @endif
 
                 <!-- Phone -->
-                <div class="flex flex-col space-y-1 mt-[15px] ml-[40px]">
+                <div class="flex flex-col space-y-1 mt-3">
                     <label for="phone" class="text-md font-semibold text-black">Phone</label>
                     <input type="text" id="phone" name="phone" placeholder="Masukkan nomor telepon"
-                        class="w-[220px] h-[40px] px-3 border border-gray-300 rounded-2xl focus:outline-none focus:ring-2 focus:ring-[#597445] shadow-sm text-sm" />
+                        class="w-full h-[40px] px-3 border border-gray-300 rounded-2xl focus:outline-none focus:ring-2 focus:ring-[#597445] shadow-sm text-sm" />
                 </div>
 
                 <!-- Address -->
-                <div class="flex flex-col space-y-1 mt-[15px] ml-[40px]">
+                <div class="flex flex-col space-y-1 mt-3">
                     <label for="address" class="text-md font-semibold text-black">Address</label>
                     <input type="text" id="address" name="address" placeholder="Masukkan alamat"
-                        class="w-[220px] h-[40px] px-3 border border-gray-300 rounded-2xl focus:outline-none focus:ring-2 focus:ring-[#597445] shadow-sm text-sm" />
+                        class="w-full h-[40px] px-3 border border-gray-300 rounded-2xl focus:outline-none focus:ring-2 focus:ring-[#597445] shadow-sm text-sm" />
                 </div>
 
                 <!-- Password -->
-                <div class="flex flex-col space-y-1 mt-[15px] ml-[40px] relative">
+                <div class="flex flex-col space-y-1 mt-3 relative">
                     <label for="password" class="text-md font-semibold text-black">Password</label>
-                    <div class="relative w-[220px]">
+                    <div class="relative w-full">
                         <input type="password" id="password" name="password" placeholder="Masukkan password" required
                             class="w-full h-[40px] px-3 pr-10 border border-gray-300 rounded-2xl focus:outline-none focus:ring-2 focus:ring-[#597445] shadow-sm text-sm" />
                         <button type="button" onclick="togglePassword()"
@@ -92,9 +92,9 @@
                 </div>
 
                 <!-- Confirm Password -->
-                <div class="flex flex-col space-y-1 mt-[15px] ml-[40px] relative">
+                <div class="flex flex-col space-y-1 mt-3 relative">
                     <label for="password_confirmation" class="text-md font-semibold text-black">Confirm Password</label>
-                    <div class="relative w-[220px]">
+                    <div class="relative w-full">
                         <input type="password" id="password_confirmation" name="password_confirmation"
                             placeholder="Masukkan ulang password" required
                             class="w-full h-[40px] px-3 pr-10 border border-gray-300 rounded-2xl focus:outline-none focus:ring-2 focus:ring-[#597445] shadow-sm text-sm" />
@@ -114,15 +114,15 @@
                 </div>
 
                 <!-- Tombol Register -->
-                <div class="ml-[40px] mt-[20px]">
+                <div class="mt-4">
                     <button type="submit"
-                        class="bg-[#4a6339] w-[220px] h-[40px] rounded-[20px] shadow-sm text-white font-semibold text-[18px] flex items-center justify-center hover:bg-[#3e562f] transition">
+                        class="bg-[#4a6339] w-full h-[40px] rounded-[20px] shadow-sm text-white font-semibold text-[18px] flex items-center justify-center hover:bg-[#3e562f] transition">
                         Register
                     </button>
                 </div>
 
                 <!-- Sudah punya akun -->
-                <div class="ml-[40px] mt-[10px] text-[10px] font-[Inter]">
+                <div class="mt-2 text-[10px] font-[Inter] text-center">
                     <span class="text-[#4a6339] font-semibold">Already have an account? </span>
                     <a href="/login" class="text-[#4a6339] font-medium hover:underline">Login here</a>
                 </div>
@@ -146,12 +146,6 @@
             else input.type = "password";
         }
     </script>
-    <form action="{{ route('logout') }}" method="POST">
-        @csrf
-        <button type="submit" class="text-red-500">
-            Logout
-        </button>
-    </form>
 
 </body>
 

@@ -9,14 +9,14 @@
     <title>Login</title>
 </head>
 
-<body class="font-inter bg-gray-100">
+<body class="font-inter bg-gray-100 min-h-screen flex items-center justify-center p-4">
 
-    <section class="flex flex-col items-center mt-20">
+    <section class="w-full flex flex-col items-center">
 
-        <p class="text-black font-bold text-3xl">Login</p>
+        <p class="text-black font-bold text-3xl mb-4">Login</p>
 
         <!-- CARD -->
-        <div class="bg-white w-[300px] h-auto py-6 border border-gray-300 shadow-md rounded-[25px] mt-6">
+        <div class="bg-white w-full max-w-[340px] py-6 border border-gray-300 shadow-md rounded-[25px]">
 
             <!-- FORM LOGIN -->
             <form action="{{ route('doLogin') }}" method="POST" class="px-6">
@@ -55,7 +55,9 @@
                 </div>
 
                 <!-- Forgot Password -->
-                <a href="/Forgot" class="text-[#4a6339] text-[12px] font-medium">Forgot password?</a>
+                <div class="w-full text-right">
+                    <a href="/Forgot" class="text-[#4a6339] text-[12px] font-medium">Forgot password?</a>
+                </div>
 
                 <!-- Submit -->
                 <button type="submit"
