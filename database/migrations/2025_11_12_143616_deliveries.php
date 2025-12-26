@@ -6,32 +6,40 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
-        Schema::create('deliveries', function (Blueprint $table) { 
-        $table->increments('id');
-        $table->unsignedInteger('transaction_id');
-        $table->unsignedInteger('courier_id');
-        $table->string('tracking_numbers');
-        $table->text('delivery_addres');
-        $table->enum('status', ['preparing','shipped.in_transit','delivered','failed']);
-        $table->text('notes')->nullable();
-        $table->timestamp('shipped_at')->nullable();
-        $table->timestamp('delivery_at')->nullable();
-        
-        $table->timestamps();
-        $table->foreign('transaction_id')->references('id')->on('transactions')->onUpdate('cascade')->onDelete('cascade');
-        $table->foreign('courier_id')->references('id')->on('couriers')->onUpdate('cascade')->ondelete('cascade');
+        Schema::create('deliveries', function (Blueprint $table) {
+            $table->id(); // ✅ BIGINT UNSIGNED
+
+            $table->foreignId('transaction_id')
+                  ->constrained()
+                  ->cascadeOnUpdate()
+                  ->cascadeOnDelete();
+
+            $table->foreignId('courier_id')
+                  ->constrained()
+                  ->cascadeOnUpdate()
+                  ->cascadeOnDelete();
+
+            $table->string('tracking_number');
+            $table->text('delivery_address');
+
+            $table->enum('status', [
+                'preparing',
+                'shipped',
+                'in_transit',
+                'delivered',
+                'failed'
+            ]);
+
+            $table->text('notes')->nullable();
+            $table->timestamp('shipped_at')->nullable();
+            $table->timestamp('delivered_at')->nullable();
+
+            $table->timestamps();
         });
-       
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::dropIfExists('deliveries');

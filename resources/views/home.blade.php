@@ -12,20 +12,16 @@
 
 <body class="antialiased aspect-9-16 "
   style="--frame: 520px;">
-
- <header class="w-full flex items-center gap-2 px-1 py-3">
+<header class="w-full flex items-center justify-between px-4  gap-4 bg-white shadow-sm rounded-t-2xl mt-[-20px]">
   <!-- Kiri: Logo -->
-  <div class="w-[100px] flex-shrink-0">
-    <img src="photo/logo.png" alt="">
+  <div class="flex-shrink-0 w-[100px]">
+    <img src="photo/logo.png" alt="Logo" class="w-full h-auto">
   </div>
 
-  <!-- Tengah: Search (ketengah) -->
-  <form
-    action="#"
-    method="GET"
-    class="flex-1 min-w-0 flex justify-center"
-  >
-    <div class="flex items-center gap-2 bg-[#f9fafb] border border-gray-300 rounded-full px-4 py-1.5 w-full max-w-[380px] shadow-sm focus-within:ring-2 focus-within:ring-gray-200 transition-all duration-300">
+  <!-- Tengah: Search -->
+  <form action="#" method="GET" class="flex-1 flex justify-center">
+    <div class="flex items-center w-full max-w-[380px] gap-2 px-4 py-1.5 bg-[#f9fafb] border border-gray-300 rounded-full shadow-sm focus-within:ring-2 focus-within:ring-gray-200 transition-all duration-300">
+      
       <!-- Ikon Search -->
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
         fill="none" stroke="currentColor" stroke-width="2"
@@ -36,18 +32,12 @@
       </svg>
 
       <!-- Input -->
-      <input
-        type="text"
-        name="search"
-        placeholder="Search anything..."
-        class="min-w-0 flex-1 bg-transparent text-gray-700 placeholder-gray-400 text-[14px] focus:outline-none"
-      />
+      <input type="text" name="search" placeholder="Search anything..."
+        class="flex-1 min-w-0 bg-transparent text-gray-700 placeholder-gray-400 text-sm focus:outline-none"/>
 
       <!-- Tombol -->
-      <button
-        type="submit"
-        class="px-3 py-1 text-sm font-medium text-gray-600 bg-white border border-gray-300 rounded-full hover:bg-gray-100 transition-colors duration-300"
-      >
+      <button type="submit"
+        class="px-3 py-1 text-sm font-medium text-gray-600 bg-white border border-gray-300 rounded-full hover:bg-gray-100 transition-colors duration-300">
         Go
       </button>
     </div>
@@ -55,18 +45,18 @@
 
   <!-- Kanan: Icon -->
   <div class="flex items-center gap-3 flex-shrink-0">
+    <!-- Keranjang -->
     <a href="/views/order">
-      <img src="photo/keranjang.png" alt="" class="w-[50px]">
+      <img src="photo/keranjang.png" alt="Keranjang" class="w-[50px] ml-[-5px]">
     </a>
 
-   <div class="w-[22px] -ml-1 mt-1">
-  <a href="profile">
-    <img src="photo/user.png" alt="">
-  </a>
-</div>
-
+    <!-- Profil -->
+    <a href="profile" class="w-[22px] ml-[-15px]">
+      <img src="photo/user.png" alt="User" class="w-full h-auto">
+    </a>
   </div>
 </header>
+
 
       <!-- 🖼️ Slider Container -->
       <div class="relative w-full overflow-hidden rounded-2xl shadow-2xl mt-[-10px]">
@@ -128,7 +118,7 @@
         </p>
     </a>
 
-    <a href="views/Susu" class="flex flex-col items-center rounded-2xl p-2 transition-all duration-300 hover:bg-white hover:shadow-xl hover:-translate-y-1 group w-20">
+    <a href="susu" class="flex flex-col items-center rounded-2xl p-2 transition-all duration-300 hover:bg-white hover:shadow-xl hover:-translate-y-1 group w-20">
         <div class="relative w-16 h-16 flex items-center justify-center">
             <div class="absolute w-12 h-12 bg-green-50 rounded-full transition-all duration-300 group-hover:scale-125 group-hover:bg-green-100 -z-10"></div>
             <div class="transition-transform duration-500 ease-out group-hover:scale-110 group-hover:rotate-3">
@@ -299,14 +289,15 @@
           </div>
 
           <!-- BUTTON -->
-          <a href="#" class="block">
-            <div
-              class="bg-gradient-to-r from-[#65a30d] to-[#4d7c0f]
-                     py-1.5 text-white text-[10px] font-semibold text-center
-                     hover:opacity-90 transition">
-              Read More
-            </div>
-          </a>
+            <a href="{{ $item->Link }}" target="_blank" rel="noopener noreferrer" class="block">
+                <div
+                    class="bg-gradient-to-r from-[#65a30d] to-[#4d7c0f]
+                          py-1.5 text-white text-[10px] font-semibold text-center
+                          hover:opacity-90 transition">
+                    Read More
+                </div>
+            </a>
+
 
         </div>
       @empty

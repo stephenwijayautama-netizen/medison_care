@@ -9,7 +9,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('roles', function (Blueprint $table) {
-            $table->increments('id');
+            $table->id(); // ✅ BIGINT UNSIGNED
             $table->enum('position', ['owner', 'admin', 'user']);
             $table->timestamps();
         });

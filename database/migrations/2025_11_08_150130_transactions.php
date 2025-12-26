@@ -6,30 +6,40 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
-        Schema::create('transactions', function (Blueprint $table) { 
-        $table->increments('id'); // primary key
-        $table->unsignedInteger('roles'); // <-- perbaikan
-        $table->unsignedInteger('user_id');
-        $table->decimal('total_amount', 8, 2);
-        $table->decimal('shipping_cost', 8, 2);
-        $table->enum('status', ['pending','paid','processing','shipped','delivered','cancelled']);
-        $table->enum('payment_method', ['credit_card','bank_transfer','e-wallet','cod']);
-        $table->timestamp('transaction_date');
-        $table->timestamps();
+        Schema::create('transactions', function (Blueprint $table) {
+            $table->id(); // ✅ BIGINT UNSIGNED
 
-        $table->foreign('user_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
-    });
+            $table->foreignId('user_id')
+                  ->constrained()
+                  ->cascadeOnUpdate()
+                  ->cascadeOnDelete();
 
+            $table->decimal('total_amount', 10, 2);
+            $table->decimal('shipping_cost', 10, 2);
+
+            $table->enum('status', [
+                'pending',
+                'paid',
+                'processing',
+                'shipped',
+                'delivered',
+                'cancelled'
+            ]);
+
+            $table->enum('payment_method', [
+                'credit_card',
+                'bank_transfer',
+                'e-wallet',
+                'cod'
+            ]);
+
+            $table->timestamp('transaction_date');
+            $table->timestamps();
+        });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::dropIfExists('transactions');

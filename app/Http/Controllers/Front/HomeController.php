@@ -10,37 +10,27 @@ use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
-    /**
-     * Menampilkan halaman home utama
-     */
     public function index()
     {
-        $user     = Auth::user();
-        $brands  = Brands::all();
-        $products = Product::all();
-
-        // NEWS (ambil terbaru, biar enak di home)
-        $news = News::latest()->get();
-        // kalau mau dibatasi:
-        // $news = News::latest()->take(6)->get();
-
-        return view('home', compact(
-            'user',
-            'brands',
-            'news',
-            'products'
-        ));
+        return view('home', [
+            'user'     => Auth::user(),
+            'brands'  => Brands::orderBy('name')->get(),
+            'products'=> Product::latest()->get(),
+            'news'    => News::latest()->take(6)->get(),
+        ]);
     }
 
     public function profile()
     {
-        $user = Auth::user();
-        return view('profile', compact('user'));
+        return view('profile', [
+            'user' => Auth::user()
+        ]);
     }
 
     public function susuPage()
     {
-        $products = Product::all();
-        return view('Susu', compact('products'));
+        return view('Susu', [
+            'products' => Product::latest()->get()
+        ]);
     }
 }

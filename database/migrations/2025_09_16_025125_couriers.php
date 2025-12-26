@@ -6,13 +6,10 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
         Schema::create('couriers', function (Blueprint $table) {
-            $table->increments('id');
+            $table->id(); // ✅ BIGINT UNSIGNED
             $table->string('name');
             $table->string('phone');
             $table->string('address');
@@ -20,11 +17,8 @@ return new class extends Migration
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
-   public function down(): void
+    public function down(): void
     {
-    Schema::dropIfExists('couriers');
+        Schema::dropIfExists('couriers');
     }
 };

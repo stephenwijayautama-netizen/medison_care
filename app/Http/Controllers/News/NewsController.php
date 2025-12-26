@@ -12,39 +12,41 @@ class NewsController extends Controller
     {
         $request->validate([
             'title'       => 'required|string|max:255',
-            'description' => 'required',
+            'description' => 'required|string',
             'image'       => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'link'        => 'nullable|url|max:255',
         ]);
 
-        if ($request->hasFile('image')) {
+        $filename = null;
 
+        if ($request->hasFile('image')) {
             $filename = uniqid() . '.' . $request->file('image')->extension();
 
-            // SIMPAN IMAGE (POLA SAMA DENGAN PROFILE)
             $request->file('image')
                 ->storeAs('news_images', $filename, 'public');
-
-            News::create([
-                'title'       => $request->title,
-                'description' => $request->description,
-                'image'       => $filename,
-            ]);
         }
 
-        return back()->with('success', 'Berita berhasil ditambah!');
+        News::create([
+            'title'       => $request->title,
+            'description' => $request->description,
+            'image'       => $filename,
+            'link'        => $request->link,
+        ]);
+
+        return back()->with('success', 'Berita berhasil ditambahkan!');
     }
 
     public function update(Request $request, News $news)
     {
         $request->validate([
             'title'       => 'required|string|max:255',
-            'description' => 'required',
+            'description' => 'required|string',
             'image'       => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'link'        => 'nullable|url|max:255',
         ]);
 
         if ($request->hasFile('image')) {
 
-            // HAPUS FOTO LAMA (POLA SAMA DENGAN PROFILE)
             if ($news->image) {
                 Storage::disk('public')->delete('news_images/' . $news->image);
             }
@@ -59,6 +61,7 @@ class NewsController extends Controller
 
         $news->title       = $request->title;
         $news->description = $request->description;
+        $news->link        = $request->link;
         $news->save();
 
         return back()->with('success', 'Berita berhasil diupdate!');

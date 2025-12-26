@@ -76,7 +76,7 @@ Route::delete('/news/{news}', [NewsController::class, 'destroy'])->name('news.de
 });
 
 // SUSU
-Route::get('views/Susu', [HomeController::class, 'susuPage']);
+Route::get('susu', [HomeController::class, 'susuPage']);
 
 /*
 |--------------------------------------------------------------------------

@@ -6,30 +6,33 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
-        Schema::create('transaction_details', function (Blueprint $table) { 
-        $table->increments('id');
-        $table->unsignedInteger('transaction_id');
-        $table->unsignedInteger('product_id');
-        $table->unsignedInteger('quantity');
-        $table->string('product_name');
-        $table->decimal('price');
-        $table->decimal('subtotal');
-        $table->timestamps();
-        $table->foreign('transaction_id')->references('id')->on('transactions')->onUpdate('cascade')->onDelete('cascade');
-        $table->foreign('product_id')->references('id')->on('products')->onUpdate('cascade')->onDelete('cascade');
-        });  
+        Schema::create('transaction_details', function (Blueprint $table) {
+            $table->id(); // ✅ BIGINT UNSIGNED
+
+            $table->foreignId('transaction_id')
+                  ->constrained('transactions')
+                  ->cascadeOnUpdate()
+                  ->cascadeOnDelete();
+
+            $table->foreignId('product_id')
+                  ->constrained('products')
+                  ->cascadeOnUpdate()
+                  ->cascadeOnDelete();
+
+            $table->unsignedInteger('quantity');
+            $table->string('product_name');
+
+            $table->decimal('price', 10, 2);
+            $table->decimal('subtotal', 10, 2);
+
+            $table->timestamps();
+        });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
-        Schema::dropIfExists('transactiondetails');
+        Schema::dropIfExists('transaction_details');
     }
 };
