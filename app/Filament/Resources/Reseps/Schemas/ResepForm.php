@@ -15,6 +15,8 @@ class ResepForm
             ->components([
                 TextInput::make('nama_resep')
                     ->default(null),
+                TextInput::make('catatan_tambahan')
+                    ->default(null),
                 FileUpload::make('image')
                     ->label('Resep Image')
                     ->image()

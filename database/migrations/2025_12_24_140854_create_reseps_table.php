@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('reseps', function (Blueprint $table) {
             $table->id();
             $table->string('nama_resep');
+            $table->text('catatan_tambahan');
             $table->string('image')->nullable();
             $table->timestamps();
         });
