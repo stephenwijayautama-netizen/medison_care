@@ -19,6 +19,13 @@ class NewsForm
                 Textarea::make('description')
                     ->default(null)
                     ->columnSpanFull(),
+                TextInput::make('Link')
+                    ->label('Link URL')
+                    ->placeholder('https://example.com')
+                    ->url()
+                    ->suffixIcon('heroicon-m-globe-alt')
+                    ->maxLength(255)
+                    ->default(null),
                 FileUpload::make('image')
                     ->label('News Image')
                     ->image()
