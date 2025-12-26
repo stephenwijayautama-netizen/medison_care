@@ -13,6 +13,10 @@ class CourierForm
             ->components([
                 TextInput::make('name')
                     ->required(),
+                TextInput::make('phone')
+                    ->required(),
+                TextInput::make('address')
+                    ->required(),
             ]);
     }
 }
