@@ -1,93 +1,61 @@
 <?php
 
-namespace App\Http\Controllers\News;
+namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use App\Models\News;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
 class NewsController extends Controller
 {
-    public function index()
-    {
-        $news = News::all();
-        return view('news', compact('news')); 
-    }
-
-
-    public function create()
-    {
-        return view('news.create');
-    }
-
     public function store(Request $request)
     {
         $request->validate([
-            'title'       => ['required', 'string', 'max:255'],
-            'description' => ['required', 'string'],
-            'image'       => ['required', 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
+            'title' => 'required|string|max:255',
+            'description' => 'required',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
-        $filename = uniqid() . '.' . $request->file('image')->extension();
-        $request->file('image')->storeAs('news', $filename, 'public');
+        if ($request->hasFile('image')) {
+            $file = $request->file('image');
+            $filename = uniqid() . '.' . $file->extension();
+            
+            // Simpan ke storage/app/public/News-images
+            $file->storeAs('News-images', $filename, 'public');
 
-        News::create([
-            'title'       => $request->title, 
-            'description' => $request->description,
-            'image'       => $filename,
-        ]);
+            News::create([
+                'title' => $request->title,
+                'description' => $request->description,
+                'image' => $filename, // Simpan nama file saja
+            ]);
+        }
 
-        return redirect()->route('news.index')->with('success', 'News berhasil ditambahkan!');
-    }
-
-    public function edit(News $news)
-    {
-        // Perbaikan: compact('news') bukan 'brand'
-        return view('news.edit', compact('news'));
+        return redirect()->back()->with('success', 'Berita berhasil ditambah!');
     }
 
     public function update(Request $request, News $news)
     {
-        // 1. Validasi Update
         $request->validate([
-            'title'       => ['required', 'string', 'max:255'],
-            'description' => ['required', 'string'],
-            'image'       => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
+            'title' => 'required|string|max:255',
+            'image' => 'nullable|image|max:2048',
         ]);
 
-        // 2. Cek apakah ada upload gambar baru
         if ($request->hasFile('image')) {
-            // Hapus gambar lama jika ada
-            if ($news->image) {
-                Storage::disk('public')->delete('news/' . $news->image);
+            // Hapus foto lama jika ada di folder News-images
+            if ($news->image && Storage::disk('public')->exists('News-images/' . $news->image)) {
+                Storage::disk('public')->delete('News-images/' . $news->image);
             }
 
-            $filename = uniqid() . '.' . $request->file('image')->extension();
-            $request->file('image')->storeAs('news', $filename, 'public');
-            
-            // Update properti image pada object $news
+            $file = $request->file('image');
+            $filename = uniqid() . '.' . $file->extension();
+            $file->storeAs('News-images', $filename, 'public');
             $news->image = $filename;
         }
 
-        // 3. Update data text
-        $news->title = $request->title;             // Ganti name jadi title
-        $news->description = $request->description; // Update description
-        
+        $news->title = $request->title;
+        $news->description = $request->description;
         $news->save();
 
-        return redirect()->route('news.index')->with('success', 'News berhasil diupdate!');
-    }
-
-    // Perbaikan: Type Hint menjadi News, bukan Brand
-    public function destroy(News $news)
-    {
-        if ($news->image) {
-            Storage::disk('public')->delete('news/' . $news->image);
-        }
-
-        $news->delete();
-
-        return redirect()->route('news.index')->with('success', 'News berhasil dihapus!');
+        return redirect()->back()->with('success', 'Berita berhasil diupdate!');
     }
 }

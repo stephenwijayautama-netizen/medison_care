@@ -90,23 +90,16 @@
         </div>
       </div>
 
-      <!-- Layanan Terbaik (1 baris, tanpa scroll) -->
-<section class="mt-6">
-  <h2 class="text-lg font-semibold text-gray-800 mb-3 px-2">Layanan Terbaik</h2>
-
-  <div class="grid grid-cols-4 gap-3 px-2">
+  <section class="mt-6">
+  <div class="flex flex-row justify-center items-start gap-3 px-2">
     
-    <a href="#konsultasi" class="flex flex-col items-center rounded-2xl p-2 transition-all duration-300 hover:bg-white hover:shadow-xl hover:-translate-y-1 group">
+    <a href="#konsultasi" class="flex flex-col items-center rounded-2xl p-2 transition-all duration-300 hover:bg-white hover:shadow-xl hover:-translate-y-1 group w-20">
         <div class="relative w-16 h-16 flex items-center justify-center">
             <div class="absolute w-12 h-12 bg-green-50 rounded-full transition-all duration-300 group-hover:scale-125 group-hover:bg-green-100 -z-10"></div>
-            
             <div class="transition-transform duration-500 ease-out group-hover:scale-110">
                 <creattie-embed
                     src="https://d1jj76g3lut4fe.cloudfront.net/saved_colors/138670/Rs2QWShtIpZW2AEA.json"
-                    delay="1"
-                    speed="100"
-                    frame_rate="24"
-                    trigger="loop"
+                    delay="1" speed="100" frame_rate="24" trigger="loop"
                     style="width:50px; height:50px;">
                 </creattie-embed>
                 <script src="https://creattie.com/js/embed.js?id=3efa1fcb5d85991e845a" defer></script>
@@ -116,10 +109,10 @@
             Konsultasi<br>Dokter
         </p>
     </a>
-<a href="views/unggah_file" class="flex flex-col items-center rounded-2xl p-2 transition-all duration-300 hover:bg-white hover:shadow-xl hover:-translate-y-1 group">
+
+    <a href="views/unggah_file" class="flex flex-col items-center rounded-2xl p-2 transition-all duration-300 hover:bg-white hover:shadow-xl hover:-translate-y-1 group w-20">
         <div class="relative w-16 h-16 flex items-center justify-center">
             <div class="absolute w-12 h-12 bg-green-50 rounded-full transition-all duration-300 group-hover:scale-125 group-hover:bg-green-100 -z-10"></div>
-            
             <script src="https://unpkg.com/@lottiefiles/dotlottie-wc@0.8.11/dist/dotlottie-wc.js" type="module"></script>
             <div class="transition-transform duration-500 ease-out group-hover:scale-110">
                 <dotlottie-wc 
@@ -134,24 +127,10 @@
             Unggah Resep
         </p>
     </a>
-</div>
 
-</section>
-
-
-<!-- Cari Berdasarkan Kategori (1 baris, tanpa scroll) -->
-<section class="mt-6">
-  <div class="flex justify-between items-center mb-3 px-2">
-    <h2 class="text-lg font-semibold text-gray-800">Cari Berdasarkan Kategori</h2>
-  </div>
-  <div class="grid grid-cols-4 gap-3 px-2">
-    
-    <a href="views/Susu" class="flex flex-col items-center rounded-2xl p-2 transition-all duration-300 hover:bg-white hover:shadow-xl hover:-translate-y-1 group">
+    <a href="views/Susu" class="flex flex-col items-center rounded-2xl p-2 transition-all duration-300 hover:bg-white hover:shadow-xl hover:-translate-y-1 group w-20">
         <div class="relative w-16 h-16 flex items-center justify-center">
             <div class="absolute w-12 h-12 bg-green-50 rounded-full transition-all duration-300 group-hover:scale-125 group-hover:bg-green-100 -z-10"></div>
-            
-            <script src="https://unpkg.com/@lottiefiles/dotlottie-wc@0.8.11/dist/dotlottie-wc.js" type="module"></script>
-            
             <div class="transition-transform duration-500 ease-out group-hover:scale-110 group-hover:rotate-3">
                 <dotlottie-wc 
                     src="https://lottie.host/f449adbe-e726-46b6-9fc0-10f32bd02009/hek9neDcKR.lottie" 
@@ -161,13 +140,14 @@
                 </dotlottie-wc>
             </div>
         </div>
-        <p class="mt-2 text-[10px] font-bold text-gray-700 text-center uppercase tracking-wide transition-colors duration-300 group-hover:text-[#009345]">Susu</p>
+        <p class="mt-2 text-[10px] font-bold text-gray-700 text-center uppercase tracking-wide transition-colors duration-300 group-hover:text-[#009345]">
+            Susu
+        </p>
     </a>
 
-    <a href="#promo" class="flex flex-col items-center rounded-2xl p-2 transition-all duration-300 hover:bg-white hover:shadow-xl hover:-translate-y-1 group">
+    <a href="#promo" class="flex flex-col items-center rounded-2xl p-2 transition-all duration-300 hover:bg-white hover:shadow-xl hover:-translate-y-1 group w-20">
         <div class="relative w-16 h-16 flex items-center justify-center">
             <div class="absolute w-12 h-12 bg-green-50 rounded-full transition-all duration-300 group-hover:scale-125 group-hover:bg-[#009345]/10 -z-10"></div>
-            
             <div class="transition-transform duration-500 ease-out group-hover:scale-110 group-hover:-rotate-3">
                 <dotlottie-wc 
                     src="https://lottie.host/9b921e8e-63b7-4479-b680-4e47696b23a5/QKP2wSNTSD.lottie" 
@@ -177,12 +157,13 @@
                 </dotlottie-wc>
             </div>
         </div>
-        <p class="mt-2 text-[10px] font-bold text-gray-700 text-center uppercase tracking-wide transition-colors duration-300 group-hover:text-[#009345]">Promo</p>
+        <p class="mt-2 text-[10px] font-bold text-gray-700 text-center uppercase tracking-wide transition-colors duration-300 group-hover:text-[#009345]">
+            Promo
+        </p>
     </a>
 
-</div>
+  </div>
 </section>
-
 <section>
     <div>
       <img src="photo/banner3.png" alt="" class=" w-[400px] h-[250px] rounded-xl ml-[60px] mt-[20px]">
@@ -275,7 +256,6 @@
 </section>
 
 
-
 <section class="font-[inter] mt-[50px] mb-[50px]">
   <div class="container mx-auto text-center">
     <p class="font-bold text-[24px] text-gray-800 mb-8 tracking-wide">
@@ -289,9 +269,12 @@
           
           <div class="p-2 h-[90px]">
             <img
-              src="{{ Storage::disk('public')->url('news/' . $item->image) }}" 
+              {{-- Path disesuaikan dengan folder News-images di screenshot --}}
+              src="{{ asset('storage/News-images/' . $item->image) }}" 
               alt="{{ $item->title }}" 
-              class="rounded-xl w-full h-full object-cover shadow-sm">
+              class="rounded-xl w-full h-full object-cover shadow-sm"
+              {{-- Fallback jika gambar gagal dimuat --}}
+              onerror="this.src='https://placehold.co/400x300?text=No+Image'">
           </div>
         
           <div class="px-3 text-left flex-1 flex flex-col">
@@ -312,7 +295,7 @@
 
         </div>
       @empty
-        <p class="text-gray-500 text-sm">Belum ada berita terbaru.</p>
+        <p class="text-gray-500 text-sm italic">Belum ada berita terbaru.</p>
       @endforelse
 
     </div>

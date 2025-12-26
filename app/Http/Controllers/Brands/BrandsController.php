@@ -12,12 +12,7 @@ class BrandsController extends Controller
     public function index()
     {
         $brands = Brand::all();
-        return view('brands', compact('brands'));
-    }
-
-    public function create()
-    {
-        return view('brands.create');
+        return view('brands.index', compact('brands'));
     }
 
     public function store(Request $request)
@@ -27,21 +22,16 @@ class BrandsController extends Controller
             'image' => ['required', 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
         ]);
 
-        $filename = uniqid() . '.' . $request->file('image')->extension();
-
-        $request->file('image')->storeAs('brands', $filename, 'public');
-
+        // Simpan file ke storage/app/public/brands
+        $path = $request->file('image')->store('brands', 'public');
+        // $path akan berisi string seperti: "brands/namafile.jpg"
+        
         Brand::create([
             'name' => $request->name,
-            'image' => $filename,
+            'image' => $path, // Simpan path lengkapnya agar lebih mudah dipanggil
         ]);
 
         return redirect()->route('brands.index')->with('success', 'Brand berhasil ditambahkan!');
-    }
-
-    public function edit(Brand $brand)
-    {
-        return view('brands.edit', compact('brand'));
     }
 
     public function update(Request $request, Brand $brand)
@@ -52,13 +42,13 @@ class BrandsController extends Controller
         ]);
 
         if ($request->hasFile('image')) {
-            if ($brand->image) {
-                Storage::disk('public')->delete('brands/' . $brand->image);
+            // Hapus foto lama jika ada
+            if ($brand->image && Storage::disk('public')->exists($brand->image)) {
+                Storage::disk('public')->delete($brand->image);
             }
 
-            $filename = uniqid() . '.' . $request->file('image')->extension();
-            $request->file('image')->storeAs('brands', $filename, 'public');
-            $brand->image = $filename;
+            // Simpan foto baru
+            $brand->image = $request->file('image')->store('brands', 'public');
         }
 
         $brand->name = $request->name;
@@ -69,12 +59,11 @@ class BrandsController extends Controller
 
     public function destroy(Brand $brand)
     {
-        if ($brand->image) {
-            Storage::disk('public')->delete('brands/' . $brand->image);
+        if ($brand->image && Storage::disk('public')->exists($brand->image)) {
+            Storage::disk('public')->delete($brand->image);
         }
 
         $brand->delete();
-
         return redirect()->route('brands.index')->with('success', 'Brand berhasil dihapus!');
     }
 }

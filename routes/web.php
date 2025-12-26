@@ -7,7 +7,8 @@ use App\Http\Controllers\Back\ProductController;
 use App\Http\Controllers\Profile\ProfileController;
 use App\Http\Controllers\Profile\ChangeProfileController;
 use App\Http\Controllers\Brands\BrandsController;
-use App\Http\Controllers\Product\BController;
+// Tambahan Import untuk News
+use App\Http\Controllers\NewsController; 
 
 /*
 |--------------------------------------------------------------------------
@@ -46,31 +47,37 @@ Route::middleware('auth')->group(function () {
         ->name('change-password.submit');
 
     // PRODUCT
-Route::middleware('auth')->group(function () {
-    Route::get('/products', [ProductsController::class, 'index'])->name('products.index');
-    Route::get('/products/create', [ProductsController::class, 'create'])->name('products.create');
-    Route::post('/products', [ProductsController::class, 'store'])->name('products.store');
-    Route::get('/products/{product}/edit', [ProductsController::class, 'edit'])->name('products.edit');
-    Route::put('/products/{product}', [ProductsController::class, 'update'])->name('products.update');
-    Route::delete('/products/{product}', [ProductsController::class, 'destroy'])->name('products.destroy');
-});
+    Route::get('/products', [ProductController::class, 'index'])->name('products.index');
+    Route::get('/products/create', [ProductController::class, 'create'])->name('products.create');
+    Route::post('/products', [ProductController::class, 'store'])->name('products.store');
+    Route::get('/products/{product}/edit', [ProductController::class, 'edit'])->name('products.edit');
+    Route::put('/products/{product}', [ProductController::class, 'update'])->name('products.update');
+    Route::delete('/products/{product}', [ProductController::class, 'destroy'])->name('products.destroy');
 
-
-    // LOGOUT
-    Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
-});
-
-Route::middleware('auth')->group(function () {
+    // BRANDS
     Route::get('/brands', [BrandsController::class, 'index'])->name('brands.index');
     Route::get('/brands/create', [BrandsController::class, 'create'])->name('brands.create');
     Route::post('/brands', [BrandsController::class, 'store'])->name('brands.store');
     Route::get('/brands/{brand}/edit', [BrandsController::class, 'edit'])->name('brands.edit');
     Route::put('/brands/{brand}', [BrandsController::class, 'update'])->name('brands.update');
     Route::delete('/brands/{brand}', [BrandsController::class, 'destroy'])->name('brands.destroy');
+
+    // --- TAMBAHAN NEWS ---
+    Route::get('/news', [NewsController::class, 'index'])->name('news.index');
+    Route::get('/news/create', [NewsController::class, 'create'])->name('news.create');
+    Route::post('/news', [NewsController::class, 'store'])->name('news.store');
+    Route::get('/news/{news}/edit', [NewsController::class, 'edit'])->name('news.edit');
+    Route::put('/news/{news}', [NewsController::class, 'update'])->name('news.update');
+    Route::delete('/news/{news}', [NewsController::class, 'destroy'])->name('news.destroy');
+    // ---------------------
+
+    // LOGOUT
+    Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 });
-//susu
-// Ubah dari index menjadi susuPage
+
+// SUSU
 Route::get('views/Susu', [HomeController::class, 'susuPage']);
+
 /*
 |--------------------------------------------------------------------------
 | STATIC VIEWS (OPSIONAL)
@@ -81,4 +88,3 @@ Route::view('views/metodepayment', 'metodepayment');
 Route::view('views/order', 'order');
 Route::view('views/change_password', 'change_password');
 Route::view('views/unggah_file', 'unggah_file');
-
