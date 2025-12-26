@@ -16,7 +16,13 @@ class CouriersTable
     {
         return $table
             ->columns([
+                TextColumn::make('id')
+                    ->sortable(),
                 TextColumn::make('name')
+                    ->searchable(),
+                TextColumn::make('phone')
+                    ->searchable(),
+                TextColumn::make('address')
                     ->searchable(),
                 TextColumn::make('created_at')
                     ->dateTime()

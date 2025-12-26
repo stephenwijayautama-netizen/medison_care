@@ -54,7 +54,16 @@ Route::middleware('auth')->group(function () {
     Route::put('/products/{product}', [ProductController::class, 'update'])->name('products.update');
     Route::delete('/products/{product}', [ProductController::class, 'destroy'])->name('products.destroy');
 
+<<<<<<< HEAD
     // BRANDS
+=======
+
+    // LOGOUT
+    Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+});
+
+Route::middleware('auth')->group(function () {
+>>>>>>> e8e26c10a7470fc1291525378be550de4e1432ef
     Route::get('/brands', [BrandsController::class, 'index'])->name('brands.index');
     Route::get('/brands/create', [BrandsController::class, 'create'])->name('brands.create');
     Route::post('/brands', [BrandsController::class, 'store'])->name('brands.store');

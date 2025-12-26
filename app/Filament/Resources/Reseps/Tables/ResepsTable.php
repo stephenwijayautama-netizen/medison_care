@@ -21,6 +21,8 @@ class ResepsTable
             ->columns([
                 TextColumn::make('nama_resep')
                     ->searchable(),
+                TextColumn::make('catatan_tambahan')
+                    ->searchable(),
                 ImageColumn::make('image'),
                 TextColumn::make('created_at')
                     ->dateTime()

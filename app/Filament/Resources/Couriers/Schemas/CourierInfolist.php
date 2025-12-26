@@ -11,7 +11,10 @@ class CourierInfolist
     {
         return $schema
             ->components([
+                TextEntry::make('id'),
                 TextEntry::make('name'),
+                TextEntry::make('phone'),
+                TextEntry::make('address'),
                 TextEntry::make('created_at')
                     ->dateTime()
                     ->placeholder('-'),

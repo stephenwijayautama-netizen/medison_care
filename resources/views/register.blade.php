@@ -49,16 +49,22 @@
                             class="w-full h-[45px] px-4 border border-gray-200 rounded-2xl focus:ring-2 focus:ring-[#009345] focus:border-transparent outline-none text-sm transition-all" />
                     </div>
 
-                    <div class="flex flex-col space-y-1">
-                        <label class="text-[11px] font-bold text-gray-500 uppercase ml-1">Role</label>
-                        <select name="role_id" required
-                            class="w-full h-[45px] px-4 border border-gray-200 rounded-2xl focus:ring-2 focus:ring-[#009345] focus:border-transparent outline-none text-sm bg-white cursor-pointer">
-                            <option value="">Pilih Role</option>
-                            @foreach ($roles as $role)
-                                <option value="{{ $role->id }}">{{ $role->position }}</option>
-                            @endforeach
-                        </select>
-                    </div>
+                        @php
+                            $userRole = $roles->firstWhere('position', 'user');
+                        @endphp
+
+                        <div class="flex flex-col space-y-1">
+                            <label class="text-[11px] font-bold text-gray-500 uppercase ml-1">Role</label>}
+                            <input type="hidden" name="role_id" value="{{ $userRole ? $userRole->id : '' }}">
+                            <select disabled
+                                class="w-full h-[45px] px-4 border border-gray-200 rounded-2xl outline-none text-sm bg-gray-100 text-gray-500 cursor-not-allowed">
+                                @if($userRole)
+                                    <option value="{{ $userRole->id }}" selected>{{ $userRole->position }}</option>
+                                @else
+                                    <option value="">Role User Tidak Ditemukan</option>
+                                @endif
+                            </select>
+                        </div>
 
                     <div class="flex flex-col space-y-1">
                         <label class="text-[11px] font-bold text-gray-500 uppercase ml-1">Telepon</label>
