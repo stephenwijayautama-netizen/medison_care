@@ -54,7 +54,7 @@
                         @endphp
 
                         <div class="flex flex-col space-y-1">
-                            <label class="text-[11px] font-bold text-gray-500 uppercase ml-1">Role</label>}
+                            <label class="text-[11px] font-bold text-gray-500 uppercase ml-1">Role</label>
                             <input type="hidden" name="role_id" value="{{ $userRole ? $userRole->id : '' }}">
                             <select disabled
                                 class="w-full h-[45px] px-4 border border-gray-200 rounded-2xl outline-none text-sm bg-gray-100 text-gray-500 cursor-not-allowed">
