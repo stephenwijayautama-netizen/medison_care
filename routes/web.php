@@ -54,16 +54,7 @@ Route::middleware('auth')->group(function () {
     Route::put('/products/{product}', [ProductController::class, 'update'])->name('products.update');
     Route::delete('/products/{product}', [ProductController::class, 'destroy'])->name('products.destroy');
 
-<<<<<<< HEAD
     // BRANDS
-=======
-
-    // LOGOUT
-    Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
-});
-
-Route::middleware('auth')->group(function () {
->>>>>>> e8e26c10a7470fc1291525378be550de4e1432ef
     Route::get('/brands', [BrandsController::class, 'index'])->name('brands.index');
     Route::get('/brands/create', [BrandsController::class, 'create'])->name('brands.create');
     Route::post('/brands', [BrandsController::class, 'store'])->name('brands.store');
@@ -71,14 +62,14 @@ Route::middleware('auth')->group(function () {
     Route::put('/brands/{brand}', [BrandsController::class, 'update'])->name('brands.update');
     Route::delete('/brands/{brand}', [BrandsController::class, 'destroy'])->name('brands.destroy');
 
-    // --- TAMBAHAN NEWS ---
-    Route::get('/news', [NewsController::class, 'index'])->name('news.index');
-    Route::get('/news/create', [NewsController::class, 'create'])->name('news.create');
-    Route::post('/news', [NewsController::class, 'store'])->name('news.store');
-    Route::get('/news/{news}/edit', [NewsController::class, 'edit'])->name('news.edit');
-    Route::put('/news/{news}', [NewsController::class, 'update'])->name('news.update');
-    Route::delete('/news/{news}', [NewsController::class, 'destroy'])->name('news.destroy');
-    // ---------------------
+// --- NEWS ---
+Route::get('/news', [NewsController::class, 'index'])->name('news.index');
+Route::get('/news/create', [NewsController::class, 'create'])->name('news.create');
+Route::post('/news', [NewsController::class, 'store'])->name('news.store');
+Route::get('/news/{news}/edit', [NewsController::class, 'edit'])->name('news.edit');
+Route::put('/news/{news}', [NewsController::class, 'update'])->name('news.update');
+Route::delete('/news/{news}', [NewsController::class, 'destroy'])->name('news.destroy');
+// ----------
 
     // LOGOUT
     Route::get('/logout', [AuthController::class, 'logout'])->name('logout');

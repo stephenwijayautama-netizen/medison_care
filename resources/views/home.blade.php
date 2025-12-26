@@ -254,48 +254,65 @@
 
   </div>
 </section>
+@php
+  use Illuminate\Support\Facades\Storage;
+  use Illuminate\Support\Str;
+@endphp
 
-
-<section class="font-[inter] mt-[50px] mb-[50px]">
+<section class="font-[inter] mt-[40px] mb-[40px]">
   <div class="container mx-auto text-center">
-    <p class="font-bold text-[24px] text-gray-800 mb-8 tracking-wide">
+    
+    <p class="font-bold text-[22px] text-gray-800 mb-6 tracking-wide">
       What’s New
     </p>
 
-    <div class="flex flex-wrap justify-center gap-6">
+    <div class="flex flex-wrap justify-center gap-5">
 
       @forelse($news as $item)
-        <div class="bg-white border border-gray-100 rounded-2xl shadow-md w-[140px] h-[200px] flex flex-col transition-all duration-500 hover:shadow-xl hover:-translate-y-1 overflow-hidden">
-          
-          <div class="p-2 h-[90px]">
+        <div
+          class="bg-white border border-gray-100 rounded-xl shadow
+                 w-[150px] min-h-[220px]
+                 flex flex-col overflow-hidden
+                 transition-all duration-300
+                 hover:shadow-lg hover:-translate-y-1">
+
+          <!-- IMAGE -->
+          <div class="w-full h-[85px] overflow-hidden">
             <img
-              {{-- Path disesuaikan dengan folder News-images di screenshot --}}
-              src="{{ asset('storage/News-images/' . $item->image) }}" 
-              alt="{{ $item->title }}" 
-              class="rounded-xl w-full h-full object-cover shadow-sm"
-              {{-- Fallback jika gambar gagal dimuat --}}
-              onerror="this.src='https://placehold.co/400x300?text=No+Image'">
+              src="{{ $item->image
+                    ? Storage::url($item->image)
+                    : 'https://placehold.co/400x300?text=No+Image' }}"
+              alt="{{ $item->title }}"
+              class="w-full h-full object-cover"
+            />
           </div>
-        
-          <div class="px-3 text-left flex-1 flex flex-col">
-            <h3 class="font-semibold text-[12px] text-[#166534] mb-0.5 leading-tight">
-              {{ Str::limit($item->title, 20) }}
+
+          <!-- CONTENT -->
+          <div class="px-2.5 py-2 text-left flex-1 flex flex-col mt-[10px]">
+            <h3 class="font-semibold text-[11px] text-[#166534] leading-snug">
+              {{ Str::limit($item->title, 30) }}
             </h3>
-            
-            <p class="text-[10px] text-gray-600 leading-tight mt-1">
-              {{ Str::limit($item->description, 35) }}
+
+            <p class="text-[9.5px] text-gray-600 mt-1 leading-snug flex-1 mt-[5px]">
+              {{ Str::limit($item->description, 50) }}
             </p>
           </div>
 
+          <!-- BUTTON -->
           <a href="#" class="block">
-            <div class="bg-gradient-to-r from-[#65a30d] to-[#4d7c0f] py-1.5 text-white text-[11px] font-semibold text-center hover:opacity-90 transition">
+            <div
+              class="bg-gradient-to-r from-[#65a30d] to-[#4d7c0f]
+                     py-1.5 text-white text-[10px] font-semibold text-center
+                     hover:opacity-90 transition">
               Read More
             </div>
           </a>
 
         </div>
       @empty
-        <p class="text-gray-500 text-sm italic">Belum ada berita terbaru.</p>
+        <p class="text-gray-500 text-sm italic">
+          Belum ada berita terbaru.
+        </p>
       @endforelse
 
     </div>

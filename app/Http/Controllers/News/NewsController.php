@@ -11,51 +11,56 @@ class NewsController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'title' => 'required|string|max:255',
+            'title'       => 'required|string|max:255',
             'description' => 'required',
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'image'       => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
         if ($request->hasFile('image')) {
-            $file = $request->file('image');
-            $filename = uniqid() . '.' . $file->extension();
-            
-            // Simpan ke storage/app/public/News-images
-            $file->storeAs('News-images', $filename, 'public');
+
+            $filename = uniqid() . '.' . $request->file('image')->extension();
+
+            // SIMPAN IMAGE (POLA SAMA DENGAN PROFILE)
+            $request->file('image')
+                ->storeAs('news_images', $filename, 'public');
 
             News::create([
-                'title' => $request->title,
+                'title'       => $request->title,
                 'description' => $request->description,
-                'image' => $filename, // Simpan nama file saja
+                'image'       => $filename,
             ]);
         }
 
-        return redirect()->back()->with('success', 'Berita berhasil ditambah!');
+        return back()->with('success', 'Berita berhasil ditambah!');
     }
 
     public function update(Request $request, News $news)
     {
         $request->validate([
-            'title' => 'required|string|max:255',
-            'image' => 'nullable|image|max:2048',
+            'title'       => 'required|string|max:255',
+            'description' => 'required',
+            'image'       => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
         if ($request->hasFile('image')) {
-            // Hapus foto lama jika ada di folder News-images
-            if ($news->image && Storage::disk('public')->exists('News-images/' . $news->image)) {
-                Storage::disk('public')->delete('News-images/' . $news->image);
+
+            // HAPUS FOTO LAMA (POLA SAMA DENGAN PROFILE)
+            if ($news->image) {
+                Storage::disk('public')->delete('news_images/' . $news->image);
             }
 
-            $file = $request->file('image');
-            $filename = uniqid() . '.' . $file->extension();
-            $file->storeAs('News-images', $filename, 'public');
+            $filename = uniqid() . '.' . $request->file('image')->extension();
+
+            $request->file('image')
+                ->storeAs('news_images', $filename, 'public');
+
             $news->image = $filename;
         }
 
-        $news->title = $request->title;
+        $news->title       = $request->title;
         $news->description = $request->description;
         $news->save();
 
-        return redirect()->back()->with('success', 'Berita berhasil diupdate!');
+        return back()->with('success', 'Berita berhasil diupdate!');
     }
 }
