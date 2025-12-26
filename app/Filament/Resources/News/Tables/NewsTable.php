@@ -10,6 +10,7 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Actions\DeleteAction;
 use Filament\Actions\ViewAction;
 use Filament\Tables\Table;
+use Filament\Tables\Columns\LinkColumn;
 
 class NewsTable
 {
@@ -27,6 +28,11 @@ class NewsTable
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
+                TextColumn::make('Link')
+                    ->label('Link')
+                    ->color('primary') 
+                    ->url(fn ($record) => $record->Link)
+                    ->openUrlInNewTab(),
                 TextColumn::make('updated_at')
                     ->dateTime()
                     ->sortable()
