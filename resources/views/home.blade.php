@@ -354,7 +354,7 @@
         <div class="mb-3 bg-white p-3 rounded-lg shadow-sm border border-gray-100">
           👋 Halo! Ada yang bisa kami bantu hari ini?
         </div>
-        <a href="https://wa.me/6281234567890" target="_blank"
+        <a href="https://wa.me/6281222200640" target="_blank"
           class="flex items-center justify-center gap-2 bg-green-500 text-white py-2 rounded-lg hover:bg-green-600 transition font-medium text-sm shadow-md hover:shadow-lg">
           <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WA" class="w-4 h-4">
           Chat via WhatsApp
