@@ -21,6 +21,8 @@ class NewsInfolist
                     ->label('Image Product')
                     ->disk('public')
                     ->placeholder('-'),
+                TextEntry::make('Link')
+                    ->label('Link'),
             ]);
     }
 }
