@@ -60,18 +60,32 @@
                 </div>
 
                 <!-- ROLE -->
+                @php
+                    $userRole = $roles->firstWhere('position', 'user');
+                @endphp
+
                 <div class="flex flex-col space-y-1">
                     <label class="text-[11px] font-bold text-gray-500 uppercase ml-1">
                         Role
                     </label>
-                    <select name="role_id" required
-                        class="h-[45px] px-4 border rounded-2xl focus:ring-2 focus:ring-[#009345] outline-none text-sm">
-                        <option value="">-- Pilih Role --</option>
-                        @foreach($roles as $role)
-                            <option value="{{ $role->id }}">
-                                {{ $role->position }}
+
+                    {{-- 1. INPUT HIDDEN: Ini yang akan mengirim data 'role_id' ke server --}}
+                    <input type="hidden" name="role_id" value="{{ $userRole ? $userRole->id : '' }}">
+
+                    {{-- 2. SELECT VISUAL: Hanya untuk tampilan user, statusnya disabled --}}
+                    <select disabled
+                        class="h-[45px] px-4 border rounded-2xl bg-gray-100 text-gray-500 cursor-not-allowed outline-none text-sm">
+                        
+                        @if($userRole)
+                            {{-- Langsung pilih role user --}}
+                            <option value="{{ $userRole->id }}" selected>
+                                {{ $userRole->position }}
                             </option>
-                        @endforeach
+                        @else
+                            {{-- Fallback jika role 'user' belum dibuat di database --}}
+                            <option value="">Role User Tidak Ditemukan</option>
+                        @endif
+
                     </select>
                 </div>
 
