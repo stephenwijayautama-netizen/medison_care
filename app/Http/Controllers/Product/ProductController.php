@@ -23,7 +23,8 @@ class ProductsController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => ['required', 'string', 'max:255'],
+            'product_name' => ['required','string' , 'max:20'],
+            'description' => ['required', 'string','max:455'],
             'image' => ['required', 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
         ]);
 
@@ -31,7 +32,8 @@ class ProductsController extends Controller
         $request->file('image')->storeAs('products', $filename, 'public');
 
         Product::create([
-            'name' => $request->name,
+            'product_name' => $request->product_name,
+            'description' => $request->description,
             'image' => $filename,
         ]);
 
@@ -46,8 +48,9 @@ class ProductsController extends Controller
     public function update(Request $request, Product $product)
     {
         $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'image' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
+            'product_name' => ['required','string' , 'max:20'],
+            'description' => ['required', 'string','max:20'],
+            'image' => ['required', 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
         ]);
 
         if ($request->hasFile('image')) {

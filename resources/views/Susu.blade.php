@@ -12,7 +12,7 @@
     <div class="relative bg-white w-full max-w-[400px] min-h-screen shadow-xl flex flex-col rounded-3xl overflow-hidden">
 
         <!-- Header -->
-        <header class="bg-[#009345] p-3 flex items-center gap-3 shadow-md z-50 rounded-t-3xl">
+        <header class="bg-[#85A35E] p-3 flex items-center gap-3 shadow-md z-50 rounded-t-3xl">
             <a href="/" class="text-white"><i class="fa-solid fa-arrow-left text-lg"></i></a>
             <div class="flex-1">
                 <input type="text" placeholder="Cari susu..." class="w-full rounded-full px-3 py-1 text-sm outline-none">
@@ -63,10 +63,13 @@
 
         <!-- Tombol Checkout -->
         <div class="p-3 bg-white border-t shadow-md sticky bottom-0">
-            <a href="#" class="w-full flex items-center justify-center bg-green-600 text-white font-semibold py-2 rounded-full shadow hover:bg-green-700 hover:shadow-md transition-all duration-200 text-sm">
-                Lanjut ke Pembayaran
-            </a>
-        </div>
+    <a href="#" 
+       class="w-full flex items-center justify-center bg-[#85A35E] text-white font-semibold py-2 rounded-full shadow 
+              hover:bg-green-600 hover:shadow-lg hover:scale-105 transition transform duration-200 ease-in-out text-sm">
+        Lanjut ke Pembayaran
+    </a>
+</div>
+
 
     </div>
 
