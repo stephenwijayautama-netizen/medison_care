@@ -9,23 +9,31 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('products', function (Blueprint $table) {
-            $table->id(); // ✅ BIGINT UNSIGNED
+            $table->id();
 
+            // Relasi ke tabel categories
             $table->foreignId('category_id')
                   ->constrained()
                   ->cascadeOnUpdate()
                   ->cascadeOnDelete();
 
+            // Relasi ke tabel users (pembuat produk)
             $table->foreignId('created_by')
                   ->constrained('users')
                   ->cascadeOnUpdate()
                   ->cascadeOnDelete();
 
             $table->string('product_name');
-            $table->text('description');
-            $table->decimal('price', 10, 2);
+            $table->text('description')->nullable(); // Saya buat nullable agar tidak error jika kosong
+            // Menggunakan decimal agar support koma (jika perlu), atau ubah ke integer untuk Rupiah murni
+            $table->decimal('price', 15, 2); 
+            // --- TAMBAHAN UNTUK FITUR FRONTEND ---
+            $table->decimal('promo_price', 15, 2)->nullable(); // Harga coret (boleh kosong)
+            $table->boolean('promo')->default(false);          
+            $table->boolean('best_seller')->default(false);
+            // -------------------------------------
             $table->string('image')->nullable();
-            $table->bigInteger('stock');
+            $table->integer('stock')->default(0); // Menggunakan integer & default 0 biar aman
             $table->timestamps();
         });
     }
