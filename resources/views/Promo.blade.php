@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Medison Care - Produk Susu</title>
+    <title>Medison Care - Promo Spesial</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
@@ -18,7 +18,7 @@
         <header class="bg-[#009345] p-3 flex items-center gap-3 shadow-md z-30 rounded-t-3xl sticky top-0">
             <a href="/" class="text-white hover:bg-green-700 p-2 rounded-full transition"><i class="fa-solid fa-arrow-left text-lg"></i></a>
             <div class="flex-1">
-                <input type="text" placeholder="Cari susu..." class="w-full rounded-full px-4 py-1.5 text-sm outline-none shadow-inner text-gray-700">
+                <input type="text" placeholder="Cari promo..." class="w-full rounded-full px-4 py-1.5 text-sm outline-none shadow-inner text-gray-700">
             </div>
             <div class="text-white flex gap-3 pr-2 cursor-pointer relative">
                 <i class="fa-solid fa-cart-shopping text-lg"></i>
@@ -28,16 +28,13 @@
 
         <div class="bg-white border-b border-gray-100 z-20 sticky top-[60px]">
             <div class="flex gap-2 overflow-x-auto p-3 no-scrollbar w-full">
-                {{-- TOMBOL "SEMUA" --}}
-                <a href="{{ route('susu.index') }}" 
+                <a href="{{ url()->current() }}" 
                    class="px-4 py-1.5 rounded-full text-xs font-bold transition-all border block whitespace-nowrap flex-shrink-0
                    {{ request('category') == '' 
                       ? 'bg-[#009345] text-white border-[#009345] shadow-md' 
                       : 'bg-gray-50 text-gray-600 border-gray-200 hover:bg-gray-100' }}">
                     Semua
                 </a>
-
-                {{-- LOOPING KATEGORI DB --}}
                 @foreach($categories as $cat)
                 <a href="?category={{ $cat->slug }}" 
                    class="px-4 py-1.5 rounded-full text-xs font-bold transition-all border block whitespace-nowrap flex-shrink-0
@@ -52,72 +49,69 @@
 
         <main class="flex-1 overflow-y-auto bg-gray-50 p-3 no-scrollbar pb-24">
 
+            {{-- LOGIC PHP: HANYA AMBIL PRODUK PROMO --}}
             @php
-                // Kita gunakan 'reject' untuk membuang produk yang sedang Promo
-                // Jadi sisanya adalah produk biasa & best seller
-                $regularProducts = $products->reject(function ($item) {
-                    // Logic: Buang jika status promo aktif ATAU punya harga coret
+                // Filter: Hanya produk yang sedang Promo ATAU punya harga coret
+                $promoProducts = $products->filter(function ($item) {
                     return $item->promo || ($item->promo_price > 0 && $item->promo_price < $item->price);
-                })
-                ->sortByDesc('best_seller') // Urutkan Best seller paling atas
-                ->values(); // Reset key array biar rapi
+                });
             @endphp
 
-
-            @if($regularProducts->isNotEmpty())
-            <div>
-                <div class="flex items-center gap-2 px-1 mb-3">
-                    <div class="w-1 h-5 bg-[#009345] rounded-full"></div>
-                    <h2 class="font-bold text-gray-800 text-md">Daftar Produk</h2>
-                </div>
-                <div class="grid grid-cols-2 gap-3">
-                    @foreach($regularProducts as $item)
-                        {{-- CARD PRODUK REGULAR --}}
-                        <article class="relative flex flex-col bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden hover:shadow-md transition duration-200 group">
-                            
-                            {{-- Badge Best Seller (Hanya muncul jika best seller) --}}
-                            @if($item->best_seller)
-                            <div class="absolute top-0 right-0 z-10">
-                                <span class="bg-yellow-400 text-yellow-900 text-[9px] font-extrabold px-2 py-1 rounded-bl-lg uppercase shadow-sm tracking-wider">
-                                    <i class="fa-solid fa-star text-[8px] mr-0.5"></i>Terlaris
-                                </span>
-                            </div>
-                            @endif
-
-                            {{-- Gambar --}}
-                            <div class="p-4 h-32 flex items-center justify-center bg-white group-hover:scale-105 transition-transform duration-300">
-                                <img src="{{ asset('storage/products/' . $item->image) }}" class="max-h-full object-contain drop-shadow-sm" onerror="this.src='https://placehold.co/200x200/png?text=No+Image'">
-                            </div>
-
-                            {{-- Info --}}
-                            <div class="p-3 flex-1 flex flex-col justify-between bg-white relative">
-                                <h3 class="text-[11px] font-bold text-gray-700 leading-tight mb-2 line-clamp-2 h-8 uppercase">{{ $item->product_name }}</h3> {{-- Pakai product_name sesuai DB --}}
-                                
-                                <div class="mb-3">
-                                    <span class="text-[#009345] font-bold text-sm">Rp {{ number_format($item->price, 0, ',', '.') }}</span>
-                                </div>
-                                
-                                {{-- Tombol Qty --}}
-                                <div class="flex items-center justify-between bg-gray-50 rounded-lg p-1 border border-gray-100">
-                                    <button onclick="decreaseQty({{ $item->id }})" class="w-6 h-6 flex items-center justify-center bg-white text-gray-500 rounded-md shadow-sm hover:text-red-500 transition font-bold text-md border border-gray-200">-</button>
-                                    <span id="qty-{{ $item->id }}" class="text-xs font-bold w-6 text-center text-gray-700">0</span>
-                                    <button onclick="increaseQty({{ $item->id }})" class="w-6 h-6 flex items-center justify-center bg-[#009345] text-white rounded-md shadow-sm hover:bg-green-700 transition font-bold text-md">+</button>
-                                </div>
-                            </div>
-                        </article>
-                    @endforeach
-                </div>
+            <div class="flex items-center gap-2 px-2 py-2 mb-2">
+                <i class="fa-solid fa-fire text-red-500 animate-pulse text-lg"></i>
+                <h2 class="font-bold text-gray-800 text-lg">Daftar Produk Promo</h2>
             </div>
-            @endif
 
-            {{-- EMPTY STATE --}}
-            @if($products->isEmpty())
-                <div class="flex flex-col items-center justify-center py-20 opacity-60">
-                    <i class="fa-solid fa-box-open text-4xl mb-2 text-gray-400"></i>
-                    <p class="text-sm text-gray-500">Produk tidak ditemukan.</p>
+            <div class="grid grid-cols-2 gap-3 pb-20">
+                @forelse($promoProducts as $item)
+                <article class="relative flex flex-col bg-white rounded-xl border-2 border-red-50 shadow-sm overflow-hidden hover:shadow-md transition duration-200 group">
+
+                    {{-- Badge Promo --}}
+                    <div class="absolute top-0 left-0 z-10">
+                        <span class="bg-red-500 text-white text-[9px] font-extrabold px-2 py-1 rounded-br-lg uppercase shadow-sm tracking-wider">Promo</span>
+                    </div>
+
+                    {{-- Badge Terlaris (Jika ada) --}}
+                    @if($item->best_seller)
+                    <div class="absolute top-0 right-0 z-10">
+                        <span class="bg-yellow-400 text-yellow-900 text-[9px] font-extrabold px-2 py-1 rounded-bl-lg uppercase shadow-sm tracking-wider">
+                            <i class="fa-solid fa-star text-[8px] mr-0.5"></i>Terlaris
+                        </span>
+                    </div>
+                    @endif
+
+                    {{-- Gambar Produk --}}
+                    <div class="p-4 h-32 flex items-center justify-center bg-white group-hover:scale-105 transition-transform duration-300">
+                        <img src="{{ asset('storage/products/' . $item->image) }}" class="max-h-full object-contain drop-shadow-sm" onerror="this.src='https://placehold.co/200x200/png?text=No+Image'">
+                    </div>
+
+                    {{-- Informasi Produk --}}
+                    <div class="p-3 flex-1 flex flex-col justify-between bg-white relative">
+                        <h3 class="text-[11px] font-bold text-gray-700 leading-tight mb-2 line-clamp-2 h-8 uppercase">{{ $item->product_name }}</h3>
+                        
+                        {{-- Harga Coret & Harga Promo --}}
+                        <div class="mb-3">
+                            <div class="flex flex-col">
+                                <span class="text-[10px] text-gray-400 line-through">Rp {{ number_format($item->price, 0, ',', '.') }}</span>
+                                <span class="text-red-600 font-bold text-sm">Rp {{ number_format($item->promo_price, 0, ',', '.') }}</span>
+                            </div>
+                        </div>
+
+                        {{-- Kontrol Jumlah Produk --}}
+                        <div class="flex items-center justify-between bg-red-50 rounded-lg p-1 border border-red-100">
+                            <button onclick="decreaseQty({{ $item->id }})" class="w-6 h-6 flex items-center justify-center bg-white text-gray-500 rounded-md shadow-sm hover:text-red-500 transition font-bold text-md border border-gray-200">-</button>
+                            <span id="qty-{{ $item->id }}" class="text-xs font-bold w-6 text-center text-gray-700">0</span>
+                            <button onclick="increaseQty({{ $item->id }})" class="w-6 h-6 flex items-center justify-center bg-red-500 text-white rounded-md shadow-sm hover:bg-red-700 transition font-bold text-md">+</button>
+                        </div>
+                    </div>
+                </article>
+                @empty
+                <div class="col-span-2 flex flex-col items-center justify-center py-20 opacity-60">
+                    <i class="fa-solid fa-tag text-4xl mb-2 text-gray-300"></i>
+                    <p class="text-sm text-gray-500">Tidak ada promo saat ini.</p>
                 </div>
-            @endif
-
+                @endforelse
+            </div>
         </main>
 
         <div class="p-4 bg-white border-t border-gray-100 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.05)] sticky bottom-0 z-40">
@@ -134,9 +128,9 @@
 
     <script>
         const qty = {};
-        const prices = {}; // Untuk menyimpan harga produk
+        const prices = {};
 
-        // Ambil data harga dari blade ke JS (Optional, buat update real price)
+        // Simpan harga PROMO ke variable JS agar hitungan total benar
         @foreach($products as $p)
             prices[{{ $p->id }}] = {{ $p->promo_price ?? $p->price }};
         @endforeach
@@ -162,7 +156,7 @@
             const totalItemsEl = document.getElementById('total-items');
             if(totalItemsEl) totalItemsEl.innerText = totalItems;
 
-            // Hitung Total Harga (Estimasi)
+            // Hitung Total Harga
             let totalPrice = 0;
             for (const [pid, quantity] of Object.entries(qty)) {
                 if(prices[pid]) {

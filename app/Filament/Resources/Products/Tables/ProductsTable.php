@@ -10,6 +10,8 @@ use Filament\Actions\ViewAction;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Filament\Tables\Columns\ImageColumn;
+use Filament\Tables\Columns\IconColumn;
+
 
 class ProductsTable
 {
@@ -18,16 +20,47 @@ class ProductsTable
         return $table
             ->columns([
                 ImageColumn::make('image')
-                ->label('Image Product')
-                ->square(),
+                    ->label('Image')
+                    ->square(),
+
+                TextColumn::make('product_name')
+                    ->label('Product Name')
+                    ->searchable()
+                    ->sortable(),
+
                 TextColumn::make('category.name')
                     ->label('Category')
-                    ->searchable(),
-                TextColumn::make('product_name')
-                    ->searchable(),
+                    ->searchable()
+                    ->sortable()
+                    ->badge()
+                    ->color('success'),
+
                 TextColumn::make('price')
-                    ->money()
+                    ->label('Price')
+                    ->money('IDR')
                     ->sortable(),
+
+                // --- TAMBAHAN BARU ---
+                TextColumn::make('promo_price')
+                    ->label('Promo Price')
+                    ->money('IDR')
+                    ->sortable()
+                    ->placeholder('-'), 
+
+                IconColumn::make('promo')
+                    ->label('Promo?')
+                    ->boolean()
+                    ->trueColor('danger')
+                    ->falseColor('gray')
+                    ->sortable(),
+
+                IconColumn::make('best_seller')
+                    ->label('Best Seller?')
+                    ->boolean()
+                    ->trueColor('warning')
+                    ->falseColor('gray')
+                    ->sortable(),
+
                 TextColumn::make('stock')
                     ->numeric()
                     ->sortable(),
