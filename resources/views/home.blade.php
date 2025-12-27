@@ -59,26 +59,26 @@
 
 
       <!-- 🖼️ Slider Container -->
-      <div class="relative w-full overflow-hidden rounded-2xl shadow-2xl mt-[-10px]">
-        <!-- Tips: jika nanti pakai slider JS, tambahkan width dinamis per slide -->
-        <div class="slides flex transition-transform duration-700">
-          <img
-            src="https://goalkes-images.s3.ap-southeast-1.amazonaws.com/media/8587/hDwQMwUmOSbso6VlQ2c7ihQnxrWYeCSGQEbP0gBB.jpg"
-            class="w-full h-64 md:h-72 object-cover flex-shrink-0"
-            alt="Healthcare banner 1"
-          >
-          <img
-            src="https://goalkes-images.s3.ap-southeast-1.amazonaws.com/media/8587/hDwQMwUmOSbso6VlQ2c7ihQnxrWYeCSGQEbP0gBB.jpg"
-            class="w-full h-64 md:h-72 object-cover flex-shrink-0"
-            alt="Healthcare banner 2"
-          >
-          <img
-            src="https://goalkes-images.s3.ap-southeast-1.amazonaws.com/media/8587/hDwQMwUmOSbso6VlQ2c7ihQnxrWYeCSGQEbP0gBB.jpg"
-            class="w-full h-64 md:h-72 object-cover flex-shrink-0"
-            alt="Healthcare banner 3"
-          >
-        </div>
-      </div>
+    <div class="relative w-[450px] h-72 overflow-hidden rounded-2xl shadow-2xl mt-[30px]  mx-auto flex justify-center items-center">
+    <!-- Tips: jika nanti pakai slider JS, tambahkan width dinamis per slide -->
+    <div class="slides flex transition-transform duration-700">
+      <img
+        src="photo/slider3.png"
+        class="w-full h-64 md:h-72 object-cover flex-shrink-0"
+        alt="Healthcare banner 1"
+      >
+      <img
+        src="photo/poster222.png"
+        class="w-full h-64 md:h-72 object-cover flex-shrink-0"
+        alt="Healthcare banner 2"
+      >
+      <img
+        src="https://goalkes-images.s3.ap-southeast-1.amazonaws.com/media/8587/hDwQMwUmOSbso6VlQ2c7ihQnxrWYeCSGQEbP0gBB.jpg"
+        class="w-full h-64 md:h-72 object-cover flex-shrink-0"
+        alt="Healthcare banner 3"
+      >
+    </div>
+</div>
 
   <section class="mt-6">
   <div class="flex flex-row justify-center items-start gap-3 px-2">
@@ -164,9 +164,6 @@
 <section class="mt-6 font-[inter]">
   <div class="flex items-center justify-between mb-3 px-3">
     <h2 class="text-[17px] font-semibold text-gray-800">Promo</h2>
-    <a href="#semua-promo" class="text-[13px] text-green-600 hover:underline font-medium">
-      lihat semua &gt;
-    </a>
   </div>
 
   <!-- SCROLL LIST -->
@@ -186,10 +183,16 @@
           <div class="p-2 pt-5">
             <!-- Gambar -->
             <div class="h-20 flex items-center justify-center mb-2">
-              <img src="{{ asset('storage/products/' . $product->image) }}" 
-                   alt="{{ $product->name }}" 
-                   class="max-h-16 object-contain"
-                   onerror="this.src='/photo/obat.webp'">
+              <<div class="w-full h-[85px] overflow-hidden">
+    <img
+        src="{{ $product->product_name 
+              ? Storage::url('public' . $product->image) 
+              : 'https://placehold.co/400x300?text=No+Image' }}"
+        alt="{{ $product->image }}"
+        class="w-full h-full object-cover"
+          />
+      </div>
+
             </div>
 
             <!-- Judul -->
