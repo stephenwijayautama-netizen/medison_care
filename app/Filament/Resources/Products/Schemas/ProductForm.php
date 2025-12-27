@@ -8,6 +8,7 @@ use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Textarea;
 use Filament\Schemas\Schema;
 use Filament\Forms\Components\Select;
+use Filament\Forms\Components\Toggle; 
 use League\Flysystem\Visibility;
 
 class ProductForm
@@ -34,9 +35,19 @@ class ProductForm
                     ->required()
                     ->columnSpanFull(),
                 TextInput::make('price')
+                    ->label('Harga Normal')
                     ->required()
                     ->numeric()
                     ->prefix('Rp. '),
+                TextInput::make('promo_price')
+                    ->label('Harga Promo (Opsional)')
+                    ->numeric()
+                    ->prefix('Rp. ')
+                    ->lt('price'),
+                Toggle::make('promo')
+                    ->label('Sedang Promo?'),
+                Toggle::make('best_seller')
+                    ->label('Produk Terlaris?'),
                 TextInput::make('stock')
                     ->required()
                     ->numeric(),
@@ -45,7 +56,7 @@ class ProductForm
                     ->image()
                     ->disk('public')
                     ->directory('product-images')
-                    ->Visibility(Visibility::PUBLIC)
+                    ->visibility(Visibility::PUBLIC)
                     ->maxSize(4096)
                     ->confirmSvgEditing()
                     ->downloadable()

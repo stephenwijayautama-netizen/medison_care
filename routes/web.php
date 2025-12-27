@@ -6,6 +6,8 @@ use App\Http\Controllers\Front\HomeController;
 use App\Http\Controllers\Back\ProductController;
 use App\Http\Controllers\Profile\ProfileController;
 use App\Http\Controllers\Profile\ChangeProfileController;
+use App\Http\Controllers\SusuController;
+use App\Http\Controllers\PromoController;
 use App\Http\Controllers\Brands\BrandsController;
 // Tambahan Import untuk News
 use App\Http\Controllers\NewsController; 
@@ -62,14 +64,14 @@ Route::middleware('auth')->group(function () {
     Route::put('/brands/{brand}', [BrandsController::class, 'update'])->name('brands.update');
     Route::delete('/brands/{brand}', [BrandsController::class, 'destroy'])->name('brands.destroy');
 
-// --- NEWS ---
-Route::get('/news', [NewsController::class, 'index'])->name('news.index');
-Route::get('/news/create', [NewsController::class, 'create'])->name('news.create');
-Route::post('/news', [NewsController::class, 'store'])->name('news.store');
-Route::get('/news/{news}/edit', [NewsController::class, 'edit'])->name('news.edit');
-Route::put('/news/{news}', [NewsController::class, 'update'])->name('news.update');
-Route::delete('/news/{news}', [NewsController::class, 'destroy'])->name('news.destroy');
-// ----------
+    // --- NEWS ---
+    Route::get('/news', [NewsController::class, 'index'])->name('news.index');
+    Route::get('/news/create', [NewsController::class, 'create'])->name('news.create');
+    Route::post('/news', [NewsController::class, 'store'])->name('news.store');
+    Route::get('/news/{news}/edit', [NewsController::class, 'edit'])->name('news.edit');
+    Route::put('/news/{news}', [NewsController::class, 'update'])->name('news.update');
+    Route::delete('/news/{news}', [NewsController::class, 'destroy'])->name('news.destroy');
+    // ----------
 
     // LOGOUT
     Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
@@ -78,6 +80,9 @@ Route::delete('/news/{news}', [NewsController::class, 'destroy'])->name('news.de
 // SUSU
 Route::get('susu', [HomeController::class, 'susuPage']);
 
+// Tambahkan ->name('susu.index') di akhir
+Route::get('/susu', [SusuController::class, 'index'])->name('susu.index');
+Route::get('/promo', [PromoController::class, 'index'])->name('promo.index');
 /*
 |--------------------------------------------------------------------------
 | STATIC VIEWS (OPSIONAL)

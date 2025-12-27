@@ -135,7 +135,7 @@
         </p>
     </a>
 
-    <a href="#promo" class="flex flex-col items-center rounded-2xl p-2 transition-all duration-300 hover:bg-white hover:shadow-xl hover:-translate-y-1 group w-20">
+    <a href="promo" class="flex flex-col items-center rounded-2xl p-2 transition-all duration-300 hover:bg-white hover:shadow-xl hover:-translate-y-1 group w-20">
         <div class="relative w-16 h-16 flex items-center justify-center">
             <div class="absolute w-12 h-12 bg-green-50 rounded-full transition-all duration-300 group-hover:scale-125 group-hover:bg-[#009345]/10 -z-10"></div>
             <div class="transition-transform duration-500 ease-out group-hover:scale-110 group-hover:-rotate-3">
