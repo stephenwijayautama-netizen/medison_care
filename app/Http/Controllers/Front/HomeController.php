@@ -12,9 +12,11 @@ class HomeController extends Controller
 {
     public function index()
     {
+        $brands = Brands::all();
+        // dd($brands->);
         return view('home', [
             'user'     => Auth::user(),
-            'brands'  => Brands::orderBy('name')->get(),
+            'brands'   => $brands,
             'products'=> Product::latest()->get(),
             'news'    => News::latest()->take(6)->get(),
         ]);
