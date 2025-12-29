@@ -96,7 +96,7 @@
                 </p>
             </a>
 
-            <a href="views/unggah_file"
+            <a href="/resep"
                 class="flex flex-col items-center rounded-2xl p-2 transition-all duration-300 hover:bg-white hover:shadow-xl hover:-translate-y-1 group w-20">
                 <div class="relative w-16 h-16 flex items-center justify-center">
                     <div

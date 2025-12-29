@@ -17,7 +17,7 @@ class ResepForm
                     ->default(null),
                 TextInput::make('catatan_tambahan')
                     ->default(null),
-                FileUpload::make('image')
+                 FileUpload::make('image')
                     ->image()
                     ->disk('public')
                     ->directory('reseps')

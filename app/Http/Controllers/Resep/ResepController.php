@@ -3,41 +3,42 @@
 namespace App\Http\Controllers\Resep;
 
 use App\Http\Controllers\Controller;
+use App\Models\Resep;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
 class ResepController extends Controller
 {
-    /**
-     * Simpan resep + gambar
-     */
+    public function index()
+    {
+        $reseps = Resep::all();
+        return view('resep', compact('reseps'));
+    }
+
     public function store(Request $request)
     {
+        // 1. Validasi input
         $request->validate([
             'nama_resep' => 'required|string|max:255',
-            'deskripsi'  => 'required|string',
-            'gambar'     => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+            'catatan_tambahan' => 'nullable|string',
+            'image' => 'required|image|mimes:jpeg,png,jpg|max:2048', // Validasi file gambar
         ]);
 
-        $imageName = null;
-
-        if ($request->hasFile('gambar')) {
-            $imageName = time() . '_' . $request->file('gambar')->getClientOriginalName();
-
-            // simpan ke storage/app/public/resep-images
-            $request->file('gambar')->storeAs(
-                'public/resep-images',
-                $imageName
-            );
+        // 2. Proses upload gambar
+        $imagePath = null;
+        if ($request->hasFile('image')) {
+            // Simpan ke folder 'public/reseps' sesuai konfigurasi Filament kamu
+            $imagePath = $request->file('image')->store('reseps', 'public');
         }
 
-        // sementara return dulu (nanti tinggal masukin ke DB)
-        return response()->json([
+        // 3. Simpan data ke Database
+        Resep::create([
             'nama_resep' => $request->nama_resep,
-            'deskripsi'  => $request->deskripsi,
-            'gambar'     => $imageName
-                ? asset('storage/resep-images/' . $imageName)
-                : null,
+            'catatan_tambahan' => $request->catatan_tambahan,
+            'image_product' => $imagePath, // Pastikan nama kolom di DB adalah 'image_product'
         ]);
+
+        // 4. Redirect kembali dengan pesan sukses
+        return redirect()->back()->with('success', 'Resep berhasil ditambahkan ke database!');
     }
 }

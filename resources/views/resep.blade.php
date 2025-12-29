@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,10 +8,12 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
+
 <body class="bg-gray-900 flex justify-center items-center min-h-screen">
 
-    <div class="relative bg-white w-full max-w-[450px] h-screen shadow-2xl flex flex-col md:rounded-[40px] md:border-[8px] md:border-gray-900 overflow-hidden font-[inter]">
-        
+    <div
+        class="relative bg-white w-full max-w-[450px] h-screen shadow-2xl flex flex-col md:rounded-[40px] md:border-[8px] md:border-gray-900 overflow-hidden font-[inter]">
+
         <header class="bg-[#009345] p-4 flex items-center gap-3 shadow-md z-50">
             <a href="javascript:history.back()" class="text-white">
                 <i class="fa-solid fa-arrow-left text-lg"></i>
@@ -19,7 +22,14 @@
         </header>
 
         <main class="flex-1 overflow-y-auto bg-gray-50 p-5">
-            
+
+            <!-- Notifikasi sukses -->
+            @if (session('success'))
+                <div class="bg-green-100 border-l-4 border-green-500 text-green-700 p-4 mb-4" role="alert">
+                    {{ session('success') }}
+                </div>
+            @endif
+
             <div class="bg-blue-50 border-l-4 border-blue-400 p-4 mb-6">
                 <div class="flex">
                     <i class="fa-solid fa-circle-info text-blue-400 mt-1 mr-3"></i>
@@ -29,16 +39,23 @@
                 </div>
             </div>
 
-            <form action="#" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('resep.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
-                
+
                 <div class="mb-6">
+                    <label class="block text-sm font-bold text-gray-700 mb-2">Nama Resep</label>
+                    <input type="text" name="nama_resep" required placeholder="Masukkan nama resep..."
+                        class="w-full border border-gray-200 rounded-xl p-3 text-sm focus:ring-2 focus:ring-green-100 focus:border-[#009345] outline-none transition-all mb-4">
+
                     <label class="block text-sm font-bold text-gray-700 mb-2">Foto Resep</label>
-                    <div id="dropzone" class="relative border-2 border-dashed border-gray-300 rounded-2xl bg-white p-8 text-center hover:border-[#009345] transition-all cursor-pointer">
-                        <input type="file" name="resep" id="fileInput" class="absolute inset-0 opacity-0 cursor-pointer" accept="image/*">
-                        
+                    <div id="dropzone"
+                        class="relative border-2 border-dashed border-gray-300 rounded-2xl bg-white p-8 text-center hover:border-[#009345] transition-all cursor-pointer">
+                        <input type="file" name="image" id="fileInput"
+                            class="absolute inset-0 opacity-0 cursor-pointer" accept="image/*" required>
+
                         <div id="uploadContent">
-                            <div class="w-16 h-16 bg-green-50 rounded-full flex items-center justify-center mx-auto mb-3">
+                            <div
+                                class="w-16 h-16 bg-green-50 rounded-full flex items-center justify-center mx-auto mb-3">
                                 <i class="fa-solid fa-camera text-[#009345] text-2xl"></i>
                             </div>
                             <p class="text-sm font-medium text-gray-600">Klik atau Tarik Foto Resep</p>
@@ -50,19 +67,19 @@
                             <p class="text-[10px] text-red-500 mt-2">Ketuk untuk ganti foto</p>
                         </div>
                     </div>
+                    @error('image')
+                        <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                    @enderror
                 </div>
 
                 <div class="mb-6">
                     <label class="block text-sm font-bold text-gray-700 mb-2">Catatan Tambahan (Opsional)</label>
-                    <textarea 
-                        name="notes" 
-                        rows="3" 
-                        placeholder="Contoh: Tolong siapkan obat generik saja..."
-                        class="w-full border border-gray-200 rounded-xl p-3 text-sm focus:ring-2 focus:ring-green-100 focus:border-[#009345] outline-none transition-all"
-                    ></textarea>
+                    <textarea name="catatan_tambahan" rows="3" placeholder="Contoh: Tolong siapkan obat generik saja..."
+                        class="w-full border border-gray-200 rounded-xl p-3 text-sm focus:ring-2 focus:ring-green-100 focus:border-[#009345] outline-none transition-all"></textarea>
                 </div>
 
-                <button type="submit" class="w-full bg-[#009345] text-white py-3 rounded-xl font-bold text-md shadow-lg shadow-green-100 hover:bg-green-700 active:scale-95 transition-all">
+                <button type="submit"
+                    class="w-full bg-[#009345] text-white py-3 rounded-xl font-bold text-md shadow-lg shadow-green-100 hover:bg-green-700 active:scale-95 transition-all">
                     KIRIM RESEP SEKARANG
                 </button>
             </form>
@@ -92,7 +109,11 @@
                 uploadContent.classList.add('hidden');
             }
         }
+
+        // Klik preview untuk ganti foto
+        imagePreview.addEventListener('click', () => fileInput.click());
     </script>
 
 </body>
+
 </html>

@@ -37,7 +37,7 @@
 
                     <!-- UPLOAD BUTTON -->
                     <button onclick="document.getElementById('file_input').click()"
-                        class="absolute bottom-1 right-1 w-10 h-10 bg-[#7BAE7F] rounded-full flex items-center justify-center text-white shadow-lg hover:bg-[#6ca571] transition"
+                        class="absolute bottom-1 right-1 w-10 h-10 bg-[#7BAE7F] rounded-full flex items-center justify-center text-white shadow-lg hover:bg-[#ffffff] transition"
                         aria-label="Change photo">
                         📷
                     </button>
@@ -59,10 +59,6 @@
                     Member since 2023
                 </p>
 
-                <a href="/views/change_profile"
-                    class="inline-block mt-4 px-6 py-2 rounded-full bg-[#7BAE7F] text-white text-sm hover:bg-[#6ca571] transition">
-                    Change Profile
-                </a>
             </div>
 
             <!-- MENU SECTION -->
