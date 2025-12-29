@@ -86,7 +86,7 @@
 
                             {{-- Gambar --}}
                             <div class="p-4 h-32 flex items-center justify-center bg-white group-hover:scale-105 transition-transform duration-300">
-                                <img src="{{ asset('storage/products/' . $item->image) }}" class="max-h-full object-contain drop-shadow-sm" onerror="this.src='https://placehold.co/200x200/png?text=No+Image'">
+                                <img src="{{ asset('storage/' . $item->image) }}" class="max-h-full object-contain drop-shadow-sm" onerror="this.src='https://placehold.co/200x200/png?text=No+Image'">
                             </div>
 
                             {{-- Info --}}
