@@ -44,13 +44,16 @@
                 Semua
             </a>
 
-            @foreach ($categories as $cat)
-                <a href="?category={{ $cat->slug }}"
-                   class="px-4 py-1.5 rounded-full text-xs font-bold border
-                   {{ request('category') == $cat->slug ? 'bg-[#009345] text-white' : 'bg-gray-50 text-gray-600' }}">
+            {{-- LOOPING KATEGORI DB --}}
+                @foreach($categories as $cat)
+                <a href="?category={{ $cat->slug }}" 
+                   class="px-4 py-1.5 rounded-full text-xs font-bold transition-all border block whitespace-nowrap flex-shrink-0
+                   {{ request('category') == $cat->slug 
+                      ? 'bg-[#009345] text-white border-[#009345] shadow-md' 
+                      : 'bg-gray-50 text-gray-600 border-gray-200 hover:bg-gray-100' }}">
                     {{ $cat->name }}
                 </a>
-            @endforeach
+                @endforeach
         </div>
     </div>
 
