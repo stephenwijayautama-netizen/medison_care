@@ -17,7 +17,10 @@ class BrandsForm
                 TextInput::make('description')
                     ->default(null),
                 FileUpload::make('image')
-                    ->image(),
-            ]);
+                    ->image()
+                    ->disk('public')
+                    ->directory('brands')
+                    ->visibility('public')
+                            ]);
     }
 }

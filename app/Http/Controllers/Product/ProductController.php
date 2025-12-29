@@ -1,117 +1,105 @@
 <?php
 
-namespace App\Http\Controllers; // ✅ Namespace standar (jangan pakai \Products kecuali file ada di dalam folder Products)
+namespace App\Http\Controllers\Brands;
 
 use App\Http\Controllers\Controller;
-use App\Models\Product;
-use App\Models\Category;
+use App\Models\Brand;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\Auth;
 
-class ProductController extends Controller // ✅ Nama Class harus sama persis dengan Nama File
+class BrandsController extends Controller
 {
+    /**
+     * Menampilkan daftar semua brand
+     */
     public function index()
     {
-        // Mengambil produk beserta relasi kategorinya (Eager Loading)
-        $products = Product::with('category')->latest()->get();
-        return view('products.index', compact('products'));
+        $brands = Brand::all();
+        return view('brands.index', compact('brands'));
     }
 
+    /**
+     * Menampilkan form untuk membuat brand baru
+     */
     public function create()
     {
-        $categories = Category::all();
-        return view('products.create', compact('categories'));
+        return view('brands.create');
     }
 
+    /**
+     * Menyimpan brand baru ke database
+     */
     public function store(Request $request)
     {
-        // 1. Validasi Input
         $request->validate([
-            'category_id'   => ['required', 'exists:categories,id'],
-            'product_name'  => ['required', 'string', 'max:255'],
-            'description'   => ['nullable', 'string'],
-            'price'         => ['required', 'numeric', 'min:0'],
-            'stock'         => ['required', 'integer', 'min:0'],
-            'promo_price'   => ['nullable', 'numeric', 'lt:price'],
-            'image'         => ['required', 'image', 'mimes:jpeg,png,jpg,gif,webp', 'max:2048'],
+            'name'  => ['required', 'string', 'max:50'],
+            'image' => ['required', 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
         ]);
 
-        // 2. Handle Upload Gambar
-        $filename = null;
-        if ($request->hasFile('image')) {
-            $filename = uniqid() . '.' . $request->file('image')->extension();
-            $request->file('image')->storeAs('products', $filename, 'public');
-        }
+        // Generate nama file unik
+        $filename = uniqid() . '.' . $request->file('image')->extension();
 
-        // 3. Simpan ke Database
-        Product::create([
-            'category_id'   => $request->category_id,
-            'created_by'    => Auth::id(),
-            'product_name'  => $request->product_name,
-            'description'   => $request->description,
-            'price'         => $request->price,
-            'stock'         => $request->stock,
-            'promo_price'   => $request->promo_price,
-            'image'         => $filename,
-            'promo'         => $request->has('promo'),
-            'best_seller'   => $request->has('best_seller'),
+        // Simpan ke storage/app/public/brands
+        $request->file('image')->storeAs('brands', $filename, 'public');
+
+        Brand::create([
+            'name'  => $request->name,
+            'image' => $filename,
         ]);
 
-        return redirect()->route('products.index')->with('success', 'Produk berhasil ditambahkan!');
+        return redirect()->route('brands.index')
+            ->with('success', 'Brand berhasil ditambahkan!');
     }
 
-    public function edit(Product $product)
+    /**
+     * Menampilkan form edit brand
+     */
+    public function edit(Brand $brand)
     {
-        $categories = Category::all();
-        return view('products.edit', compact('product', 'categories'));
+        return view('brands.edit', compact('brand'));
     }
 
-    public function update(Request $request, Product $product)
+    /**
+     * Mengupdate data brand
+     */
+    public function update(Request $request, Brand $brand)
     {
         $request->validate([
-            'category_id'   => ['required', 'exists:categories,id'],
-            'product_name'  => ['required', 'string', 'max:255'],
-            'description'   => ['nullable', 'string'],
-            'price'         => ['required', 'numeric', 'min:0'],
-            'stock'         => ['required', 'integer', 'min:0'],
-            'promo_price'   => ['nullable', 'numeric', 'lt:price'],
-            'image'         => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif,webp', 'max:2048'],
+            'name'  => ['required', 'string', 'max:50'],
+            'image' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
         ]);
 
-        $data = [
-            'category_id'   => $request->category_id,
-            'product_name'  => $request->product_name,
-            'description'   => $request->description,
-            'price'         => $request->price,
-            'stock'         => $request->stock,
-            'promo_price'   => $request->promo_price,
-            'promo'         => $request->has('promo'),
-            'best_seller'   => $request->has('best_seller'),
-        ];
-
+        // Update image jika ada
         if ($request->hasFile('image')) {
-            if ($product->image) {
-                Storage::disk('public')->delete('products/' . $product->image);
+            if ($brand->image) {
+                Storage::disk('public')->delete('brands/' . $brand->image);
             }
+
             $filename = uniqid() . '.' . $request->file('image')->extension();
-            $request->file('image')->storeAs('products', $filename, 'public');
-            $data['image'] = $filename;
+            $request->file('image')->storeAs('brands', $filename, 'public');
+            $brand->image = $filename;
         }
 
-        $product->update($data);
+        // Update data lain
+        $brand->name = $request->name;
+        $brand->save();
 
-        return redirect()->route('products.index')->with('success', 'Produk berhasil diperbarui!');
+        return redirect()->route('brands.index')
+            ->with('success', 'Brand berhasil diupdate!');
     }
 
-    public function destroy(Product $product)
+    /**
+     * Menghapus brand
+     */
+    public function destroy(Brand $brand)
     {
-        if ($product->image) {
-            Storage::disk('public')->delete('products/' . $product->image);
+        if ($brand->image) {
+            Storage::disk('public')->delete('brands/' . $brand->image);
         }
 
-        $product->delete();
+        $brand->delete();
 
-        return redirect()->route('products.index')->with('success', 'Produk berhasil dihapus!');
+        return redirect()->route('brands.index')
+            ->with('success', 'Brand berhasil dihapus!');
     }
 }

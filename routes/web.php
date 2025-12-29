@@ -11,6 +11,9 @@ use App\Http\Controllers\PromoController;
 use App\Http\Controllers\Brands\BrandsController;
 // Tambahan Import untuk News
 use App\Http\Controllers\NewsController; 
+use App\Http\Controllers\Resep\ResepController;
+use App\Http\Controllers\Lokasi\LokasiController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -57,17 +60,13 @@ Route::middleware('auth')->group(function () {
     Route::delete('/products/{product}', [ProductController::class, 'destroy'])->name('products.destroy');
 
     // BRANDS
-    Route::get('/brands', [BrandsController::class, 'index'])->name('brands.index');
-    Route::get('/brands/create', [BrandsController::class, 'create'])->name('brands.create');
-    Route::post('/brands', [BrandsController::class, 'store'])->name('brands.store');
-    Route::get('/brands/{brand}/edit', [BrandsController::class, 'edit'])->name('brands.edit');
-    Route::put('/brands/{brand}', [BrandsController::class, 'update'])->name('brands.update');
-    Route::delete('/brands/{brand}', [BrandsController::class, 'destroy'])->name('brands.destroy');
-
+    Route::middleware('auth')->group(function () {
+    Route::get('/brands', [BrandController::class, 'index'])->name('brands.index');
+});
     // --- NEWS ---
     Route::get('/news', [NewsController::class, 'index'])->name('news.index');
     Route::get('/news/create', [NewsController::class, 'create'])->name('news.create');
-    Route::post('/news', [NewsController::class, 'store'])->name('news.store');
+    Route::post('/news/store', [NewsController::class, 'store'])->name('news.store');
     Route::get('/news/{news}/edit', [NewsController::class, 'edit'])->name('news.edit');
     Route::put('/news/{news}', [NewsController::class, 'update'])->name('news.update');
     Route::delete('/news/{news}', [NewsController::class, 'destroy'])->name('news.destroy');
@@ -75,10 +74,18 @@ Route::middleware('auth')->group(function () {
 
     // LOGOUT
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+  
+    Route::post('/resep', [ResepController::class, 'store'])->name('resep.store');
 });
 
 // SUSU
 Route::get('susu', [HomeController::class, 'susuPage']);
+
+Route::middleware('auth')->group(function () {
+    Route::post('/lokasi/store', [LokasiController::class, 'store'])
+        ->name('lokasi.store');
+});
+
 
 // Tambahkan ->name('susu.index') di akhir
 Route::get('/susu', [SusuController::class, 'index'])->name('susu.index');
@@ -93,3 +100,5 @@ Route::view('views/metodepayment', 'metodepayment');
 Route::view('views/order', 'order');
 Route::view('views/change_password', 'change_password');
 Route::view('views/unggah_file', 'unggah_file');
+Route::view('views/konsultasi', 'konsultasi');
+Route::view('views/percobaaan', 'percobaaan');

@@ -18,21 +18,10 @@ class ResepForm
                 TextInput::make('catatan_tambahan')
                     ->default(null),
                 FileUpload::make('image')
-                    ->label('Resep Image')
                     ->image()
                     ->disk('public')
-                    ->directory('Resep-images')
-                    ->Visibility(Visibility::PUBLIC)
-                    ->maxSize(4096)
-                    ->confirmSvgEditing()
-                    ->downloadable()
-                    ->openable()
-                    ->previewable()
-                    ->image()
-                    ->imageEditor()
-                    ->imageEditorAspectRatios([
-                        '16:9',
-                    ])
-            ]);
+                    ->directory('reseps')
+                    ->visibility('public')
+                            ]);
     }
 }
