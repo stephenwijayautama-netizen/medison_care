@@ -74,7 +74,7 @@ Route::middleware('auth')->group(function () {
     // ----------
 
     // LOGOUT
-    Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
+    Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 });
 
 // SUSU

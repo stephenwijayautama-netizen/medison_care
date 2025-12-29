@@ -7,7 +7,25 @@
 
   <title>{{ config('app.name', 'Medison Care') }}</title>
   @vite(['resources/css/app.css', 'resources/js/app.js', 'resources/css/style.css'])
+  
+  <style>
+      /* Utility untuk menyembunyikan scrollbar */
+      .no-scrollbar {
+          -ms-overflow-style: none;  /* IE and Edge */
+          scrollbar-width: none;  /* Firefox */
+      }
 
+      /* Terapkan hidden scrollbar HANYA untuk Mobile (max-width: 768px) */
+      @media (max-width: 768px) {
+          .no-scrollbar::-webkit-scrollbar {
+              display: none; /* Chrome, Safari, Opera */
+          }
+          .no-scrollbar {
+              -ms-overflow-style: none;
+              scrollbar-width: none;
+          }
+      }
+  </style>
 </head>
 
 <body class="antialiased aspect-9-16 "
@@ -160,61 +178,78 @@
     </div>
 </section>
 
-<!-- PROMO SECTION -->
+
+@php
+
+  $listProduk = $products ?? collect();
+  $promoProducts = $listProduk->filter(function ($item) {
+    return $item->promo || ($item->promo_price > 0 && $item->promo_price < $item->price);
+  });
+@endphp
+
+
 <section class="mt-6 font-[inter]">
   <div class="flex items-center justify-between mb-3 px-3">
     <h2 class="text-[17px] font-semibold text-gray-800">Promo</h2>
+
+    {{-- <a href="{{ url('promo') }}"
+      class="text-xs font-bold text-[#009345] hover:text-green-700 transition flex items-center gap-1">
+      See All<i class="fa-solid fa-arrow-right"></i>
+    </a> --}}
   </div>
 
-  <!-- SCROLL LIST -->
-  <div class="overflow-x-auto snap-x snap-mandatory [-ms-overflow-style:none] [scrollbar-width:none] px-2">
-    <div class="flex gap-3 min-w-max [&>*]:snap-start pb-1">
-      
-      @forelse($products as $product)
-        <!-- CARD DYNAMIC -->
-        <article class="relative w-40 bg-white rounded-xl border border-green-300 shadow-sm hover:shadow-lg transition-all duration-300 hover:-translate-y-1 overflow-hidden">
-          <!-- Badge PROMO -->
-          <div class="absolute top-0 left-0 w-full flex justify-center pointer-events-none">
-            <span class="inline-block bg-[#C6A252] text-white text-[10px] font-semibold px-2 py-1 rounded-b-md shadow-sm uppercase tracking-wide">
-              Promo
-            </span>
-          </div>
+  <div class="overflow-x-auto snap-x snap-mandatory px-2 pb-4 no-scrollbar">
 
-          <div class="p-2 pt-5">
-            <!-- Gambar -->
-            <div class="h-20 flex items-center justify-center mb-2">
-              <<div class="w-full h-[85px] overflow-hidden">
-    <img
-        src="{{ $product->product_name 
-              ? Storage::url('public' . $product->image) 
-              : 'https://placehold.co/400x300?text=No+Image' }}"
-        alt="{{ $product->image }}"
-        class="w-full h-full object-cover"
-          />
-      </div>
+    <div class="flex flex-nowrap gap-3 w-max">
 
+      @forelse($promoProducts as $product)
+          <article
+            class="flex-shrink-0 w-40 relative bg-white rounded-xl border border-green-300 shadow-sm hover:shadow-lg transition-all duration-300 hover:-translate-y-1 overflow-hidden snap-start">
+
+            <div class="absolute top-0 left-0 w-full flex justify-center pointer-events-none z-10">
+              <span
+                class="inline-block bg-[#C6A252] text-white text-[10px] font-semibold px-2 py-1 rounded-b-md shadow-sm uppercase tracking-wide">
+                Promo
+              </span>
             </div>
 
-            <!-- Judul -->
-            <h3 class="text-[11px] font-semibold text-gray-900 text-center leading-snug uppercase line-clamp-2">
-              {{ Str::upper($product->name) }}
-            </h3>
-
-            <!-- Harga -->
-            <div class="mt-1 text-center">
-              @if($product->old_price)
-                <div class="text-[10px] text-red-500 line-through">Rp {{ number_format($product->old_price, 0, ',', '.') }}</div>
-              @endif
-              <div class="text-[12px] text-green-600 font-extrabold">
-                Rp {{ number_format($product->price, 0, ',', '.') }},- 
-                <span class="text-gray-600 font-medium text-[10px]">/ {{ $product->unit ?? 'Pcs' }}</span>
+            <div class="p-2 pt-5">
+              <div class="h-20 flex items-center justify-center mb-2">
+                <div class="w-full h-[85px] overflow-hidden">
+                  <img src="{{ $product->image
+        ? asset('storage/' . $product->image)
+        : 'https://placehold.co/400x300?text=No+Image' }}" alt="{{ $product->name }}"
+                    class="w-full h-full object-cover" />
+                </div>
               </div>
-              <div class="text-[10px] text-gray-500 mt-[2px]">13.4 RB+ Terjual</div>
+
+              <h3 class="text-[11px] font-semibold text-gray-900 text-center leading-snug uppercase line-clamp-2">
+                {{ Str::upper($product->product_name ?? $product->name) }}
+              </h3>
+
+              <div class="mt-1 text-center">
+                @if($product->price > ($product->promo_price ?? 0) && ($product->promo_price ?? 0) > 0)
+                  <div class="text-[10px] text-red-500 line-through">
+                    Rp {{ number_format($product->price, 0, ',', '.') }}
+                  </div>
+                  <div class="text-[12px] text-green-600 font-extrabold">
+                    Rp {{ number_format($product->promo_price, 0, ',', '.') }},-
+                  </div>
+                @else
+                  <div class="text-[12px] text-green-600 font-extrabold">
+                    Rp {{ number_format($product->price, 0, ',', '.') }},-
+                  </div>
+                @endif
+
+                <span class="text-gray-600 font-medium text-[10px] block mt-1">/ {{ $product->unit ?? 'Pcs' }}</span>
+                <div class="text-[10px] text-gray-500 mt-[2px]">13.4 RB+ Terjual</div>
+              </div>
             </div>
-          </div>
-        </article>
+          </article>
       @empty
-        <p class="text-center text-gray-500 py-8 w-full">Belum ada produk promo</p>
+        <div class="w-full text-center py-8 flex-shrink-0 w-screen">
+          <p class="text-gray-500 text-sm italic">Belum ada produk promo saat ini.</p>
+        </div>
       @endforelse
 
     </div>
@@ -248,8 +283,8 @@
   </div>
 </section>
 @php
-  use Illuminate\Support\Facades\Storage;
-  use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 @endphp
 
 <section class="font-[inter] mt-[40px] mb-[40px]">
@@ -273,8 +308,8 @@
           <div class="w-full h-[85px] overflow-hidden">
             <img
               src="{{ $item->image
-                    ? Storage::url($item->image)
-                    : 'https://placehold.co/400x300?text=No+Image' }}"
+    ? Storage::url($item->image)
+    : 'https://placehold.co/400x300?text=No+Image' }}"
               alt="{{ $item->title }}"
               class="w-full h-full object-cover"
             />
