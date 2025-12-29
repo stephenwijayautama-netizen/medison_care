@@ -73,8 +73,8 @@ Route::middleware('auth')->group(function () {
     // ----------
 
     // LOGOUT
-    Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
-    //resep
+    Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+  
     Route::post('/resep', [ResepController::class, 'store'])->name('resep.store');
 });
 
