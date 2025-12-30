@@ -47,6 +47,8 @@ Route::middleware('auth')->group(function () {
     Route::post('/change-password', [ChangeProfileController::class, 'changePassword'])->name('change-password.submit');
 
     // PRODUCT
+    // routes/web.php
+    Route::get('/search-product', [HomeController::class, 'searchProduct'])->name('search.product');
     Route::get('/products', [ProductController::class, 'index'])->name('products.index');
     Route::get('/products/create', [ProductController::class, 'create'])->name('products.create');
     Route::post('/products', [ProductController::class, 'store'])->name('products.store');
@@ -76,7 +78,6 @@ Route::middleware('auth')->group(function () {
 });
 
 // SUSU
-Route::get('/susu', [HomeController::class, 'susuPage']);
 Route::get('/susu', [SusuController::class, 'index'])->name('susu.index');
 
 // PROMO

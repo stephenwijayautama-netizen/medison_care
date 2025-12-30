@@ -23,7 +23,7 @@
         <!-- HEADER -->
         <div class="bg-gradient-to-r from-green-600 to-emerald-500 text-white p-6 text-center">
             <h1 class="text-2xl font-bold tracking-wide">
-                Konsultasi Apoteker
+                Konsultasi Dokter
             </h1>
             <p class="text-sm mt-2 opacity-90">
                 Aman • Profesional • Terpercaya

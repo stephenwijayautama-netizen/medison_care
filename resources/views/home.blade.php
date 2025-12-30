@@ -32,8 +32,12 @@
                 </svg>
 
                 <!-- Input -->
-                <input type="text" name="search" placeholder="Search anything..."
+                <input type="text" name="search" id="search" placeholder="Search anything..."
                     class="flex-1 min-w-0 bg-transparent text-gray-700 placeholder-gray-400 text-sm focus:outline-none" />
+
+                <ul id="search-result"
+                    class="absolute left-0 right-0 mt-2 bg-white border rounded-lg shadow-lg hidden z-50">
+                </ul>
 
                 <!-- Tombol -->
                 <button type="submit"
@@ -177,14 +181,14 @@
                         <!-- Badge PROMO -->
                         <div class="absolute top-0 left-0 w-full flex justify-center pointer-events-none">
                             <span
-                                class="inline-block bg-[#C6A252] text-white text-[10px] font-semibold px-2 py-1 rounded-b-md shadow-sm uppercase tracking-wide">
+                                class=" bg-[#C6A252] text-white text-[10px] font-semibold px-2 py-1 rounded-b-md shadow-sm uppercase tracking-wide">
                                 Promo
                             </span>
                         </div>
 
                         <div class="p-2 pt-5">
                             <!-- Gambar -->
-                            <div class="w-full h-[85px] mb-2 overflow-hidden flex items-center justify-center">
+                            <div class="w-full h-[85px] mb-2 flex items-center justify-center">
                                 <img src="{{ $product->image ? Storage::url($product->image) : 'https://placehold.co/400x300?text=No+Image' }}"
                                     alt="{{ $product->product_name }}" class="w-full h-full object-cover" />
                             </div>
@@ -226,25 +230,25 @@
     </section>
 
 
-    <!-- 🤝 Supported brand -->
+<section class="font-[inter] py-12">
+    <div class="max-w-6xl mx-auto text-center">
 
-    <section class="font-[inter] mt-[40px] mb-[40px]">
-        <div class="text-center">
+        <p class="font-bold text-[26px] text-gray-800 mb-10 tracking-wide">
+            Our Supported Brands
+        </p>
 
-            <p class="font-bold text-[26px] text-gray-800 mb-6 tracking-wide">
-                Our Supported Brands
-            </p>
-
-            <div class="flex flex-wrap justify-center gap-6">
-                @foreach ($brands as $brand)
-                    <img src="{{ $brand->image ? Storage::url($brand->image) : 'https://placehold.co/400x300?text=No+Image' }}"
-                        alt="{{ $brand->name }}" class="w-[90px] h-auto object-contain">
-                @endforeach
-            </div>
-
-
+        <div class="flex flex-wrap justify-center items-center gap-x-10 gap-y-6">
+            @foreach ($brands as $brand)
+                <img
+                    src="{{ $brand->image ? Storage::url($brand->image) : 'https://placehold.co/400x300?text=No+Image' }}"
+                    alt="{{ $brand->name }}"
+                    class="w-[90px] h-auto object-contain hover:scale-105 transition-transform duration-300 ease-in-out">
+            @endforeach
         </div>
-    </section>
+
+    </div>
+</section>
+
     @php
         use Illuminate\Support\Facades\Storage;
         use Illuminate\Support\Str;
@@ -372,6 +376,7 @@
         }
     </style>
 
+    <!-- Script buat chat popup -->
     <script>
         document.addEventListener("DOMContentLoaded", () => {
             const btn = document.getElementById('chatButton');
@@ -389,6 +394,8 @@
             });
         });
     </script>
+
+
 
     <!-- ⚙️ Footer -->
     <footer class="bg-[#85A35E] text-white mt-6 rounded-2xl overflow-hidden">

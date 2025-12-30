@@ -66,8 +66,10 @@
                 <ul class="space-y-2 text-sm">
                     <!-- PROFILE -->
                     <li class="flex justify-between items-center px-4 py-3 rounded-xl hover:bg-gray-50 cursor-pointer">
-                        <span>Profile</span>
-                        <span>›</span>
+                        <a href="{{ route('profile.show', Auth::user()->id) }}" class="flex justify-between w-full">
+                            <span>Profile</span>
+                            <span>›</span>
+                        </a>
                     </li>
 
                     <!-- CHANGE PASSWORD -->
@@ -137,117 +139,125 @@
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
     <!-- SCRIPT -->
-   <script>
-document.addEventListener("DOMContentLoaded", () => {
-    const item = document.getElementById("locationItem");
-    const mapEl = document.getElementById("map");
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const item = document.getElementById("locationItem");
+            const mapEl = document.getElementById("map");
 
-    const latInput = document.getElementById("latitude");
-    const lngInput = document.getElementById("longitude");
-    const addressInput = document.getElementById("address");
-    const btnSave = document.getElementById("btnSaveLocation");
+            const latInput = document.getElementById("latitude");
+            const lngInput = document.getElementById("longitude");
+            const addressInput = document.getElementById("address");
+            const btnSave = document.getElementById("btnSaveLocation");
 
-    if (!item || !mapEl || !latInput || !lngInput || !addressInput || !btnSave) {
-        console.error("Beberapa elemen DOM tidak ditemukan, skrip dihentikan.");
-        return;
-    }
-
-    let map = null;
-    let marker = null;
-
-    // 🔹 reverse geocoding (ambil alamat lengkap)
-    async function getAddress(lat, lng) {
-        try {
-            const res = await fetch(
-                `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}`, {
-                    headers: {
-                        "User-Agent": "LaravelApp/1.0 (stephen@binus.ac.id)"
-                    }
-                }
-            );
-
-            if (!res.ok) return "Alamat tidak ditemukan";
-
-            const data = await res.json();
-
-            // Prioritaskan display_name
-            if (data.display_name) return data.display_name;
-
-            // fallback menggunakan data.address
-            if (data.address) {
-                const { road, suburb, city, state, postcode, country } = data.address;
-                return [road, suburb, city, state, postcode, country].filter(Boolean).join(", ");
+            if (!item || !mapEl || !latInput || !lngInput || !addressInput || !btnSave) {
+                console.error("Beberapa elemen DOM tidak ditemukan, skrip dihentikan.");
+                return;
             }
 
-            return "Alamat tidak ditemukan";
-        } catch (error) {
-            console.error("Error fetch alamat:", error);
-            return "Alamat tidak ditemukan";
-        }
-    }
+            let map = null;
+            let marker = null;
 
-    item.addEventListener("click", () => {
-        if (!navigator.geolocation) {
-            alert("Browser tidak mendukung Geolocation");
-            return;
-        }
-
-        navigator.geolocation.getCurrentPosition(
-            async (pos) => {
-                const lat = pos.coords.latitude;
-                const lng = pos.coords.longitude;
-
-                // tampilkan map
-                mapEl.classList.remove("hidden");
-
-                // isi input koordinat
-                latInput.value = lat;
-                lngInput.value = lng;
-
-                setTimeout(async () => {
-                    // buat map jika belum ada
-                    if (!map) {
-                        map = L.map("map").setView([lat, lng], 15);
-
-                        L.tileLayer(
-                            "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-                                attribution: "© OpenStreetMap"
+            // 🔹 reverse geocoding (ambil alamat lengkap)
+            async function getAddress(lat, lng) {
+                try {
+                    const res = await fetch(
+                        `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}`, {
+                            headers: {
+                                "User-Agent": "LaravelApp/1.0 (stephen@binus.ac.id)"
                             }
-                        ).addTo(map);
-                    } else {
-                        map.setView([lat, lng], 15);
+                        }
+                    );
+
+                    if (!res.ok) return "Alamat tidak ditemukan";
+
+                    const data = await res.json();
+
+                    // Prioritaskan display_name
+                    if (data.display_name) return data.display_name;
+
+                    // fallback menggunakan data.address
+                    if (data.address) {
+                        const {
+                            road,
+                            suburb,
+                            city,
+                            state,
+                            postcode,
+                            country
+                        } = data.address;
+                        return [road, suburb, city, state, postcode, country].filter(Boolean).join(", ");
                     }
 
-                    // buat marker jika belum ada
-                    if (!marker) {
-                        marker = L.marker([lat, lng]).addTo(map);
-                    } else {
-                        marker.setLatLng([lat, lng]);
-                    }
-
-                    // ambil alamat
-                    const address = await getAddress(lat, lng);
-                    addressInput.value = address;
-
-                    marker
-                        .bindPopup(`<b>📍 Lokasi Anda</b><br>${address}`)
-                        .openPopup();
-
-                    // WAJIB biar map tidak rusak
-                    map.invalidateSize();
-
-                    // aktifkan tombol simpan lokasi
-                    btnSave.disabled = false;
-                    btnSave.classList.remove("opacity-50", "cursor-not-allowed");
-                }, 200);
-            },
-            (err) => {
-                alert("Gagal mengambil lokasi: " + err.message);
+                    return "Alamat tidak ditemukan";
+                } catch (error) {
+                    console.error("Error fetch alamat:", error);
+                    return "Alamat tidak ditemukan";
+                }
             }
-        );
-    });
-});
-</script>
+
+            item.addEventListener("click", () => {
+                if (!navigator.geolocation) {
+                    alert("Browser tidak mendukung Geolocation");
+                    return;
+                }
+
+                navigator.geolocation.getCurrentPosition(
+                    async (pos) => {
+                            const lat = pos.coords.latitude;
+                            const lng = pos.coords.longitude;
+
+                            // tampilkan map
+                            mapEl.classList.remove("hidden");
+
+                            // isi input koordinat
+                            latInput.value = lat;
+                            lngInput.value = lng;
+
+                            setTimeout(async () => {
+                                // buat map jika belum ada
+                                if (!map) {
+                                    map = L.map("map").setView([lat, lng], 15);
+
+                                    L.tileLayer(
+                                        "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+                                            attribution: "© OpenStreetMap"
+                                        }
+                                    ).addTo(map);
+                                } else {
+                                    map.setView([lat, lng], 15);
+                                }
+
+                                // buat marker jika belum ada
+                                if (!marker) {
+                                    marker = L.marker([lat, lng]).addTo(map);
+                                } else {
+                                    marker.setLatLng([lat, lng]);
+                                }
+
+                                // ambil alamat
+                                const address = await getAddress(lat, lng);
+                                addressInput.value = address;
+
+                                marker
+                                    .bindPopup(`<b>📍 Lokasi Anda</b><br>${address}`)
+                                    .openPopup();
+
+                                // WAJIB biar map tidak rusak
+                                map.invalidateSize();
+
+                                // aktifkan tombol simpan lokasi
+                                btnSave.disabled = false;
+                                btnSave.classList.remove("opacity-50",
+                                "cursor-not-allowed");
+                            }, 200);
+                        },
+                        (err) => {
+                            alert("Gagal mengambil lokasi: " + err.message);
+                        }
+                );
+            });
+        });
+    </script>
 
 
 </body>
