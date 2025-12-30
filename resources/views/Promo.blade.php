@@ -28,17 +28,17 @@
 
         <div class="bg-white border-b border-gray-100 z-20 sticky top-[60px]">
             <div class="flex gap-2 overflow-x-auto p-3 no-scrollbar w-full">
-                <a href="{{ url()->current() }}" 
+                <a href="{{ request()->fullUrlWithoutQuery('category') }}" 
                    class="px-4 py-1.5 rounded-full text-xs font-bold transition-all border block whitespace-nowrap flex-shrink-0
-                   {{ request('category') == '' 
+                   {{ !request()->filled('category') 
                       ? 'bg-[#009345] text-white border-[#009345] shadow-md' 
                       : 'bg-gray-50 text-gray-600 border-gray-200 hover:bg-gray-100' }}">
                     Semua
                 </a>
                 @foreach($categories as $cat)
-                <a href="?category={{ $cat->slug }}" 
+                <a href="{{ request()->fullUrlWithQuery(['category' => $cat->id]) }}" 
                    class="px-4 py-1.5 rounded-full text-xs font-bold transition-all border block whitespace-nowrap flex-shrink-0
-                   {{ request('category') == $cat->slug 
+                   {{ request('category') == $cat->id 
                       ? 'bg-[#009345] text-white border-[#009345] shadow-md' 
                       : 'bg-gray-50 text-gray-600 border-gray-200 hover:bg-gray-100' }}">
                     {{ $cat->name }}
