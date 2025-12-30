@@ -6,27 +6,31 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>{{ config('app.name', 'Medison Care') }}</title>
-  @vite(['resources/css/app.css', 'resources/js/app.js', 'resources/css/style.css'])
-  
-  <style>
-      /* Utility untuk menyembunyikan scrollbar */
-      .no-scrollbar {
-          -ms-overflow-style: none;  /* IE and Edge */
-          scrollbar-width: none;  /* Firefox */
-      }
+    <title>{{ config('app.name', 'Medison Care') }}</title>
+    @vite(['resources/css/app.css', 'resources/js/app.js', 'resources/css/style.css'])
 
-      /* Terapkan hidden scrollbar HANYA untuk Mobile (max-width: 768px) */
-      @media (max-width: 768px) {
-          .no-scrollbar::-webkit-scrollbar {
-              display: none; /* Chrome, Safari, Opera */
-          }
-          .no-scrollbar {
-              -ms-overflow-style: none;
-              scrollbar-width: none;
-          }
-      }
-  </style>
+    <style>
+        /* Utility untuk menyembunyikan scrollbar */
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            /* IE and Edge */
+            scrollbar-width: none;
+            /* Firefox */
+        }
+
+        /* Terapkan hidden scrollbar HANYA untuk Mobile (max-width: 768px) */
+        @media (max-width: 768px) {
+            .no-scrollbar::-webkit-scrollbar {
+                display: none;
+                /* Chrome, Safari, Opera */
+            }
+
+            .no-scrollbar {
+                -ms-overflow-style: none;
+                scrollbar-width: none;
+            }
+        }
+    </style>
 </head>
 
 <body class="antialiased aspect-9-16 " style="--frame: 520px;">
@@ -89,90 +93,97 @@
                 class="w-full h-64 md:h-72 object-cover flex-shrink-0" alt="Healthcare banner 3">
         </div>
     </div>
-</section>
+    </section>
 
-  <section class="mt-6">
-  <div class="flex flex-row justify-center items-start gap-3 px-2">
+    <section class="mt-6">
+        <div class="flex flex-row justify-center items-start gap-3 px-2">
 
-    <a href="#konsultasi" class="flex flex-col items-center rounded-2xl p-2 transition-all duration-300 hover:bg-white hover:shadow-xl hover:-translate-y-1 group w-20">
-        <div class="relative w-16 h-16 flex items-center justify-center">
-            <div class="absolute w-12 h-12 bg-green-50 rounded-full transition-all duration-300 group-hover:scale-125 group-hover:bg-green-100 -z-10"></div>
-            <div class="transition-transform duration-500 ease-out group-hover:scale-110">
-                <creattie-embed
-                    src="https://d1jj76g3lut4fe.cloudfront.net/saved_colors/138670/Rs2QWShtIpZW2AEA.json"
-                    delay="1" speed="100" frame_rate="24" trigger="loop"
-                    style="width:50px; height:50px;">
-                </creattie-embed>
-                <script src="https://creattie.com/js/embed.js?id=3efa1fcb5d85991e845a" defer></script>
-            </div>
+            <a href="#konsultasi"
+                class="flex flex-col items-center rounded-2xl p-2 transition-all duration-300 hover:bg-white hover:shadow-xl hover:-translate-y-1 group w-20">
+                <div class="relative w-16 h-16 flex items-center justify-center">
+                    <div
+                        class="absolute w-12 h-12 bg-green-50 rounded-full transition-all duration-300 group-hover:scale-125 group-hover:bg-green-100 -z-10">
+                    </div>
+                    <div class="transition-transform duration-500 ease-out group-hover:scale-110">
+                        <creattie-embed
+                            src="https://d1jj76g3lut4fe.cloudfront.net/saved_colors/138670/Rs2QWShtIpZW2AEA.json"
+                            delay="1" speed="100" frame_rate="24" trigger="loop" style="width:50px; height:50px;">
+                        </creattie-embed>
+                        <script src="https://creattie.com/js/embed.js?id=3efa1fcb5d85991e845a" defer></script>
+                    </div>
+                </div>
+                <p
+                    class="mt-2 text-[10px] font-bold text-gray-700 text-center uppercase tracking-wide leading-tight transition-colors duration-300 group-hover:text-[#009345]">
+                    Konsultasi<br>Dokter
+                </p>
+            </a>
+
+            <a href="views/unggah_file"
+                class="flex flex-col items-center rounded-2xl p-2 transition-all duration-300 hover:bg-white hover:shadow-xl hover:-translate-y-1 group w-20">
+                <div class="relative w-16 h-16 flex items-center justify-center">
+                    <div
+                        class="absolute w-12 h-12 bg-green-50 rounded-full transition-all duration-300 group-hover:scale-125 group-hover:bg-green-100 -z-10">
+                    </div>
+                    <script src="https://unpkg.com/@lottiefiles/dotlottie-wc@0.8.11/dist/dotlottie-wc.js"
+                        type="module"></script>
+                    <div class="transition-transform duration-500 ease-out group-hover:scale-110">
+                        <dotlottie-wc src="https://lottie.host/03f5de38-2071-4aaa-9122-b14b6836504a/5WtpbhaU5i.lottie"
+                            style="width: 50px; height: 50px" autoplay loop>
+                        </dotlottie-wc>
+                    </div>
+                </div>
+                <p
+                    class="mt-2 text-[10px] font-bold text-gray-700 text-center uppercase tracking-wide transition-colors duration-300 group-hover:text-[#009345]">
+                    Unggah Resep
+                </p>
+            </a>
+
+            <a href="susu"
+                class="flex flex-col items-center rounded-2xl p-2 transition-all duration-300 hover:bg-white hover:shadow-xl hover:-translate-y-1 group w-20">
+                <div class="relative w-16 h-16 flex items-center justify-center">
+                    <div
+                        class="absolute w-12 h-12 bg-green-50 rounded-full transition-all duration-300 group-hover:scale-125 group-hover:bg-green-100 -z-10">
+                    </div>
+                    <div class="transition-transform duration-500 ease-out group-hover:scale-110 group-hover:rotate-3">
+                        <dotlottie-wc src="https://lottie.host/f449adbe-e726-46b6-9fc0-10f32bd02009/hek9neDcKR.lottie"
+                            style="width: 50px; height: 50px" autoplay loop>
+                        </dotlottie-wc>
+                    </div>
+                </div>
+                <p
+                    class="mt-2 text-[10px] font-bold text-gray-700 text-center uppercase tracking-wide transition-colors duration-300 group-hover:text-[#009345]">
+                    Susu
+                </p>
+            </a>
+
+            <a href="promo"
+                class="flex flex-col items-center rounded-2xl p-2 transition-all duration-300 hover:bg-white hover:shadow-xl hover:-translate-y-1 group w-20">
+                <div class="relative w-16 h-16 flex items-center justify-center">
+                    <div
+                        class="absolute w-12 h-12 bg-green-50 rounded-full transition-all duration-300 group-hover:scale-125 group-hover:bg-[#009345]/10 -z-10">
+                    </div>
+                    <div class="transition-transform duration-500 ease-out group-hover:scale-110 group-hover:-rotate-3">
+                        <dotlottie-wc src="https://lottie.host/9b921e8e-63b7-4479-b680-4e47696b23a5/QKP2wSNTSD.lottie"
+                            style="width: 50px; height: 50px" autoplay loop>
+                        </dotlottie-wc>
+                    </div>
+                </div>
+                <p
+                    class="mt-2 text-[10px] font-bold text-gray-700 text-center uppercase tracking-wide transition-colors duration-300 group-hover:text-[#009345]">
+                    Promo
+                </p>
+            </a>
+
         </div>
-        <p class="mt-2 text-[10px] font-bold text-gray-700 text-center uppercase tracking-wide leading-tight transition-colors duration-300 group-hover:text-[#009345]">
-            Konsultasi<br>Dokter
-        </p>
-    </a>
+    </section>
 
-    <a href="views/unggah_file" class="flex flex-col items-center rounded-2xl p-2 transition-all duration-300 hover:bg-white hover:shadow-xl hover:-translate-y-1 group w-20">
-        <div class="relative w-16 h-16 flex items-center justify-center">
-            <div class="absolute w-12 h-12 bg-green-50 rounded-full transition-all duration-300 group-hover:scale-125 group-hover:bg-green-100 -z-10"></div>
-            <script src="https://unpkg.com/@lottiefiles/dotlottie-wc@0.8.11/dist/dotlottie-wc.js" type="module"></script>
-            <div class="transition-transform duration-500 ease-out group-hover:scale-110">
-                <dotlottie-wc 
-                    src="https://lottie.host/03f5de38-2071-4aaa-9122-b14b6836504a/5WtpbhaU5i.lottie" 
-                    style="width: 50px; height: 50px" 
-                    autoplay 
-                    loop>
-                </dotlottie-wc>
-            </div>
-        </div>
-        <p class="mt-2 text-[10px] font-bold text-gray-700 text-center uppercase tracking-wide transition-colors duration-300 group-hover:text-[#009345]">
-            Unggah Resep
-        </p>
-    </a>
+    @php
 
-    <a href="susu" class="flex flex-col items-center rounded-2xl p-2 transition-all duration-300 hover:bg-white hover:shadow-xl hover:-translate-y-1 group w-20">
-        <div class="relative w-16 h-16 flex items-center justify-center">
-            <div class="absolute w-12 h-12 bg-green-50 rounded-full transition-all duration-300 group-hover:scale-125 group-hover:bg-green-100 -z-10"></div>
-            <div class="transition-transform duration-500 ease-out group-hover:scale-110 group-hover:rotate-3">
-                <dotlottie-wc 
-                    src="https://lottie.host/f449adbe-e726-46b6-9fc0-10f32bd02009/hek9neDcKR.lottie" 
-                    style="width: 50px; height: 50px" 
-                    autoplay 
-                    loop>
-                </dotlottie-wc>
-            </div>
-        </div>
-        <p class="mt-2 text-[10px] font-bold text-gray-700 text-center uppercase tracking-wide transition-colors duration-300 group-hover:text-[#009345]">
-            Susu
-        </p>
-    </a>
-
-    <a href="promo" class="flex flex-col items-center rounded-2xl p-2 transition-all duration-300 hover:bg-white hover:shadow-xl hover:-translate-y-1 group w-20">
-        <div class="relative w-16 h-16 flex items-center justify-center">
-            <div class="absolute w-12 h-12 bg-green-50 rounded-full transition-all duration-300 group-hover:scale-125 group-hover:bg-[#009345]/10 -z-10"></div>
-            <div class="transition-transform duration-500 ease-out group-hover:scale-110 group-hover:-rotate-3">
-                <dotlottie-wc 
-                    src="https://lottie.host/9b921e8e-63b7-4479-b680-4e47696b23a5/QKP2wSNTSD.lottie" 
-                    style="width: 50px; height: 50px" 
-                    autoplay 
-                    loop>
-                </dotlottie-wc>
-            </div>
-        </div>
-        <p class="mt-2 text-[10px] font-bold text-gray-700 text-center uppercase tracking-wide transition-colors duration-300 group-hover:text-[#009345]">
-            Promo
-        </p>
-    </a>
-
-  </div>
-</section>
-
-@php
-
-  $listProduk = $products ?? collect();
-  $promoProducts = $listProduk->filter(function ($item) {
-    return $item->promo || ($item->promo_price > 0 && $item->promo_price < $item->price);
-  });
-@endphp
+        $listProduk = $products ?? collect();
+        $promoProducts = $listProduk->filter(function ($item) {
+            return $item->promo || ($item->promo_price > 0 && $item->promo_price < $item->price);
+        });
+    @endphp
 
 
     <section>
@@ -272,57 +283,51 @@
         use Illuminate\Support\Str;
     @endphp
 
-<section class="font-[inter] mt-[40px] mb-[40px]">
-  <div class="container mx-auto text-center">
-    
-    <p class="font-bold text-[22px] text-gray-800 mb-6 tracking-wide">
-      What’s New
-    </p>
+    <section class="font-[inter] mt-[40px] mb-[40px]">
+        <div class="container mx-auto text-center">
 
-    <div class="flex flex-wrap justify-center gap-5">
-
-      @forelse($news as $item)
-        <div
-          class="bg-white border border-gray-100 rounded-xl shadow
-                 w-[150px] min-h-[220px]
-                 flex flex-col overflow-hidden
-                 transition-all duration-300
-                 hover:shadow-lg hover:-translate-y-1">
-
-          <!-- IMAGE -->
-          <div class="w-full h-[85px] overflow-hidden">
-            <img
-              src="{{ $item->image
-    ? Storage::url($item->image)
-    : 'https://placehold.co/400x300?text=No+Image' }}"
-              alt="{{ $item->title }}"
-              class="w-full h-full object-cover"
-            />
-          </div>
-
-          <!-- CONTENT -->
-          <div class="px-2.5 py-2 text-left flex-1 flex flex-col mt-[10px]">
-            <h3 class="font-semibold text-[11px] text-[#166534] leading-snug">
-              {{ Str::limit($item->title, 30) }}
-            </h3>
-
-            <p class="text-[9.5px] text-gray-600 mt-1 leading-snug flex-1 mt-[5px]">
-              {{ Str::limit($item->description, 50) }}
+            <p class="font-bold text-[22px] text-gray-800 mb-6 tracking-wide">
+                What’s New
             </p>
-          </div>
 
-          <!-- BUTTON -->
-            <a href="{{ $item->Link }}" target="_blank" rel="noopener noreferrer" class="block">
-                <div
-                    class="bg-gradient-to-r from-[#65a30d] to-[#4d7c0f]
-                          py-1.5 text-white text-[10px] font-semibold text-center
-                          hover:opacity-90 transition">
-                                Read More
+            <div class="flex flex-wrap justify-center gap-5">
+
+                @forelse($news as $item)
+                            <div class="bg-white border border-gray-100 rounded-xl shadow
+                             w-[150px] min-h-[220px]
+                             flex flex-col overflow-hidden
+                             transition-all duration-300
+                             hover:shadow-lg hover:-translate-y-1">
+
+                                <!-- IMAGE -->
+                                <div class="w-full h-[85px] overflow-hidden">
+                                    <img src="{{ $item->image
+                    ? Storage::url($item->image)
+                    : 'https://placehold.co/400x300?text=No+Image' }}" alt="{{ $item->title }}" class="w-full h-full object-cover" />
+                                </div>
+
+                                <!-- CONTENT -->
+                                <div class="px-2.5 py-2 text-left flex-1 flex flex-col mt-[10px]">
+                                    <h3 class="font-semibold text-[11px] text-[#166534] leading-snug">
+                                        {{ Str::limit($item->title, 30) }}
+                                    </h3>
+
+                                    <p class="text-[9.5px] text-gray-600 mt-1 leading-snug flex-1 mt-[5px]">
+                                        {{ Str::limit($item->description, 50) }}
+                                    </p>
+                                </div>
+
+                                <!-- BUTTON -->
+                                <a href="{{ $item->Link }}" target="_blank" rel="noopener noreferrer" class="block">
+                                    <div class="bg-gradient-to-r from-[#65a30d] to-[#4d7c0f]
+                                      py-1.5 text-white text-[10px] font-semibold text-center
+                                      hover:opacity-90 transition">
+                                        Read More
+                                    </div>
+                                </a>
+
+
                             </div>
-                        </a>
-
-
-                    </div>
                 @empty
                     <p class="text-gray-500 text-sm italic">
                         Belum ada berita terbaru.

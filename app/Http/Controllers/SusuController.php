@@ -10,8 +10,8 @@ class SusuController extends Controller
 {
     public function index(Request $request)
     {
-        $categories = Category::all(); 
-        
+        $categories = Category::all();
+
         $query = Product::query();
 
         if ($request->has('category') && $request->category != '') {

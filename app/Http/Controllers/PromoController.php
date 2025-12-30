@@ -15,11 +15,11 @@ class PromoController extends Controller
         $productsQuery = Product::query()
             ->where(function ($q) {
                 $q->where('promo', true)
-                  ->orWhere(function ($q2) {
-                      $q2->whereNotNull('promo_price')
-                         ->where('promo_price', '>', 0)
-                         ->whereColumn('promo_price', '<', 'price');
-                  });
+                    ->orWhere(function ($q2) {
+                        $q2->whereNotNull('promo_price')
+                            ->where('promo_price', '>', 0)
+                            ->whereColumn('promo_price', '<', 'price');
+                    });
             });
 
         if ($categoryId) {
