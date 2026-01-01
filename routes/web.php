@@ -6,12 +6,14 @@ use App\Http\Controllers\Front\HomeController;
 use App\Http\Controllers\Back\ProductController;
 use App\Http\Controllers\Profile\ProfileController;
 use App\Http\Controllers\Profile\ChangeProfileController;
+use App\Http\Controllers\Profile\ProfileShowController;
 use App\Http\Controllers\SusuController;
 use App\Http\Controllers\PromoController;
 use App\Http\Controllers\Brands\BrandsController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\Resep\ResepController;
 use App\Http\Controllers\Lokasi\LokasiController;
+use App\Http\Controllers\Checkout\CheckoutController;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,18 +38,17 @@ Route::middleware('auth')->group(function () {
 
     // PROFILE PAGE
     Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
+    Route::get('/profile/show', [ProfileShowController::class, 'show'])
+        ->name('profile.show');
 
     // UPLOAD FOTO PROFILE
     Route::post('/profile/upload', [ProfileController::class, 'uploadImage'])->name('profile.upload');
 
-    // CHANGE PASSWORD FORM
+    // CHANGE PASSWORD
     Route::get('/change-password', [ChangeProfileController::class, 'index'])->name('change-password.form');
-
-    // CHANGE PASSWORD SUBMIT
     Route::post('/change-password', [ChangeProfileController::class, 'changePassword'])->name('change-password.submit');
 
     // PRODUCT
-    // routes/web.php
     Route::get('/search-product', [HomeController::class, 'searchProduct'])->name('search.product');
     Route::get('/products', [ProductController::class, 'index'])->name('products.index');
     Route::get('/products/create', [ProductController::class, 'create'])->name('products.create');
@@ -73,6 +74,7 @@ Route::middleware('auth')->group(function () {
     // RESEPS
     Route::get('/resep', [ResepController::class, 'index'])->name('resep.index');
     Route::post('/resep', [ResepController::class, 'store'])->name('resep.store');
+
     // LOKASI
     Route::post('/lokasi/store', [LokasiController::class, 'store'])->name('lokasi.store');
 });
@@ -82,6 +84,17 @@ Route::get('/susu', [SusuController::class, 'index'])->name('susu.index');
 
 // PROMO
 Route::get('/promo', [PromoController::class, 'index'])->name('promo.index');
+
+// -------------------
+// CHECKOUT
+// -------------------
+// Halaman utama promo
+
+
+Route::get('/promo', [CheckoutController::class, 'index'])->name('promo');
+Route::get('/susu', [CheckoutController::class, 'susu'])->name('susu'); // Tambahkan ini
+Route::post('/checkout', [CheckoutController::class, 'store'])->name('checkout');
+Route::get('/konfirmasi-pembayaran', [CheckoutController::class, 'konfirmasi'])->name('konfirmasi_pembayaran');
 
 // STATIC VIEWS (OPSIONAL)
 Route::view('views/forgot', 'forgot');

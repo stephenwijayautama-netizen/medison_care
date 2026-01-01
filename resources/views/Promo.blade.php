@@ -3,174 +3,123 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Medison Care - Promo Spesial</title>
-
+    <title>Medison Care - Promo</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-
-    <style>
-        .no-scrollbar::-webkit-scrollbar { display: none; }
-        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-    </style>
 </head>
+<body class="bg-gray-100 flex justify-center min-h-screen py-6">
+<div class="bg-white w-full max-w-[400px] min-h-screen shadow-xl rounded-3xl overflow-hidden flex flex-col relative">
 
-<body class="bg-gray-100 flex justify-center min-h-screen py-6 font-sans">
-
-<div class="relative bg-white w-full max-w-[400px] min-h-screen shadow-xl flex flex-col rounded-3xl overflow-hidden">
-
-    <!-- HEADER -->
+    {{-- Header & Kategori tetap sama --}}
     <header class="bg-[#009345] p-3 flex items-center gap-3 shadow-md z-30 sticky top-0">
-        <a href="/" class="text-white p-2 rounded-full hover:bg-green-700">
-            <i class="fa-solid fa-arrow-left"></i>
+        <a href="/" class="text-white hover:bg-green-700 p-2 rounded-full transition">
+            <i class="fa-solid fa-arrow-left text-lg"></i>
         </a>
 
-        <input type="text" placeholder="Cari promo..."
-               class="flex-1 rounded-full px-4 py-1.5 text-sm outline-none">
+        <form method="GET" action="{{ url()->current() }}" class="flex-1">
+            @if(request('category'))
+                <input type="hidden" name="category" value="{{ request('category') }}">
+            @endif
 
-        <div class="relative text-white">
-            <i class="fa-solid fa-cart-shopping"></i>
-            <span class="absolute -top-2 -right-2 bg-red-500 text-[10px] w-4 h-4 flex items-center justify-center rounded-full">
-                2
-            </span>
-        </div>
+            <input type="text"
+                   name="search"
+                   value="{{ request('search') }}"
+                   placeholder="Cari susu..."
+                   class="w-full rounded-full px-4 py-1.5 text-sm outline-none shadow-inner text-gray-700">
+        </form>
     </header>
 
-    <!-- KATEGORI -->
-    <div class="bg-white border-b sticky top-[56px] z-20">
-        <div class="flex gap-2 overflow-x-auto p-3 no-scrollbar">
-            <a href="{{ url()->current() }}"
-               class="px-4 py-1.5 rounded-full text-xs font-bold border
-               {{ request('category') == '' ? 'bg-[#009345] text-white' : 'bg-gray-50 text-gray-600' }}">
+    <!-- CATEGORY -->
+    <div class="bg-white border-b border-gray-100 z-20 sticky top-[60px]">
+        <div class="flex gap-2 overflow-x-auto p-3 no-scrollbar w-full">
+
+            <a href="{{ request()->fullUrlWithoutQuery('category') }}"
+               class="px-4 py-1.5 rounded-full text-xs font-bold border whitespace-nowrap
+               {{ !request('category')
+                   ? 'bg-[#009345] text-white border-[#009345]'
+                   : 'bg-gray-50 text-gray-600 border-gray-200 hover:bg-gray-100' }}">
                 Semua
             </a>
 
-            {{-- LOOPING KATEGORI DB --}}
-                @foreach($categories as $cat)
-                <a href="?category={{ $cat->slug }}" 
-                   class="px-4 py-1.5 rounded-full text-xs font-bold transition-all border block whitespace-nowrap flex-shrink-0
-                   {{ request('category') == $cat->slug 
-                      ? 'bg-[#009345] text-white border-[#009345] shadow-md' 
-                      : 'bg-gray-50 text-gray-600 border-gray-200 hover:bg-gray-100' }}">
+            @foreach($categories as $cat)
+                <a href="{{ request()->fullUrlWithQuery(['category' => $cat->id]) }}"
+                   class="px-4 py-1.5 rounded-full text-xs font-bold border whitespace-nowrap
+                   {{ request('category') == $cat->id
+                       ? 'bg-[#009345] text-white border-[#009345] shadow-md'
+                       : 'bg-gray-50 text-gray-600 border-gray-200 hover:bg-gray-100' }}">
                     {{ $cat->name }}
                 </a>
-                @endforeach
+            @endforeach
+
         </div>
     </div>
 
-    <!-- MAIN -->
-    <main class="flex-1 overflow-y-auto bg-gray-50 p-3 no-scrollbar pb-36">
 
-        @php
-            $promoProducts = $products->filter(fn($i) =>
-                $i->promo || ($i->promo_price > 0 && $i->promo_price < $i->price)
-            );
-        @endphp
-
-        <div class="flex items-center gap-2 mb-3 px-1">
-            <i class="fa-solid fa-fire text-red-500 animate-pulse"></i>
-            <h2 class="font-bold text-gray-800">Daftar Produk Promo</h2>
-        </div>
-
+    <main class="flex-1 overflow-y-auto p-3 bg-gray-50 pb-28">
         <div class="grid grid-cols-2 gap-3">
-            @forelse($promoProducts as $item)
-                <article class="bg-white rounded-xl border shadow-sm overflow-hidden flex flex-col">
-
-                    <!-- IMAGE -->
-                    @foreach ($products as $product)
-                        <div class="p-4 h-32 flex items-center justify-center">
-                            <img src="{{ $product->image ? Storage::url($product->image) : 'https://placehold.co/200x200/png' }}"
-                                 class="max-h-full object-contain"
-                                 alt="{{ $product->name }}">
-                        </div>
-                    @endforeach
-
-                    <!-- INFO -->
-                    <div class="p-3 flex flex-col gap-1">
-                        <h3 class="text-sm font-bold uppercase line-clamp-2">
-                            {{ $item->product_name }}
-                        </h3>
-
-                        <p class="text-[11px] text-gray-500">
-                            {{ Str::limit($product->description, 50) }}
-                        </p>
-
-                        <span class="text-[10px] text-gray-400 line-through">
-                            Rp {{ number_format($item->price,0,',','.') }}
-                        </span>
-
-                        <span class="text-red-600 font-bold text-sm">
-                            Rp {{ number_format($item->promo_price,0,',','.') }}
-                        </span>
+            @foreach($products as $item)
+                <div class="bg-white rounded-xl border p-3 relative">
+                    <img src="{{ $item->image ? Storage::url($item->image) : 'https://placehold.co/200' }}" class="h-24 mx-auto object-contain">
+                    <h3 class="text-xs font-bold mt-2 h-8 line-clamp-2">{{ $item->product_name }}</h3>
+                    <p class="text-red-600 font-bold text-sm">Rp {{ number_format($item->promo_price,0,',','.') }}</p>
+                    
+                    <div class="flex justify-between items-center mt-2 bg-gray-50 p-1 rounded">
+                        <button onclick="changeQty({{ $item->id }}, -1)" class="w-6 h-6 bg-white border rounded">-</button>
+                        <span id="qty-{{ $item->id }}" class="text-xs font-bold">0</span>
+                        <button onclick="changeQty({{ $item->id }}, 1)" class="w-6 h-6 bg-[#009345] text-white rounded">+</button>
                     </div>
-
-                    <!-- QTY -->
-                    <div class="p-2">
-                        <div class="flex items-center justify-between bg-red-50 rounded-lg p-1 border">
-                            <button onclick="decreaseQty({{ $item->id }})" class="w-6 h-6 bg-white border rounded">-</button>
-                            <span id="qty-{{ $item->id }}" class="text-xs font-bold">0</span>
-                            <button onclick="increaseQty({{ $item->id }})" class="w-6 h-6 bg-red-500 text-white rounded">+</button>
-                        </div>
-                    </div>
-                </article>
-            @empty
-                <div class="col-span-2 text-center py-20 text-gray-400">
-                    Tidak ada promo
                 </div>
-            @endforelse
+            @endforeach
         </div>
     </main>
 
-    <!-- FOOTER CHECKOUT (PASTI DI BAWAH) -->
-    <div class="sticky bottom-0 w-full bg-white border-t shadow z-40">
-        <div class="p-4">
-            <div class="flex justify-between text-xs mb-2">
-                <span>Total Item: <b id="total-items">0</b></span>
-                <span>Estimasi: <b class="text-[#009345]" id="total-price">Rp 0</b></span>
-            </div>
-
-            <a href="#"
-               class="w-full block text-center bg-[#009345] text-white py-3 rounded-xl font-bold">
-                Lanjut ke Pembayaran →
-            </a>
+    {{-- Footer dengan Form Hidden --}}
+    <div class="sticky bottom-0 bg-white border-t p-4 z-40">
+        <div class="flex justify-between text-xs mb-2">
+            <span>Total Item: <b id="total-items">0</b></span>
+            <span>Total: <b id="total-price">Rp 0</b></span>
         </div>
-    </div>
 
+        <form action="{{ route('checkout.store') }}" method="POST" id="form-checkout">
+            @csrf
+            <input type="hidden" name="cart" id="cart-input">
+            <button type="button" onclick="kirimKeServer()" class="w-full bg-[#009345] text-white py-3 rounded-xl font-bold">
+                Lanjut ke Pembayaran
+            </button>
+        </form>
+    </div>
 </div>
 
-<!-- SCRIPT -->
 <script>
-    const qty = {};
-    const prices = {};
+    const selectedItems = {};
+    const prices = @json($products->pluck('promo_price', 'id'));
 
-    @foreach ($products as $p)
-        prices[{{ $p->id }}] = {{ $p->promo_price ?? $p->price }};
-    @endforeach
-
-    function increaseQty(id) {
-        qty[id] = (qty[id] || 0) + 1;
-        updateUI();
-    }
-
-    function decreaseQty(id) {
-        if (qty[id] > 0) qty[id]--;
+    function changeQty(id, delta) {
+        selectedItems[id] = (selectedItems[id] || 0) + delta;
+        if (selectedItems[id] < 0) selectedItems[id] = 0;
         updateUI();
     }
 
     function updateUI() {
-        let totalItems = 0, totalPrice = 0;
-
-        for (const id in qty) {
-            totalItems += qty[id];
-            totalPrice += (prices[id] || 0) * qty[id];
-            const el = document.getElementById(`qty-${id}`);
-            if (el) el.innerText = qty[id];
+        let totalQty = 0; let totalPrice = 0;
+        for (const id in selectedItems) {
+            totalQty += selectedItems[id];
+            totalPrice += selectedItems[id] * (prices[id] || 0);
+            document.getElementById(`qty-${id}`).innerText = selectedItems[id];
         }
+        document.getElementById('total-items').innerText = totalQty;
+        document.getElementById('total-price').innerText = 'Rp ' + new Intl.NumberFormat('id-ID').format(totalPrice);
+    }
 
-        document.getElementById('total-items').innerText = totalItems;
-        document.getElementById('total-price').innerText =
-            'Rp ' + new Intl.NumberFormat('id-ID').format(totalPrice);
+    function kirimKeServer() {
+        const filtered = {};
+        for(const id in selectedItems) { if(selectedItems[id] > 0) filtered[id] = selectedItems[id]; }
+        
+        if (Object.keys(filtered).length === 0) return alert('Pilih produk dulu!');
+        
+        document.getElementById('cart-input').value = JSON.stringify(filtered);
+        document.getElementById('form-checkout').submit();
     }
 </script>
-
 </body>
 </html>

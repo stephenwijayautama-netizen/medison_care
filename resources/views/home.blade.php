@@ -9,6 +9,28 @@
     <title>{{ config('app.name', 'Medison Care') }}</title>
     @vite(['resources/css/app.css', 'resources/js/app.js', 'resources/css/style.css'])
 
+    <style>
+        /* Utility untuk menyembunyikan scrollbar */
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            /* IE and Edge */
+            scrollbar-width: none;
+            /* Firefox */
+        }
+
+        /* Terapkan hidden scrollbar HANYA untuk Mobile (max-width: 768px) */
+        @media (max-width: 768px) {
+            .no-scrollbar::-webkit-scrollbar {
+                display: none;
+                /* Chrome, Safari, Opera */
+            }
+
+            .no-scrollbar {
+                -ms-overflow-style: none;
+                scrollbar-width: none;
+            }
+        }
+    </style>
 </head>
 
 <body class="antialiased aspect-9-16 " style="--frame: 520px;">
@@ -75,11 +97,12 @@
                 class="w-full h-64 md:h-72 object-cover flex-shrink-0" alt="Healthcare banner 3">
         </div>
     </div>
+    </section>
 
     <section class="mt-6">
         <div class="flex flex-row justify-center items-start gap-3 px-2">
 
-            <a href="views/konsultasi"
+            <a href="#konsultasi"
                 class="flex flex-col items-center rounded-2xl p-2 transition-all duration-300 hover:bg-white hover:shadow-xl hover:-translate-y-1 group w-20">
                 <div class="relative w-16 h-16 flex items-center justify-center">
                     <div
@@ -88,8 +111,7 @@
                     <div class="transition-transform duration-500 ease-out group-hover:scale-110">
                         <creattie-embed
                             src="https://d1jj76g3lut4fe.cloudfront.net/saved_colors/138670/Rs2QWShtIpZW2AEA.json"
-                            delay="1" speed="100" frame_rate="24" trigger="loop"
-                            style="width:50px; height:50px;">
+                            delay="1" speed="100" frame_rate="24" trigger="loop" style="width:50px; height:50px;">
                         </creattie-embed>
                         <script src="https://creattie.com/js/embed.js?id=3efa1fcb5d85991e845a" defer></script>
                     </div>
@@ -106,7 +128,8 @@
                     <div
                         class="absolute w-12 h-12 bg-green-50 rounded-full transition-all duration-300 group-hover:scale-125 group-hover:bg-green-100 -z-10">
                     </div>
-                    <script src="https://unpkg.com/@lottiefiles/dotlottie-wc@0.8.11/dist/dotlottie-wc.js" type="module"></script>
+                    <script src="https://unpkg.com/@lottiefiles/dotlottie-wc@0.8.11/dist/dotlottie-wc.js"
+                        type="module"></script>
                     <div class="transition-transform duration-500 ease-out group-hover:scale-110">
                         <dotlottie-wc src="https://lottie.host/03f5de38-2071-4aaa-9122-b14b6836504a/5WtpbhaU5i.lottie"
                             style="width: 50px; height: 50px" autoplay loop>
@@ -150,13 +173,23 @@
                     </div>
                 </div>
                 <p
-                    class="mt-2 text-[10px] font-bold text-gray-700 text-center uppercase tracking-wide transition-colors duration-300 group-hover:text-[#009345]">
+                    class="mt-2 text-[10px] font-bold text-gray-700 text-center uppercase tracking-wide transition-colors duration-300 group-hover:text-[#009345] ">
                     Promo
                 </p>
             </a>
 
         </div>
     </section>
+
+    @php
+
+        $listProduk = $products ?? collect();
+        $promoProducts = $listProduk->filter(function ($item) {
+            return $item->promo || ($item->promo_price > 0 && $item->promo_price < $item->price);
+        });
+    @endphp
+
+
     <section>
         <div>
             <img src="photo/banner3.png" alt="" class=" w-[400px] h-[250px] rounded-xl ml-[60px] mt-[20px]">
@@ -166,7 +199,7 @@
     <section class="mt-6 font-[inter]">
         <!-- Header -->
         <div class="flex items-center justify-between mb-3 px-3">
-            <h2 class="text-[17px] font-semibold text-gray-800">Promo</h2>
+            <h2 class="text-[26px] font-semibold text-gray-800 flex justify-center mx-auto mt-[20px]">Promo</h2>
         </div>
 
         <!-- SCROLL LIST -->
@@ -176,17 +209,17 @@
                 @forelse($products as $product)
                     <!-- CARD DYNAMIC -->
                     <article
-                        class="relative w-40 bg-white rounded-xl border border-green-300 shadow-sm hover:shadow-lg transition-all duration-300 hover:-translate-y-1 overflow-hidden">
+                        class="relative w-40 bg-white rounded-xl border border-green-300 shadow-sm hover:shadow-lg transition-all duration-300 hover:-translate-y-1 overflow-hidden mt-[20px]">
 
                         <!-- Badge PROMO -->
                         <div class="absolute top-0 left-0 w-full flex justify-center pointer-events-none">
                             <span
-                                class=" bg-[#C6A252] text-white text-[10px] font-semibold px-2 py-1 rounded-b-md shadow-sm uppercase tracking-wide">
+                                class=" bg-[#C6A252] text-white text-[12px] font-semibold px-2 py-1 rounded-b-md shadow-sm uppercase tracking-wide ">
                                 Promo
                             </span>
                         </div>
 
-                        <div class="p-2 pt-5">
+                        <div class="p-2 pt-5 mt-[20px]">
                             <!-- Gambar -->
                             <div class="w-full h-[85px] mb-2 flex items-center justify-center">
                                 <img src="{{ $product->image ? Storage::url($product->image) : 'https://placehold.co/400x300?text=No+Image' }}"
@@ -257,49 +290,48 @@
     <section class="font-[inter] mt-[40px] mb-[40px]">
         <div class="container mx-auto text-center">
 
-            <p class="font-bold text-[22px] text-gray-800 mb-6 tracking-wide">
+            <p class="font-bold text-[26px] text-gray-800 mb-6 tracking-wide">
                 What’s New
             </p>
 
             <div class="flex flex-wrap justify-center gap-5">
 
                 @forelse($news as $item)
-                    <div
-                        class="bg-white border border-gray-100 rounded-xl shadow
-                 w-[150px] min-h-[220px]
-                 flex flex-col overflow-hidden
-                 transition-all duration-300
-                 hover:shadow-lg hover:-translate-y-1">
+                            <div class="bg-white border border-gray-100 rounded-xl shadow
+                             w-[150px] min-h-[220px]
+                             flex flex-col overflow-hidden
+                             transition-all duration-300
+                             hover:shadow-lg hover:-translate-y-1">
 
-                        <!-- IMAGE -->
-                        <div class="w-full h-[85px] overflow-hidden">
-                            <img src="{{ $item->image ? Storage::url($item->image) : 'https://placehold.co/400x300?text=No+Image' }}"
-                                alt="{{ $item->title }}" class="w-full h-full object-cover" />
-                        </div>
+                                <!-- IMAGE -->
+                                <div class="w-full h-[85px] overflow-hidden">
+                                    <img src="{{ $item->image
+                    ? Storage::url($item->image)
+                    : 'https://placehold.co/400x300?text=No+Image' }}" alt="{{ $item->title }}" class="w-full h-full object-cover" />
+                                </div>
 
-                        <!-- CONTENT -->
-                        <div class="px-2.5 py-2 text-left flex-1 flex flex-col mt-[10px]">
-                            <h3 class="font-semibold text-[11px] text-[#166534] leading-snug">
-                                {{ Str::limit($item->title, 30) }}
-                            </h3>
+                                <!-- CONTENT -->
+                                <div class="px-2.5 py-2 text-left flex-1 flex flex-col mt-[10px]">
+                                    <h3 class="font-semibold text-[11px] text-[#166534] leading-snug">
+                                        {{ Str::limit($item->title, 30) }}
+                                    </h3>
 
-                            <p class="text-[9.5px] text-gray-600 mt-1 leading-snug flex-1 mt-[5px]">
-                                {{ Str::limit($item->description, 50) }}
-                            </p>
-                        </div>
+                                    <p class="text-[9.5px] text-gray-600 mt-1 leading-snug flex-1 mt-[5px]">
+                                        {{ Str::limit($item->description, 50) }}
+                                    </p>
+                                </div>
 
-                        <!-- BUTTON -->
-                        <a href="{{ $item->Link }}" target="_blank" rel="noopener noreferrer" class="block">
-                            <div
-                                class="bg-gradient-to-r from-[#65a30d] to-[#4d7c0f]
-                          py-1.5 text-white text-[10px] font-semibold text-center
-                          hover:opacity-90 transition">
-                                Read More
+                                <!-- BUTTON -->
+                                <a href="{{ $item->Link }}" target="_blank" rel="noopener noreferrer" class="block">
+                                    <div class="bg-gradient-to-r from-[#65a30d] to-[#4d7c0f]
+                                      py-1.5 text-white text-[10px] font-semibold text-center
+                                      hover:opacity-90 transition">
+                                        Read More
+                                    </div>
+                                </a>
+
+
                             </div>
-                        </a>
-
-
-                    </div>
                 @empty
                     <p class="text-gray-500 text-sm italic">
                         Belum ada berita terbaru.
