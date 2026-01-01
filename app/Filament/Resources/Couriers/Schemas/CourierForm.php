@@ -14,7 +14,10 @@ class CourierForm
                 TextInput::make('name')
                     ->required(),
                 TextInput::make('phone')
-                    ->required(),
+                ->label('Nomor Telepon')
+                ->tel() // Format input telepon
+                ->required() // Wajib diisi agar tidak error database lagi
+                ->maxLength(20),
                 TextInput::make('address')
                     ->required(),
             ]);
