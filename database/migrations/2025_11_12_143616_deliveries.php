@@ -21,9 +21,7 @@ return new class extends Migration
                   ->cascadeOnUpdate()
                   ->cascadeOnDelete();
 
-            $table->string('tracking_number');
             $table->text('delivery_address');
-
             $table->enum('status', [
                 'preparing',
                 'shipped',

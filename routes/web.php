@@ -7,13 +7,16 @@ use App\Http\Controllers\Back\ProductController;
 use App\Http\Controllers\Profile\ProfileController;
 use App\Http\Controllers\Profile\ChangeProfileController;
 use App\Http\Controllers\Profile\ProfileShowController;
-use App\Http\Controllers\SusuController;
-use App\Http\Controllers\PromoController;
+// use App\Http\Controllers\SusuController;   // <-- Opsi: Matikan jika sudah pindah ke CheckoutController
+// use App\Http\Controllers\PromoController;  // <-- Opsi: Matikan jika sudah pindah ke CheckoutController
+use App\Http\Controllers\PaymentResultController;
 use App\Http\Controllers\Brands\BrandsController;
 use App\Http\Controllers\NewsController;
+use App\Http\Controllers\Api\PaymentCallbackController;
 use App\Http\Controllers\Resep\ResepController;
 use App\Http\Controllers\Lokasi\LokasiController;
-use App\Http\Controllers\Checkout\CheckoutController;
+use App\Http\Controllers\Checkout\CheckoutController; // Pastikan ini ada
+
 
 /*
 |--------------------------------------------------------------------------
@@ -28,27 +31,47 @@ Route::post('/doRegister', [AuthController::class, 'doregister'])->name('doRegis
 
 /*
 |--------------------------------------------------------------------------
-| AUTHENTICATED AREA
+| FRONTEND PUBLIC (Bisa diakses tanpa login)
+|--------------------------------------------------------------------------
+*/
+
+// --- MENU BELANJA (Menggunakan CheckoutController yang baru diperbaiki) ---
+// Halaman Promo (Tadi error disini, sekarang sudah diarahkan ke CheckoutController@index)
+Route::get('/promo', [CheckoutController::class, 'index'])->name('promo');
+
+// Halaman Produk Susu
+Route::get('/susu', [CheckoutController::class, 'susu'])->name('susu');
+
+// Proses Checkout (Simpan ke session)
+Route::post('/checkout', [CheckoutController::class, 'store'])->name('checkout.store'); 
+
+// Halaman Konfirmasi Pembayaran
+Route::get('/konfirmasi-pembayaran', [CheckoutController::class, 'konfirmasi'])->name('konfirmasi_pembayaran');
+
+
+/*
+|--------------------------------------------------------------------------
+| AUTHENTICATED AREA (Harus Login)
 |--------------------------------------------------------------------------
 */
 Route::middleware('auth')->group(function () {
 
     // HOME
     Route::get('/', [HomeController::class, 'index'])->name('home');
+    Route::get('/payment-result/{id}', [PaymentResultController::class, 'show'])->name('payment.result');
 
     // PROFILE PAGE
     Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
-    Route::get('/profile/show', [ProfileShowController::class, 'show'])
-        ->name('profile.show');
+    Route::get('/profile/show', [ProfileShowController::class, 'show'])->name('profile.show');
 
     // UPLOAD FOTO PROFILE
     Route::post('/profile/upload', [ProfileController::class, 'uploadImage'])->name('profile.upload');
-
+    
     // CHANGE PASSWORD
     Route::get('/change-password', [ChangeProfileController::class, 'index'])->name('change-password.form');
     Route::post('/change-password', [ChangeProfileController::class, 'changePassword'])->name('change-password.submit');
 
-    // PRODUCT
+    // PRODUCT (ADMIN/BACKEND)
     Route::get('/search-product', [HomeController::class, 'searchProduct'])->name('search.product');
     Route::get('/products', [ProductController::class, 'index'])->name('products.index');
     Route::get('/products/create', [ProductController::class, 'create'])->name('products.create');
@@ -56,7 +79,11 @@ Route::middleware('auth')->group(function () {
     Route::get('/products/{product}/edit', [ProductController::class, 'edit'])->name('products.edit');
     Route::put('/products/{product}', [ProductController::class, 'update'])->name('products.update');
     Route::delete('/products/{product}', [ProductController::class, 'destroy'])->name('products.destroy');
+// Di bagian Route Checkout yang sudah kita rapikan sebelumnya:
 
+Route::post('/process-payment', [CheckoutController::class, 'processPayment'])
+    ->name('checkout.process')
+    ->middleware('auth');
     // BRANDS
     Route::get('/brands', [BrandsController::class, 'index'])->name('brands.index');
 
@@ -68,35 +95,23 @@ Route::middleware('auth')->group(function () {
     Route::put('/news/{news}', [NewsController::class, 'update'])->name('news.update');
     Route::delete('/news/{news}', [NewsController::class, 'destroy'])->name('news.destroy');
 
-    // LOGOUT
-    Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
-
     // RESEPS
     Route::get('/resep', [ResepController::class, 'index'])->name('resep.index');
     Route::post('/resep', [ResepController::class, 'store'])->name('resep.store');
 
     // LOKASI
     Route::post('/lokasi/store', [LokasiController::class, 'store'])->name('lokasi.store');
+
+    // LOGOUT
+    Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 });
 
-// SUSU
-Route::get('/susu', [SusuController::class, 'index'])->name('susu.index');
 
-// PROMO
-Route::get('/promo', [PromoController::class, 'index'])->name('promo.index');
-
-// -------------------
-// CHECKOUT
-// -------------------
-// Halaman utama promo
-
-
-Route::get('/promo', [CheckoutController::class, 'index'])->name('promo');
-Route::get('/susu', [CheckoutController::class, 'susu'])->name('susu'); // Tambahkan ini
-Route::post('/checkout', [CheckoutController::class, 'store'])->name('checkout');
-Route::get('/konfirmasi-pembayaran', [CheckoutController::class, 'konfirmasi'])->name('konfirmasi_pembayaran');
-
-// STATIC VIEWS (OPSIONAL)
+/*
+|--------------------------------------------------------------------------
+| STATIC VIEWS (OPSIONAL)
+|--------------------------------------------------------------------------
+*/
 Route::view('views/forgot', 'forgot');
 Route::view('views/metodepayment', 'metodepayment');
 Route::view('views/order', 'order');

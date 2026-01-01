@@ -10,11 +10,16 @@ class Transaction extends Model
 {
     protected $fillable = [
         'user_id',
+        'invoice_number', // <--- WAJIB ADA
         'total_amount',
         'shipping_cost',
         'status',
         'payment_method',
-        'transaction_date',
+        'payment_url',    // <--- WAJIB ADA
+        'transaction_date'
+    ];
+    protected $casts = [
+        'transaction_date' => 'datetime',
     ];
 
     public function user(): BelongsTo
@@ -26,5 +31,11 @@ class Transaction extends Model
     public function detailTransactions(): HasMany
     {
         return $this->hasMany(Detailtransaction::class);
+    }
+
+    public function delivery()
+    {
+    // hasOne karena 1 Transaksi biasanya hanya 1 Pengiriman
+    return $this->hasOne(Delivery::class);
     }
 }
