@@ -43,7 +43,7 @@
                 <p class="text-gray-700 text-center mt-3 leading-relaxed">
                     Konsultasikan langsung dengan
                     <span class="font-semibold text-green-600">
-                        apoteker resmi
+                        Dokter resmi
                     </span>
                     kami untuk solusi yang aman dan tepat.
                 </p>

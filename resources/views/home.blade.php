@@ -102,7 +102,7 @@
     <section class="mt-6">
         <div class="flex flex-row justify-center items-start gap-3 px-2">
 
-            <a href="#konsultasi"
+            <a href="views/konsultasi"
                 class="flex flex-col items-center rounded-2xl p-2 transition-all duration-300 hover:bg-white hover:shadow-xl hover:-translate-y-1 group w-20">
                 <div class="relative w-16 h-16 flex items-center justify-center">
                     <div
@@ -353,7 +353,7 @@
 
             <!-- Popup Chat -->
             <div id="chatPopup"
-                class="hidden absolute bottom-20 right-2 w-[300px] bg-white rounded-2xl shadow-2xl border border-gray-100 overflow-hidden animate-fade-in">
+                class="hidden absolute bottom-20 right-10 w-[300px] bg-white rounded-2xl shadow-2xl border border-gray-100 overflow-hidden animate-fade-in">
 
                 <!-- Header -->
                 <div class="flex items-center gap-3 p-4 bg-green-500 text-white rounded-t-2xl">
