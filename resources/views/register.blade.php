@@ -17,7 +17,7 @@
 
     <!-- LEFT -->
     <div class="md:w-5/12 flex flex-col items-center justify-center p-6 border-b md:border-b-0 md:border-r">
-        <div class="w-[250px] h-[250px]">
+        <div class="w-[450px] h-[250px]">
             <dotlottie-wc
                 src="https://lottie.host/bd7a9b3c-a1cf-4afd-832d-5b12afaa3092/jaEv8tVuTG.lottie"
                 autoplay loop>

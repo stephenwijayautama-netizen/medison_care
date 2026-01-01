@@ -54,8 +54,12 @@
                 </svg>
 
                 <!-- Input -->
-                <input type="text" name="search" placeholder="Search anything..."
+                <input type="text" name="search" id="search" placeholder="Search anything..."
                     class="flex-1 min-w-0 bg-transparent text-gray-700 placeholder-gray-400 text-sm focus:outline-none" />
+
+                <ul id="search-result"
+                    class="absolute left-0 right-0 mt-2 bg-white border rounded-lg shadow-lg hidden z-50">
+                </ul>
 
                 <!-- Tombol -->
                 <button type="submit"
@@ -118,7 +122,7 @@
                 </p>
             </a>
 
-            <a href="views/unggah_file"
+            <a href="/resep"
                 class="flex flex-col items-center rounded-2xl p-2 transition-all duration-300 hover:bg-white hover:shadow-xl hover:-translate-y-1 group w-20">
                 <div class="relative w-16 h-16 flex items-center justify-center">
                     <div
@@ -169,7 +173,7 @@
                     </div>
                 </div>
                 <p
-                    class="mt-2 text-[10px] font-bold text-gray-700 text-center uppercase tracking-wide transition-colors duration-300 group-hover:text-[#009345]">
+                    class="mt-2 text-[10px] font-bold text-gray-700 text-center uppercase tracking-wide transition-colors duration-300 group-hover:text-[#009345] ">
                     Promo
                 </p>
             </a>
@@ -195,7 +199,7 @@
     <section class="mt-6 font-[inter]">
         <!-- Header -->
         <div class="flex items-center justify-between mb-3 px-3">
-            <h2 class="text-[17px] font-semibold text-gray-800">Promo</h2>
+            <h2 class="text-[26px] font-semibold text-gray-800 flex justify-center mx-auto mt-[20px]">Promo</h2>
         </div>
 
         <!-- SCROLL LIST -->
@@ -205,19 +209,19 @@
                 @forelse($products as $product)
                     <!-- CARD DYNAMIC -->
                     <article
-                        class="relative w-40 bg-white rounded-xl border border-green-300 shadow-sm hover:shadow-lg transition-all duration-300 hover:-translate-y-1 overflow-hidden">
+                        class="relative w-40 bg-white rounded-xl border border-green-300 shadow-sm hover:shadow-lg transition-all duration-300 hover:-translate-y-1 overflow-hidden mt-[20px]">
 
                         <!-- Badge PROMO -->
                         <div class="absolute top-0 left-0 w-full flex justify-center pointer-events-none">
                             <span
-                                class="inline-block bg-[#C6A252] text-white text-[10px] font-semibold px-2 py-1 rounded-b-md shadow-sm uppercase tracking-wide">
+                                class=" bg-[#C6A252] text-white text-[12px] font-semibold px-2 py-1 rounded-b-md shadow-sm uppercase tracking-wide ">
                                 Promo
                             </span>
                         </div>
 
-                        <div class="p-2 pt-5">
+                        <div class="p-2 pt-5 mt-[20px]">
                             <!-- Gambar -->
-                            <div class="w-full h-[85px] mb-2 overflow-hidden flex items-center justify-center">
+                            <div class="w-full h-[85px] mb-2 flex items-center justify-center">
                                 <img src="{{ $product->image ? Storage::url($product->image) : 'https://placehold.co/400x300?text=No+Image' }}"
                                     alt="{{ $product->product_name }}" class="w-full h-full object-cover" />
                             </div>
@@ -259,25 +263,25 @@
     </section>
 
 
-    <!-- 🤝 Supported brand -->
+<section class="font-[inter] py-12">
+    <div class="max-w-6xl mx-auto text-center">
 
-    <section class="font-[inter] mt-[40px] mb-[40px]">
-        <div class="text-center">
+        <p class="font-bold text-[26px] text-gray-800 mb-10 tracking-wide">
+            Our Supported Brands
+        </p>
 
-            <p class="font-bold text-[26px] text-gray-800 mb-6 tracking-wide">
-                Our Supported Brands
-            </p>
-
-            <div class="flex flex-wrap justify-center gap-6">
-                @foreach ($brands as $brand)
-                    <img src="{{ $brand->image ? Storage::url($brand->image) : 'https://placehold.co/400x300?text=No+Image' }}"
-                        alt="{{ $brand->name }}" class="w-[90px] h-auto object-contain">
-                @endforeach
-            </div>
-
-
+        <div class="flex flex-wrap justify-center items-center gap-x-10 gap-y-6">
+            @foreach ($brands as $brand)
+                <img
+                    src="{{ $brand->image ? Storage::url($brand->image) : 'https://placehold.co/400x300?text=No+Image' }}"
+                    alt="{{ $brand->name }}"
+                    class="w-[90px] h-auto object-contain hover:scale-105 transition-transform duration-300 ease-in-out">
+            @endforeach
         </div>
-    </section>
+
+    </div>
+</section>
+
     @php
         use Illuminate\Support\Facades\Storage;
         use Illuminate\Support\Str;
@@ -286,7 +290,7 @@
     <section class="font-[inter] mt-[40px] mb-[40px]">
         <div class="container mx-auto text-center">
 
-            <p class="font-bold text-[22px] text-gray-800 mb-6 tracking-wide">
+            <p class="font-bold text-[26px] text-gray-800 mb-6 tracking-wide">
                 What’s New
             </p>
 
@@ -404,6 +408,7 @@
         }
     </style>
 
+    <!-- Script buat chat popup -->
     <script>
         document.addEventListener("DOMContentLoaded", () => {
             const btn = document.getElementById('chatButton');
@@ -421,6 +426,8 @@
             });
         });
     </script>
+
+
 
     <!-- ⚙️ Footer -->
     <footer class="bg-[#85A35E] text-white mt-6 rounded-2xl overflow-hidden">

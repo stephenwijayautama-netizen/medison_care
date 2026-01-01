@@ -10,24 +10,47 @@ class SusuController extends Controller
 {
     public function index(Request $request)
     {
-        $categories = Category::all();
+        // BASE QUERY
+        $productsQuery = Product::query();
 
-        $query = Product::query();
+        // SEARCH (JALAN JIKA ADA)
+        if ($request->filled('search')) {
+            $productsQuery->where(
+                'product_name',
+                'like',
+                '%' . $request->search . '%'
+            );
+        }
 
-        if ($request->has('category') && $request->category != '') {
-            $categoryId = $request->category;
-            $query->whereHas('category', function ($q) use ($categoryId) {
-                $q->where('id', $categoryId);
+        // CATEGORY (JALAN JIKA ADA)
+        if ($request->filled('category')) {
+            $productsQuery->whereHas('category', function ($q) use ($request) {
+                $q->where('id', $request->category);
             });
         }
 
-        $products = $query->latest()->get();
+        // DATA
+        $products   = $productsQuery->latest()->get();
+        $categories = Category::all();
 
-        // 5. Kirim data ke View
         return view('susu', [
-            'products' => $products,
-            'categories' => $categories, // Ini menggantikan dummy data di Blade
-            'currentCategory' => $request->category // Untuk menandai menu aktif
+            'products'        => $products,
+            'categories'      => $categories,
+            'currentCategory' => $request->category
         ]);
+    }
+
+    public function searchProduct(Request $request)
+    {
+        $search = $request->get('q');
+
+        if (!$search) {
+            return response()->json([]);
+        }
+
+        return Product::where('product_name', 'like', "%{$search}%")
+            ->whereNull('deleted_at')
+            ->limit(5)
+            ->get(['id', 'product_name', 'slug']);
     }
 }
