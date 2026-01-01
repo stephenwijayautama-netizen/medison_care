@@ -11,6 +11,10 @@ return new class extends Migration
         Schema::create('transactions', function (Blueprint $table) {
             $table->id(); // ✅ BIGINT UNSIGNED
 
+            // [BARU] Invoice Number untuk Doku (String, Unik)
+            // Contoh: INV-20231201-0001
+            $table->string('invoice_number')->unique()->nullable();
+
             $table->foreignId('user_id')
                   ->constrained()
                   ->cascadeOnUpdate()
@@ -18,6 +22,9 @@ return new class extends Migration
 
             $table->decimal('total_amount', 10, 2);
             $table->decimal('shipping_cost', 10, 2);
+            
+            // [BARU] Menyimpan URL pembayaran dari Doku
+            $table->text('payment_url')->nullable();
 
             $table->enum('status', [
                 'pending',
@@ -25,17 +32,20 @@ return new class extends Migration
                 'processing',
                 'shipped',
                 'delivered',
-                'cancelled'
-            ]);
+                'cancelled',
+                'expired', // Tambahan: status expired jika tidak dibayar
+                'failed'   // Tambahan: status failed
+            ])->default('pending');
 
-            $table->enum('payment_method', [
-                'credit_card',
-                'bank_transfer',
-                'e-wallet',
-                'cod'
-            ]);
+            // [UBAH] Saya ubah jadi String & Nullable
+            // Karena saat checkout, user mungkin belum pilih metode (pilihnya di halaman Doku)
+            // Dan Doku mengembalikan kode seperti 'VIRTUAL_ACCOUNT_BCA' yang tidak sesuai enum awal Anda
+            $table->string('payment_method')->nullable(); 
 
-            $table->timestamp('transaction_date');
+            // Jika Anda ingin tetap pakai enum, pastikan listnya mencakup kode dari Doku
+            // $table->enum('payment_method', [...])->nullable();
+
+            $table->timestamp('transaction_date')->useCurrent(); // Default current time
             $table->timestamps();
         });
     }

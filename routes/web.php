@@ -8,6 +8,7 @@ use App\Http\Controllers\Profile\ProfileController;
 use App\Http\Controllers\Profile\ChangeProfileController;
 use App\Http\Controllers\SusuController;
 use App\Http\Controllers\PromoController;
+use App\Http\Controllers\PaymentResultController;
 use App\Http\Controllers\Brands\BrandsController;
 // Tambahan Import untuk News
 use App\Http\Controllers\NewsController; 
@@ -35,6 +36,8 @@ Route::middleware('auth')->group(function () {
 
     // HOME
     Route::get('/', [HomeController::class, 'index'])->name('home');
+    Route::get('/payment-result/{id}', [PaymentResultController::class, 'show'])
+    ->name('payment.result');
 
     // PROFILE PAGE
     Route::get('/profile', [ProfileController::class, 'index'])->name('profile');

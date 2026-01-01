@@ -9,7 +9,7 @@ class Detailtransaction extends Model
 {
     // Tips: Jika nama tabelmu bukan 'detailtransactions', definisikan di sini
     // protected $table = 'detail_transactions'; 
-
+    protected $table = 'transaction_details';
     protected $fillable = [
         'transaction_id',
         'product_id',

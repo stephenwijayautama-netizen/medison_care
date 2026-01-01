@@ -16,6 +16,9 @@ class Transaction extends Model
         'payment_method',
         'transaction_date',
     ];
+    protected $casts = [
+        'transaction_date' => 'datetime',
+    ];
 
     public function user(): BelongsTo
     {
