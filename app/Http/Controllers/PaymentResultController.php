@@ -8,24 +8,24 @@ use Illuminate\Http\Request;
 class PaymentResultController extends Controller
 {
     /**
-     * Tampilkan halaman hasil pembayaran
+     * Halaman hasil pembayaran (return URL dari DOKU)
      */
-    public function show($transactionId)
+    public function show(int $transactionId)
     {
-        // Ambil transaksi + detail + user
         $transaction = Transaction::with([
             'user',
-            'detailTransactions'
+            'detailTransactions',
         ])->findOrFail($transactionId);
 
-        // Hitung total produk
         $totalProduct = $transaction->detailTransactions->sum('subtotal');
 
-        return view('payment-result', [
-            'transaction'     => $transaction,
-            'details'         => $transaction->detailTransactions,
-            'totalProduct'    => $totalProduct,
-            'grandTotal'      => $transaction->total_amount + $transaction->shipping_cost,
-        ]);
+        $grandTotal = $transaction->total_amount
+            + ($transaction->shipping_cost ?? 0);
+
+        return view('payment-result', compact(
+            'transaction',
+            'totalProduct',
+            'grandTotal'
+        ));
     }
 }
