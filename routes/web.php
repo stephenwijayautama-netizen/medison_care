@@ -17,7 +17,6 @@ use App\Http\Controllers\Resep\ResepController;
 use App\Http\Controllers\Lokasi\LokasiController;
 use App\Http\Controllers\Checkout\CheckoutController; // Pastikan ini ada
 
-
 /*
 |--------------------------------------------------------------------------
 | AUTH
@@ -58,8 +57,9 @@ Route::middleware('auth')->group(function () {
 
     // HOME
     Route::get('/', [HomeController::class, 'index'])->name('home');
-    Route::get('/payment-result/{id}', [PaymentResultController::class, 'show'])->name('payment.result');
-
+   Route::get('/payment/result/{transactionId}', 
+    [PaymentResultController::class, 'show']
+)->name('payment.result');
     // PROFILE PAGE
     Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
     Route::get('/profile/show', [ProfileShowController::class, 'show'])->name('profile.show');

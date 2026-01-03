@@ -353,7 +353,7 @@
 
             <!-- Popup Chat -->
             <div id="chatPopup"
-                class="hidden absolute bottom-20 right-2 w-[300px] bg-white rounded-2xl shadow-2xl border border-gray-100 overflow-hidden animate-fade-in">
+                class="hidden absolute bottom-20 right-10 w-[300px] bg-white rounded-2xl shadow-2xl border border-gray-100 overflow-hidden animate-fade-in">
 
                 <!-- Header -->
                 <div class="flex items-center gap-3 p-4 bg-green-500 text-white rounded-t-2xl">

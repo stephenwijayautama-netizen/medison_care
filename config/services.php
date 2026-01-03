@@ -34,5 +34,14 @@ return [
             'channel' => env('SLACK_BOT_USER_DEFAULT_CHANNEL'),
         ],
     ],
+    'doku' => [
+    'env' => env('DOKU_ENV', 'sandbox'),
+    'client_id' => env('DOKU_CLIENT_ID'),
+    'secret_key' => env('DOKU_SECRET_KEY'),
+
+    // ⬇️ INI HARUS ADA
+    'sandbox_url' => 'https://api-sandbox.doku.com',
+    'production_url' => 'https://api.doku.com',
+],
 
 ];
