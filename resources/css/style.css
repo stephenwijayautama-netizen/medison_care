@@ -1,80 +1,102 @@
+@import 'tailwindcss';
+
 /* ================================
-   9:16 Layout — scroll di html/body
+   CUSTOM LAYOUT & COMPONENT STYLE
    ================================ */
+@layer components {
 
-/* Halaman boleh scroll */
-html, body {
-  height: auto;
-  margin: 0;
-  overflow: auto;                 /* ⬅️ scroll utama di halaman */
-  background: #f8f8f8;
-  font-family: 'Inter', sans-serif;
-}
+  /* Halaman boleh scroll */
+  html, body {
+    height: auto;
+    margin: 0;
+    overflow: auto;
+    background: #f8f8f8;
+    font-family: 'Inter', sans-serif;
+  }
 
-/* Jangan pakai flex center di body saat body yang scroll */
-body {
-  display: block;
-}
+  /* Jangan flex body (penting untuk scroll) */
+  body {
+    display: block;
+  }
 
-/* Frame 9:16 (tanpa scroll internal) */
-.aspect-9-16 {
-  aspect-ratio: 9 / 16;           /* jaga rasio dari lebar */
-  width: min(92vw, var(--frame, 560px));
-  height: auto;                   /* tinggi mengikuti konten */
-  max-height: none;
-  margin: 24px auto;              /* center horizontal + jarak atas/bawah */
-
-  background: #fff;
-  border-radius: 20px;
-  overflow: visible;              /* ⬅️ hilangkan scroll di dalam frame */
-  /* box-shadow: 0 0 25px rgba(0,0,0,.12); */
-}
-
-/* Responsif mobile: penuh lebar, tanpa shadow */
-@media (max-width: 768px) {
+  /* Frame 9:16 */
   .aspect-9-16 {
-    width: 100vw;
-    border-radius: 0;
-    box-shadow: none;
+    aspect-ratio: 9 / 16;
+    width: min(92vw, var(--frame, 560px));
+    height: auto;
+    max-height: none;
+    margin: 24px auto;
+
+    background: #fff;
+    border-radius: 20px;
+    overflow: visible;
+  }
+
+  /* Mobile full width */
+  @media (max-width: 768px) {
+    .aspect-9-16 {
+      width: 100vw;
+      border-radius: 0;
+      box-shadow: none;
+      margin: 0 auto;
+    }
+  }
+
+  /* Sponsor hover */
+  .sponsor-item img {
+    border-radius: 8px;
+    transition: transform .3s ease;
+  }
+
+  .sponsor-item img:hover {
+    transform: scale(1.05);
+  }
+
+  /* Footer */
+  footer {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+  }
+
+  footer input[type="email"] {
+    color: #333;
+  }
+
+  /* Promo badge */
+  .card-promo {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .card-promo .promo-badge {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+
+  .card-promo .promo-badge span {
+    background: #c6a252;
+    color: #fff;
+    font-size: .75rem;
+    font-weight: 600;
+    padding: 4px 12px;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0,0,0,.15);
+  }
+
+  /* Mobile frame 9:16 */
+  :root {
+    --mobile-frame-width: min(100vw, 430px);
+  }
+
+  .mobile-frame {
+    width: var(--mobile-frame-width);
+    height: calc(var(--mobile-frame-width) * 16 / 9);
     margin: 0 auto;
+    background-color: #fff;
   }
 }
-
-/* Sponsor hover */
-.sponsor-item img {
-  border-radius: 8px;
-  transition: transform .3s ease;
-}
-.sponsor-item img:hover { transform: scale(1.05); }
-
-/* Footer */
-footer { border-top-left-radius: 0; border-top-right-radius: 0; }
-footer input[type="email"] { color: #333; }
-
-/* (Opsional) Badge PROMO bila pakai .card-promo */
-.card-promo { position: relative; overflow: hidden; }
-.card-promo .promo-badge {
-  position: absolute; top: 0; left: 0; width: 100%;
-  display: flex; justify-content: center;
-}
-.card-promo .promo-badge span {
-  background:#c6a252; color:#fff; font-size:.75rem; font-weight:600;
-  padding:4px 12px; border-bottom-left-radius:8px; border-bottom-right-radius:8px;
-  box-shadow:0 2px 6px rgba(0,0,0,.15);
-}
-
-/* FRAME UTAMA 9:16 */
-:root {
-  --mobile-frame-width: min(100vw, 430px); /* width HP max */
-}
-
-/* Bikin semua konten seperti di dalam layar hp */
-.mobile-frame {
-  width: var(--mobile-frame-width);
-  /* hitung tinggi sesuai 9:16 */
-  height: calc(var(--mobile-frame-width) * 16 / 9);
-  margin: 0 auto;
-  background-color: #fff;
-}
-
-

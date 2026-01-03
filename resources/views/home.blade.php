@@ -102,7 +102,7 @@
     <section class="mt-6">
         <div class="flex flex-row justify-center items-start gap-3 px-2">
 
-            <a href="#konsultasi"
+            <a href="views/konsultasi"
                 class="flex flex-col items-center rounded-2xl p-2 transition-all duration-300 hover:bg-white hover:shadow-xl hover:-translate-y-1 group w-20">
                 <div class="relative w-16 h-16 flex items-center justify-center">
                     <div
