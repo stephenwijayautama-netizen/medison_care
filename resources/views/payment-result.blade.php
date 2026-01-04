@@ -146,15 +146,6 @@
 
         <!-- Actions -->
         <div class="mt-8 space-y-3">
-            <button
-                onclick="navigator.share && navigator.share({
-                    title: 'Struk Pembayaran',
-                    text: 'Transaksi #{{ $transaction->id }} sebesar Rp {{ number_format($grandTotal, 0, ',', '.') }}'
-                })"
-                class="w-full border border-primary text-primary py-3 rounded-xl font-semibold">
-                Bagikan
-            </button>
-
             <a href="/"
                class="block text-center w-full bg-primary text-white py-3 rounded-xl font-semibold">
                 OK
