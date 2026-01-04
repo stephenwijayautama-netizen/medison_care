@@ -15,6 +15,7 @@ use App\Http\Controllers\NewsController;
 use App\Http\Controllers\Api\PaymentCallbackController;
 use App\Http\Controllers\Resep\ResepController;
 use App\Http\Controllers\Lokasi\LokasiController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\Checkout\CheckoutController; // Pastikan ini ada
 
 /*
@@ -57,7 +58,7 @@ Route::middleware('auth')->group(function () {
 
     // HOME
     Route::get('/', [HomeController::class, 'index'])->name('home');
-   Route::get('/payment/result/{transactionId}', 
+    Route::get('/payment/result/{transactionId}', 
     [PaymentResultController::class, 'show']
 )->name('payment.result');
     // PROFILE PAGE
@@ -104,17 +105,19 @@ Route::post('/process-payment', [CheckoutController::class, 'processPayment'])
 
     // LOGOUT
     Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
+
+    Route::get('/orders', [OrderController::class, 'index'])->name('orders.index');
+    Route::get('/orders/{transaction}', [OrderController::class, 'show'])->name('orders.show');
 });
 
 
 /*
-|--------------------------------------------------------------------------
 | STATIC VIEWS (OPSIONAL)
 |--------------------------------------------------------------------------
 */
 Route::view('views/forgot', 'forgot');
 Route::view('views/metodepayment', 'metodepayment');
-Route::view('views/order', 'order');
+// Route::view('views/order', 'order');
 Route::view('views/change_password', 'change_password');
 Route::view('views/unggah_file', 'unggah_file');
 Route::view('views/konsultasi', 'konsultasi');

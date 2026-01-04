@@ -72,7 +72,7 @@
         <!-- Kanan: Icon -->
         <div class="flex items-center gap-3 flex-shrink-0">
             <!-- Keranjang -->
-            <a href="/views/order">
+            <a href="/orders">
                 <img src="photo/keranjang.png" alt="Keranjang" class="w-[50px] ml-[-5px]">
             </a>
 
