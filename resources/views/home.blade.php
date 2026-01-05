@@ -34,69 +34,73 @@
 </head>
 
 <body class="antialiased aspect-9-16 " style="--frame: 520px;">
-    <header class="w-full flex items-center justify-between px-4  gap-4 bg-white shadow-sm rounded-t-2xl mt-[-20px]">
-        <!-- Kiri: Logo -->
-        <div class="flex-shrink-0 w-[100px]">
-            <img src="photo/logo.png" alt="Logo" class="w-full h-auto">
-        </div>
-
-        <!-- Tengah: Search -->
-        <form action="#" method="GET" class="flex-1 flex justify-center">
-            <div
-                class="flex items-center w-full max-w-[380px] gap-2 px-4 py-1.5 bg-[#f9fafb] border border-gray-300 rounded-full shadow-sm focus-within:ring-2 focus-within:ring-gray-200 transition-all duration-300">
-
-                <!-- Ikon Search -->
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                    class="w-4 h-4 text-gray-500 flex-shrink-0">
-                    <circle cx="11" cy="11" r="7" />
-                    <line x1="21" y1="21" x2="16.65" y2="16.65" />
-                </svg>
-
-                <!-- Input -->
-                <input type="text" name="search" id="search" placeholder="Search anything..."
-                    class="flex-1 min-w-0 bg-transparent text-gray-700 placeholder-gray-400 text-sm focus:outline-none" />
-
-                <ul id="search-result"
-                    class="absolute left-0 right-0 mt-2 bg-white border rounded-lg shadow-lg hidden z-50">
-                </ul>
-
-                <!-- Tombol -->
-                <button type="submit"
-                    class="px-3 py-1 text-sm font-medium text-gray-600 bg-white border border-gray-300 rounded-full hover:bg-gray-100 transition-colors duration-300">
-                    Go
-                </button>
-            </div>
-        </form>
-
-        <!-- Kanan: Icon -->
-        <div class="flex items-center gap-3 flex-shrink-0">
-            <!-- Keranjang -->
-            <a href="/views/order">
-                <img src="photo/keranjang.png" alt="Keranjang" class="w-[50px] ml-[-5px]">
-            </a>
-
-            <!-- Profil -->
-            <a href="profile" class="w-[22px] ml-[-15px]">
-                <img src="photo/user.png" alt="User" class="w-full h-auto">
-            </a>
-        </div>
-    </header>
-
-
-    <!-- 🖼️ Slider Container -->
-    <div
-        class="relative w-[450px] h-72 overflow-hidden rounded-2xl shadow-2xl mt-[30px]  mx-auto flex justify-center items-center">
-        <!-- Tips: jika nanti pakai slider JS, tambahkan width dinamis per slide -->
-        <div class="slides flex transition-transform duration-700">
-            <img src="photo/slider3.png" class="w-full h-64 md:h-72 object-cover flex-shrink-0"
-                alt="Healthcare banner 1">
-            <img src="photo/poster222.png" class="w-full h-64 md:h-72 object-cover flex-shrink-0"
-                alt="Healthcare banner 2">
-            <img src="https://goalkes-images.s3.ap-southeast-1.amazonaws.com/media/8587/hDwQMwUmOSbso6VlQ2c7ihQnxrWYeCSGQEbP0gBB.jpg"
-                class="w-full h-64 md:h-72 object-cover flex-shrink-0" alt="Healthcare banner 3">
-        </div>
+    <header class="w-full flex items-center justify-between px-3 md:px-6 py-2 bg-white shadow-sm rounded-t-2xl mt-[-20px] gap-2 md:gap-4">
+    
+    <div class="flex-shrink-0 w-12 md:w-24">
+        <img src="photo/logo.png" alt="Logo" class="w-full h-auto">
     </div>
+
+    <form action="#" method="GET" class="flex-1 max-w-[400px]">
+        <div class="flex items-center w-full gap-2 px-3 py-1.5 bg-[#f9fafb] border border-gray-300 rounded-full focus-within:ring-2 focus-within:ring-gray-200 transition-all">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                class="w-4 h-4 text-gray-400 flex-shrink-0">
+                <circle cx="11" cy="11" r="7" />
+                <line x1="21" y1="21" x2="16.65" y2="16.65" />
+            </svg>
+
+            <input type="text" name="search" id="search" placeholder="Search..."
+                class="flex-1 min-w-0 bg-transparent text-gray-700 placeholder-gray-400 text-xs md:text-sm focus:outline-none" />
+
+            <button type="submit"
+                class="hidden sm:block px-3 py-1 text-xs font-medium text-gray-600 bg-white border border-gray-300 rounded-full hover:bg-gray-100">
+                Go
+            </button>
+        </div>
+    </form>
+
+    <div class="flex items-center gap-2 md:gap-4 flex-shrink-0">
+        <a href="/views/order" class="relative">
+            <img src="photo/keranjang.png" alt="Keranjang" class="w-7 h-7 md:w-9 md:h-9 object-contain">
+        </a>
+
+        <a href="profile" class="w-6 h-6 md:w-8 md:h-8 border border-gray-200 rounded-full overflow-hidden">
+            <img src="photo/user.png" alt="User" class="w-full h-full object-cover">
+        </a>
+    </div>
+</header>
+    <!-- 🖼️ Slider Container -->
+   <div class="relative w-[65%] max-w-[450px] h-[80px] sm:h-64 md:h-72 overflow-hidden rounded-2xl shadow-xl mt-[30px] mx-auto">
+    
+    <div class="slides flex w-full h-full transition-transform duration-700">
+        
+        <div class="w-full h-full flex-shrink-0">
+            <img src="photo/slider3.png" 
+                 class="w-full h-full object-cover" 
+                 alt="Healthcare banner 1">
+        </div>
+
+        {{-- <div class="w-full h-full flex-shrink-0">
+            <img src="photo/poster222.png" 
+                 class="w-full h-full object-cover" 
+                 alt="Healthcare banner 2">
+        </div> --}}
+
+        <div class="w-full h-full flex-shrink-0">
+            <img src="https://goalkes-images.s3.ap-southeast-1.amazonaws.com/media/8587/hDwQMwUmOSbso6VlQ2c7ihQnxrWYeCSGQEbP0gBB.jpg" 
+                 class="w-full h-full object-cover" 
+                 alt="Healthcare banner 3">
+        </div>
+        
+    </div>
+
+    <div class="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-2">
+        <div class="w-2 h-2 bg-white/50 rounded-full"></div>
+        <div class="w-2 h-2 bg-white rounded-full"></div>
+        <div class="w-2 h-2 bg-white/50 rounded-full"></div>
+    </div>
+</div>
     </section>
 
     <section class="mt-6">
@@ -190,11 +194,12 @@
     @endphp
 
 
-    <section>
-        <div>
-            <img src="photo/banner3.png" alt="" class=" w-[400px] h-[250px] rounded-xl ml-[60px] mt-[20px]">
-        </div>
-    </section>
+<section class="px-4"> <div class="flex justify-center items-center w-full">
+        <img src="photo/banner3.png" 
+             alt="Banner" 
+             class="w-full max-w-[400px] h-auto aspect-[16/10] object-cover rounded-xl mt-[20px] shadow-md">
+    </div>
+</section>
     <!-- PROMO SECTION -->
     <section class="mt-6 font-[inter]">
         <!-- Header -->
