@@ -34,7 +34,7 @@
 </head>
 
 <body class="antialiased aspect-9-16 " style="--frame: 520px;">
-    <header class="w-full flex items-center justify-between px-3 md:px-6 py-2 bg-white shadow-sm rounded-t-2xl mt-[-20px] gap-2 md:gap-4">
+    <header class="w-full flex items-center justify-between px-3 md:px-6 py-2 bg-white shadow-sm rounded-t-2xl  gap-2 md:gap-4">
     
     <div class="flex-shrink-0 w-12 md:w-24">
         <img src="photo/logo.png" alt="Logo" class="w-full h-auto">
@@ -60,18 +60,18 @@
         </div>
     </form>
 
-    <div class="flex items-center gap-2 md:gap-4 flex-shrink-0">
-        <a href="/views/order" class="relative">
-            <img src="photo/keranjang.png" alt="Keranjang" class="w-7 h-7 md:w-9 md:h-9 object-contain">
-        </a>
+   <div class="flex items-center gap-2 md:gap-4">
+    <a href="/views/order" class="w-12 h-12 md:w-10 md:h-10 flex items-center justify-center">
+        <img src="photo/keranjang.png" alt="Keranjang" class="w-full h-full object-contain">
+    </a>
 
-        <a href="profile" class="w-6 h-6 md:w-8 md:h-8 border border-gray-200 rounded-full overflow-hidden">
-            <img src="photo/user.png" alt="User" class="w-full h-full object-cover">
-        </a>
-    </div>
+    <a href="profile" class="w-6 h-6 md:w-10 md:h-10 border border-gray-200 rounded-full overflow-hidden flex items-center justify-center">
+        <img src="photo/user.png" alt="User" class="w-full h-full object-cover">
+    </a>
+</div>
 </header>
     <!-- 🖼️ Slider Container -->
-   <div class="relative w-[65%] max-w-[450px] h-[80px] sm:h-64 md:h-72 overflow-hidden rounded-2xl shadow-xl mt-[30px] mx-auto">
+   <div class="relative w-[70%] max-w-[450px] h-[100px] sm:h-64 md:h-72 overflow-hidden rounded-2xl shadow-xl mt-[30px] mx-auto">
     
     <div class="slides flex w-full h-full transition-transform duration-700">
         

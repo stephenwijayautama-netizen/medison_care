@@ -13,9 +13,9 @@
     </style>
 </head>
 
-<body class="bg-gray-100 flex justify-center items-start min-h-screen py-6 font-sans">
+<body class="bg-gray-100 flex justify-center items-start min-h-screen  font-sans">
 
-<div class="relative bg-white w-full max-w-[400px] min-h-screen shadow-xl flex flex-col rounded-3xl overflow-hidden">
+<div class="relative bg-white w-full max-w-[400px] min-h-screen shadow-xl flex flex-col  overflow-hidden">
 
     <header class="bg-[#009345] p-3 flex items-center gap-3 shadow-md z-30 sticky top-0">
         <a href="/" class="text-white hover:bg-green-700 p-2 rounded-full transition">

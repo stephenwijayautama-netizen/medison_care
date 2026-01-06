@@ -7,8 +7,8 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
-<body class="bg-gray-100 flex justify-center min-h-screen py-6">
-<div class="bg-white w-full max-w-[400px] min-h-screen shadow-xl rounded-3xl overflow-hidden flex flex-col relative">
+<body class="bg-gray-100 flex justify-center min-h-screen ">
+<div class="bg-white w-full max-w-[400px] min-h-screen shadow-xl  overflow-hidden flex flex-col relative">
 
     {{-- Header & Kategori tetap sama --}}
     <header class="bg-[#009345] p-3 flex items-center gap-3 shadow-md z-30 sticky top-0">
