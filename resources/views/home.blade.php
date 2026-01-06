@@ -61,7 +61,7 @@
     </form>
 
    <div class="flex items-center gap-2 md:gap-4">
-    <a href="/views/order" class="w-12 h-12 md:w-10 md:h-10 flex items-center justify-center">
+    <a href="/orders" class="w-12 h-12 md:w-10 md:h-10 flex items-center justify-center">
         <img src="photo/keranjang.png" alt="Keranjang" class="w-full h-full object-contain">
     </a>
 
