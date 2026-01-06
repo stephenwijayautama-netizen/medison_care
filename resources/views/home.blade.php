@@ -224,13 +224,28 @@
                             </span>
                         </div>
 
-                        <div class="p-2 pt-5 mt-[20px]">
-                            <!-- Gambar -->
-                            <div class="w-full h-[85px] mb-2 flex items-center justify-center">
-                                <img src="{{ $product->image ? Storage::url($product->image) : 'https://placehold.co/400x300?text=No+Image' }}"
-                                    alt="{{ $product->product_name }}" class="w-full h-full object-cover" />
-                            </div>
+                        <div class="px-6 py-8 text-center">
+    <div class="relative inline-block">
+        <form id="avatarForm" action="{{ route('profile.upload') }}" method="POST" enctype="multipart/form-data">
+            @csrf
+            <img id="avatarPreview" src="{{ auth()->user()->image
+                ? Storage::url('profile_images/' . auth()->user()->image)
+                : 'https://randomuser.me/api/portraits/men/32.jpg' }}"
+                class="w-28 h-28 rounded-full mx-auto object-cover border-4 border-white shadow-lg">
+            
+            <label for="upload-photo" class="absolute bottom-1 right-1 bg-blue-600 p-2 rounded-full border-2 border-white shadow-md cursor-pointer hover:bg-blue-700 transition-all">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812-1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z" />
+                </svg>
+                <input type="file" id="upload-photo" name="file_input" class="hidden" accept="image/*" onchange="handleImagePreview(this)">
+            </label>
+        </form>
+    </div>
 
+    <h2 class="mt-4 font-semibold text-lg text-gray-800">{{ auth()->user()->name }}</h2>
+    <p class="text-sm text-gray-500">{{ auth()->user()->email }}</p>
+</div>
                             <!-- Judul -->
                             <h3
                                 class="text-[11px] font-semibold text-gray-900 text-center leading-snug uppercase line-clamp-2">
