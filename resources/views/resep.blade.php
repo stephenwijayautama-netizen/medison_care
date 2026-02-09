@@ -9,19 +9,20 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 
-<body class="bg-gray-900 flex justify-center items-center min-h-screen">
+<body class="bg-gray-100 antialiased min-h-screen">
 
-    <div
-        class="relative bg-white w-full max-w-[450px] h-screen shadow-2xl flex flex-col md:rounded-[40px] md:border-[8px] md:border-gray-900 overflow-hidden font-[inter]">
+    <div class="relative bg-white w-full max-w-[450px] min-h-screen shadow-sm flex flex-col overflow-hidden font-[inter] mx-auto">
 
-        <header class="bg-[#009345] p-4 flex items-center gap-3 shadow-md z-50">
-            <a href="javascript:history.back()" class="text-white">
-                <i class="fa-solid fa-arrow-left text-lg"></i>
+        <header class="bg-gradient-to-r from-[#009345] to-[#008038] p-4 flex items-center gap-3 shadow-md z-50 sticky top-0">
+            <a href="javascript:history.back()" class="w-10 h-10 flex items-center justify-center bg-white/20 hover:bg-white/30 rounded-full transition-all hover:scale-110 backdrop-blur-sm">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+                </svg>
             </a>
             <h1 class="text-white font-bold text-lg">Unggah Resep</h1>
         </header>
 
-        <main class="flex-1 overflow-y-auto bg-gray-50 p-5">
+        <main class="flex-1 overflow-y-auto bg-gray-50 p-5 pb-10">
 
             <!-- Notifikasi sukses -->
             @if (session('success'))

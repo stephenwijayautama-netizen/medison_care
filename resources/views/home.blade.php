@@ -34,14 +34,14 @@
 </head>
 
 <body class="antialiased aspect-9-16 " style="--frame: 520px;">
-    <header class="w-full flex items-center justify-between px-3 md:px-6 py-2 bg-white shadow-sm rounded-t-2xl  gap-2 md:gap-4">
+    <header class="w-full flex items-center justify-between px-3 md:px-6 py-3 bg-white shadow-sm rounded-t-2xl gap-2 md:gap-4">
     
-    <div class="flex-shrink-0 w-12 md:w-24">
+    <div class="flex-shrink-0 w-10 md:w-20">
         <img src="photo/logo.png" alt="Logo" class="w-full h-auto">
     </div>
 
     <form action="#" method="GET" class="flex-1 max-w-[400px]">
-        <div class="flex items-center w-full gap-2 px-3 py-1.5 bg-[#f9fafb] border border-gray-300 rounded-full focus-within:ring-2 focus-within:ring-gray-200 transition-all">
+        <div class="flex items-center w-full gap-2 px-3 py-1.5 bg-[#f9fafb] border border-gray-300 rounded-full focus-within:ring-2 focus-within:ring-green-200 transition-all">
             
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                 stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -54,18 +54,18 @@
                 class="flex-1 min-w-0 bg-transparent text-gray-700 placeholder-gray-400 text-xs md:text-sm focus:outline-none" />
 
             <button type="submit"
-                class="hidden sm:block px-3 py-1 text-xs font-medium text-gray-600 bg-white border border-gray-300 rounded-full hover:bg-gray-100">
+                class="hidden sm:block px-3 py-1 text-xs font-medium text-white bg-green-600 border border-green-600 rounded-full hover:bg-green-700 transition-colors">
                 Go
             </button>
         </div>
     </form>
 
-   <div class="flex items-center gap-2 md:gap-4">
-    <a href="orders" class="w-12 h-12 md:w-10 md:h-10 flex items-center justify-center">
+   <div class="flex items-center gap-3 md:gap-4 flex-shrink-0">
+    <a href="orders" class="w-9 h-9 md:w-10 md:h-10 flex items-center justify-center hover:scale-110 transition-transform">
         <img src="photo/keranjang.png" alt="Keranjang" class="w-full h-full object-contain">
     </a>
 
-    <a href="profile" class="w-6 h-6 md:w-10 md:h-10 border border-gray-200 rounded-full overflow-hidden flex items-center justify-center">
+    <a href="profile" class="w-9 h-9 md:w-10 md:h-10 border-2 border-gray-300 rounded-full overflow-hidden flex items-center justify-center hover:border-green-500 hover:scale-110 transition-all">
         <img src="photo/user.png" alt="User" class="w-full h-full object-cover">
     </a>
 </div>
