@@ -21,10 +21,10 @@
         }
     </script>
 </head>
-<body class="bg-gray-100 flex justify-center">
+<body class="bg-gray-100 antialiased min-h-screen">
 
     <!-- Mobile Container -->
-    <div class="w-full max-w-md bg-white min-h-screen px-5 pt-6 pb-10">
+    <div class="w-full max-w-[450px] bg-white min-h-screen px-5 pt-6 pb-10 mx-auto shadow-sm">
 
         <!-- Header -->
         <h1 class="text-center text-lg font-semibold mb-6">

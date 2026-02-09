@@ -13,25 +13,53 @@
     </style>
 </head>
 
-<body class="bg-gray-100 flex justify-center items-start min-h-screen  font-sans">
+<body class="bg-gray-100 antialiased min-h-screen font-sans">
 
-<div class="relative bg-white w-full max-w-[400px] min-h-screen shadow-xl flex flex-col  overflow-hidden">
+<div class="relative bg-white w-full max-w-[450px] min-h-screen shadow-sm flex flex-col overflow-hidden mx-auto">
 
-    <header class="bg-[#009345] p-3 flex items-center gap-3 shadow-md z-30 sticky top-0">
-        <a href="/" class="text-white hover:bg-green-700 p-2 rounded-full transition">
-            <i class="fa-solid fa-arrow-left text-lg"></i>
+    <header class="w-full flex items-center justify-between px-2 md:px-6 py-3 bg-white shadow-sm rounded-t-2xl gap-2 md:gap-4 sticky top-0 z-30">
+    
+        <a href="/" class="flex-shrink-0 w-9 h-9 md:w-10 md:h-10 flex items-center justify-center hover:scale-110 transition-transform -ml-3">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-gray-700" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+            </svg>
         </a>
 
-        <form method="GET" action="{{ url()->current() }}" class="flex-1">
+        <form method="GET" action="{{ url()->current() }}" class="flex-1 max-w-[400px]">
             @if(request('category'))
                 <input type="hidden" name="category" value="{{ request('category') }}">
             @endif
-            <input type="text" name="search" value="{{ request('search') }}" placeholder="Cari susu..."
-                   class="w-full rounded-full px-4 py-1.5 text-sm outline-none shadow-inner text-gray-700">
+            <div class="flex items-center w-full gap-2 px-3 py-1.5 bg-[#f9fafb] border border-gray-300 rounded-full focus-within:ring-2 focus-within:ring-green-200 transition-all">
+                
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    class="w-4 h-4 text-gray-400 flex-shrink-0">
+                    <circle cx="11" cy="11" r="7" />
+                    <line x1="21" y1="21" x2="16.65" y2="16.65" />
+                </svg>
+
+                <input type="text" name="search" value="{{ request('search') }}" placeholder="Search..."
+                    class="flex-1 min-w-0 bg-transparent text-gray-700 placeholder-gray-400 text-xs md:text-sm focus:outline-none" />
+
+                <button type="submit"
+                    class="hidden sm:block px-3 py-1 text-xs font-medium text-white bg-green-600 border border-green-600 rounded-full hover:bg-green-700 transition-colors">
+                    Go
+                </button>
+            </div>
         </form>
+
+        <div class="flex items-center gap-2 md:gap-3 flex-shrink-0 -mr-1">
+            <a href="orders" class="w-9 h-9 md:w-10 md:h-10 flex items-center justify-center hover:scale-110 transition-transform">
+                <img src="photo/keranjang.png" alt="Keranjang" class="w-full h-full object-contain">
+            </a>
+
+            <a href="profile" class="w-9 h-9 md:w-10 md:h-10 border-2 border-gray-300 rounded-full overflow-hidden flex items-center justify-center hover:border-green-500 hover:scale-110 transition-all">
+                <img src="photo/user.png" alt="User" class="w-full h-full object-cover">
+            </a>
+        </div>
     </header>
 
-    <div class="bg-white border-b border-gray-100 z-20 sticky top-[52px]">
+    <div class="bg-white border-b border-gray-100 z-20 sticky top-[60px]">
         <div class="flex gap-2 overflow-x-auto p-3 no-scrollbar w-full">
             <a href="{{ request()->fullUrlWithoutQuery('category') }}"
                class="px-4 py-1.5 rounded-full text-xs font-bold border whitespace-nowrap
@@ -58,28 +86,27 @@
         @if($regularProducts->isNotEmpty())
             <div class="grid grid-cols-2 gap-3">
                 @foreach($regularProducts as $item)
-                    <article class="bg-white rounded-xl border shadow-sm overflow-hidden relative">
+                    <div class="bg-white rounded-xl border p-3 relative">
                         @if($item->best_seller)
                             <span class="absolute top-0 left-0 bg-yellow-400 text-[9px] font-bold px-2 py-1 rounded-br-lg z-10">
                                 ⭐ Terlaris
                             </span>
                         @endif
 
-                        <div class="p-4 h-32 flex items-center justify-center">
-                            <img src="{{ $item->image ? Storage::url($item->image) : 'https://placehold.co/200x200' }}" class="max-h-full object-contain">
+                        <img src="{{ $item->image ? Storage::url($item->image) : 'https://placehold.co/200' }}" 
+                             class="h-24 mx-auto object-contain">
+                        
+                        <h3 class="text-xs font-bold mt-2 h-8 line-clamp-2">{{ $item->product_name }}</h3>
+                        <p class="text-[#009345] font-bold text-sm">Rp {{ number_format($item->price, 0, ',', '.') }}</p>
+                        
+                        <div class="flex justify-between items-center mt-2 bg-gray-50 p-1 rounded">
+                            <button onclick="decreaseQty({{ $item->id }})" 
+                                    class="w-6 h-6 bg-white border rounded hover:bg-gray-100 transition">-</button>
+                            <span id="qty-{{ $item->id }}" class="text-xs font-bold">0</span>
+                            <button onclick="increaseQty({{ $item->id }})" 
+                                    class="w-6 h-6 bg-[#009345] text-white rounded hover:bg-green-700 transition">+</button>
                         </div>
-
-                        <div class="p-3">
-                            <h3 class="text-[11px] font-bold uppercase mb-2 line-clamp-2">{{ $item->product_name }}</h3>
-                            <p class="text-[#009345] font-bold text-sm mb-3">Rp {{ number_format($item->price, 0, ',', '.') }}</p>
-
-                            <div class="flex justify-between items-center bg-gray-50 rounded-lg p-1 border">
-                                <button onclick="decreaseQty({{ $item->id }})" class="w-8 h-8 flex items-center justify-center bg-white border rounded shadow-sm hover:bg-gray-100">-</button>
-                                <span id="qty-{{ $item->id }}" class="text-sm font-bold">0</span>
-                                <button onclick="increaseQty({{ $item->id }})" class="w-8 h-8 flex items-center justify-center bg-[#009345] text-white rounded shadow-sm hover:bg-green-700">+</button>
-                            </div>
-                        </div>
-                    </article>
+                    </div>
                 @endforeach
             </div>
         @else

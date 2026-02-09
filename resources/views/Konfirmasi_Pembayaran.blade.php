@@ -7,8 +7,8 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
-<body class="bg-gray-100 p-6 flex justify-center items-center min-h-screen">
-    <div class="bg-white w-full max-w-[450px] rounded-3xl shadow-xl p-6">
+<body class="bg-gray-100 antialiased min-h-screen">
+    <div class="bg-white w-full max-w-[450px] shadow-sm p-6 mx-auto min-h-screen">
         <h2 class="text-xl font-bold mb-6 border-b pb-3">Konfirmasi Pesanan</h2>
         
         <form action="{{ route('checkout.process') }}" method="POST" id="checkoutForm">

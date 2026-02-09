@@ -11,14 +11,18 @@
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 </head>
 
-<body class="bg-[#F3F6F3] min-h-screen flex justify-center">
+<body class="bg-gray-100 antialiased min-h-screen">
 
-<div class="w-full max-w-md bg-white min-h-screen">
+<div class="w-full max-w-[450px] bg-white min-h-screen shadow-sm mx-auto">
 
     <!-- HEADER -->
-    <div class="bg-[#7BAE7F] pt-5 pb-5 text-center text-white relative">
-        <a href="/" class="absolute left-4 top-4 text-xl">←</a>
-        <h1 class="text-lg font-semibold tracking-wide">My Profile</h1>
+    <div class="bg-gradient-to-r from-[#7BAE7F] to-[#6B9F6F] pt-6 pb-6 text-center text-white relative shadow-lg">
+        <a href="/" class="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 flex items-center justify-center bg-white/20 hover:bg-white/30 rounded-full transition-all hover:scale-110 backdrop-blur-sm">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+            </svg>
+        </a>
+        <h1 class="text-xl font-bold tracking-wide">My Profile</h1>
     </div>
 
     <!-- PROFILE CENTER -->
