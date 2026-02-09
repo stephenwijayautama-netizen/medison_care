@@ -104,7 +104,7 @@ Route::post('/process-payment', [CheckoutController::class, 'processPayment'])
     Route::post('/lokasi/store', [LokasiController::class, 'store'])->name('lokasi.store');
 
     // LOGOUT
-    Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
+    Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
     Route::get('/orders', [OrderController::class, 'index'])->name('orders.index');
     Route::get('/orders/{transaction}', [OrderController::class, 'show'])->name('orders.show');
