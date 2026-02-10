@@ -56,7 +56,7 @@
                 </div>
 
                 <div class="text-right mb-6">
-                    <a href="/Forgot" class="text-[#009345] text-[10px] sm:text-[11px] font-bold hover:underline uppercase tracking-tight">Forgot Password?</a>
+                    <a href="/forgot-password" class="text-[#009345] text-[10px] sm:text-[11px] font-bold hover:underline uppercase tracking-tight">Forgot Password?</a>
                 </div>
 
                 <button type="submit"

@@ -18,6 +18,7 @@ use App\Http\Controllers\Lokasi\LokasiController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\Checkout\CheckoutController; // Pastikan ini ada
 
+
 /*
 |--------------------------------------------------------------------------
 | AUTH
@@ -115,9 +116,10 @@ Route::post('/process-payment', [CheckoutController::class, 'processPayment'])
 | STATIC VIEWS (OPSIONAL)
 |--------------------------------------------------------------------------
 */
-Route::view('views/forgot', 'forgot');
 Route::view('views/metodepayment', 'metodepayment');
 // Route::view('views/order', 'order');
 Route::view('views/change_password', 'change_password');
 Route::view('views/unggah_file', 'unggah_file');
 Route::view('views/konsultasi', 'konsultasi');
+Route::get('/forgot-password', [AuthController::class, 'forgotPassword']);
+Route::post('/forgot-password', [AuthController::class, 'sendNewPassword']);

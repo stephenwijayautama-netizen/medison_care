@@ -9,6 +9,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Models\Role;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Str;
+
 
 class AuthController extends Controller
 {
@@ -85,6 +88,40 @@ class AuthController extends Controller
 
         return redirect('/login')->with('success', 'Berhasil logout');
     }
+public function forgotPassword()
+{
+    return view('/forgot');
+}
+
+public function sendNewPassword(Request $request)
+{
+    $request->validate([
+        'email' => 'required|email'
+    ]);
+
+    $user = User::where('email', $request->email)->first();
+
+    if (!$user) {
+        return back()->with('error', 'Email tidak terdaftar');
+    }
+
+    $newPassword = Str::random(8);
+
+    $user->password = Hash::make($newPassword);
+    $user->save();
+
+    // Kirim password baru ke email
+    Mail::raw(
+        "Halo {$user->name},\n\nPassword baru Anda adalah:\n\n{$newPassword}\n\nSilakan login dan segera ganti password.",
+        function ($message) use ($user) {
+            $message->to($user->email)
+                    ->subject('Password Baru Akun Anda');
+        }
+    );
+
+    return back()->with('success', 'Password baru telah dikirim ke email Anda.');
+}
 
 }
+
 ;

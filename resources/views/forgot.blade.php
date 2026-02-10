@@ -3,31 +3,47 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <title>Forgot Password</title>
 </head>
-<body class="font-[Inter] bg-[#f4f4f4]">
-  <section>
-    <div>
-      <p class="text-black font-bold text-3xl ml-[435px] mt-[100px]">Forgot Email</p>
-    </div>
+<body class="bg-[#f4f4f4] min-h-screen flex items-center justify-center">
 
-    <div class="bg-white w-[300px] h-auto border border-gray-400 shadow-md rounded-[45px] ml-[370px] mt-[25px] pb-6">
-      <!-- Nama -->
-      <div class="flex flex-col space-y-1 mt-[15px] ml-[40px]">
-        <label for="nama" class="text-md font-semibold text-black">Email</label>
-        <input 
-          type="Email"
-          id="nama"
-          placeholder="Masukkan Email"
-          class="w-[220px] h-[40px] px-3 border border-gray-300 rounded-2xl focus:outline-none focus:ring-2 focus:ring-[#597445] shadow-sm text-sm"
-        />
-      </div>
-        <div class="bg-[#4a6339] w-[220px] h-[40px] rounded-[20px] shadow-sm ml-[40px] mt-[20px] text-white font-semibold text-[18px] flex items-center justify-center cursor-pointer hover:bg-[#3e562f] transition">
-        Confirm Email
-      </div>
-      </section>
+<section class="flex flex-col items-center">
+    <p class="text-black font-bold text-3xl mb-6">Forgot Password</p>
+
+    <div class="bg-white w-[320px] border border-gray-300 shadow-md rounded-[35px] pb-6">
+        
+        @if (session('error'))
+            <p class="text-red-500 text-sm text-center mt-3">
+                {{ session('error') }}
+            </p>
+        @endif
+
+        @if (session('success'))
+            <p class="text-green-600 text-sm text-center mt-3">
+                {{ session('success') }}
+            </p>
+        @endif
+
+        <form method="POST" action="/forgot-password">
+            @csrf
+
+            <div class="flex flex-col space-y-1 mt-4 px-8">
+                <label class="text-sm font-semibold">Email</label>
+                <input type="email" name="email" required
+                    placeholder="Masukkan Email"
+                    class="h-[40px] px-3 border rounded-xl focus:ring-2 focus:ring-[#597445]"
+                />
+            </div>
+
+            <div class="flex justify-center mt-5">
+                <button class="bg-[#4a6339] w-[220px] h-[40px] rounded-[20px] text-white font-semibold hover:bg-[#3e562f] transition">
+                    Confirm Email
+                </button>
+            </div>
+        </form>
+    </div>
+</section>
+
 </body>
 </html>
