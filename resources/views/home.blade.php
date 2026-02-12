@@ -373,8 +373,8 @@
                 <script type="module">
                     import Chatbot from "https://cdn.jsdelivr.net/npm/flowise-embed/dist/web.js"
                     Chatbot.init({
-                        chatflowid: "33346acb-60a5-412f-88ba-3684627baf7b",
-                        apiHost: "https://cloud.flowiseai.com",
+                        chatflowid: "{{ env('CHATBOT_FLOW_ID') }}",
+                        apiHost: "{{ env('CHATBOT_API_HOST') }}",
                     })
                 </script>
 
