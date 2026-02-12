@@ -8,6 +8,7 @@ class Resep extends Model
 {
     protected $fillable = [
         'nama_resep',
+        'catatan_tambahan',
         'image',
     ];
 }

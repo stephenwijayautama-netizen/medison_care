@@ -35,10 +35,10 @@ class ResepController extends Controller
         Resep::create([
             'nama_resep' => $request->nama_resep,
             'catatan_tambahan' => $request->catatan_tambahan,
-            'image_product' => $imagePath, // Pastikan nama kolom di DB adalah 'image_product'
+            'image' => $imagePath, // Kolom di database adalah 'image'
         ]);
 
         // 4. Redirect kembali dengan pesan sukses
-        return redirect()->back()->with('success', 'Resep berhasil ditambahkan ke database!');
+        return redirect()->back()->with('success', 'Resep berhasil diUpload!');
     }
 }

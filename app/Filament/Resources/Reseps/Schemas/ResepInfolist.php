@@ -14,7 +14,7 @@ class ResepInfolist
             ->components([
                 TextEntry::make('nama_resep')
                     ->label('Nama Resep'),
-                TextEntry::make('Catatan Tambahan')
+                TextEntry::make('catatan_tambahan')
                     ->label('Catatan Tambahan'),
                 ImageEntry::make('image')
                     ->label('Image Product')

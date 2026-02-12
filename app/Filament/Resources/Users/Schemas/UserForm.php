@@ -40,8 +40,9 @@ class UserForm
                     ->disk('public')
                     ->directory('profile-images')
                     ->avatar()
-                    ->Visibility(Visibility::PUBLIC)
-                    ->maxSize(2048),
+                    ->visibility('public')
+                    ->maxSize(5120)
+                    ->acceptedFileTypes(['image/jpeg', 'image/png', 'image/jpg']),
                 Textarea::make('address')
                     ->required()
                     ->columnSpanFull(),
