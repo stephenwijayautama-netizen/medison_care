@@ -92,7 +92,7 @@
                 <p><b>Nama:</b> {{ auth()->user()->name }}</p>
                 <p><b>Email:</b> {{ auth()->user()->email }}</p>
                 <p><b>Alamat Tersimpan:</b><br>
-                    {{ $lokasi->alamat ?? 'Belum disimpan' }}
+                    <span class="text-gray-700">{{ auth()->user()->address ?? 'Belum disimpan' }}</span>
                 </p>
             </div>
         </div>
