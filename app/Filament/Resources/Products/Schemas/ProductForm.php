@@ -56,13 +56,12 @@ class ProductForm
                     ->image()
                     ->disk('public')
                     ->directory('product-images')
-                    ->visibility(Visibility::PUBLIC)
-                    ->maxSize(4096)
-                    ->confirmSvgEditing()
+                    ->visibility('public')
+                    ->maxSize(10240)
+                    ->acceptedFileTypes(['image/jpeg', 'image/png', 'image/jpg', 'image/gif'])
                     ->downloadable()
                     ->openable()
                     ->previewable()
-                    ->image()
                     ->imageEditor()
                     ->imageEditorAspectRatios([
                         '16:9',
