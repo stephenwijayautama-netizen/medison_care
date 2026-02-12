@@ -39,6 +39,6 @@ class ResepController extends Controller
         ]);
 
         // 4. Redirect kembali dengan pesan sukses
-        return redirect()->back()->with('success', 'Resep berhasil ditambahkan ke database!');
+        return redirect()->back()->with('success', 'Resep berhasil diUpload!');
     }
 }

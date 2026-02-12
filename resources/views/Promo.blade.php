@@ -89,6 +89,7 @@
                          class="h-24 mx-auto object-contain">
                     
                     <h3 class="text-xs font-bold mt-2 h-8 line-clamp-2">{{ $item->product_name }}</h3>
+                    <p class="text-red-400 font-bold line-through text-xs">Rp {{ number_format($item->price, 0, ',', '.') }}</p>
                     <p class="text-red-600 font-bold text-sm">Rp {{ number_format($item->promo_price, 0, ',', '.') }}</p>
                     
                     <div class="flex justify-between items-center mt-2 bg-gray-50 p-1 rounded">
