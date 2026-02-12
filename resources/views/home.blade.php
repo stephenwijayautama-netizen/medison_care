@@ -81,14 +81,14 @@
                  alt="Healthcare banner 1">
         </div>
 
-        {{-- <div class="w-full h-full flex-shrink-0">
-            <img src="photo/poster222.png" 
+        <div class="w-full h-full flex-shrink-0">
+            <img src="photo/slider2.png" 
                  class="w-full h-full object-cover" 
                  alt="Healthcare banner 2">
-        </div> --}}
+        </div>
 
         <div class="w-full h-full flex-shrink-0">
-            <img src="https://goalkes-images.s3.ap-southeast-1.amazonaws.com/media/8587/hDwQMwUmOSbso6VlQ2c7ihQnxrWYeCSGQEbP0gBB.jpg" 
+            <img src="photo/slider1.png" 
                  class="w-full h-full object-cover" 
                  alt="Healthcare banner 3">
         </div>
