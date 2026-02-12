@@ -23,7 +23,10 @@ class ResepsTable
                     ->searchable(),
                 TextColumn::make('catatan_tambahan')
                     ->searchable(),
-                ImageColumn::make('image'),
+                ImageColumn::make('image')
+                    ->disk('public')
+                    ->width(60)
+                    ->height(60),
                 TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()

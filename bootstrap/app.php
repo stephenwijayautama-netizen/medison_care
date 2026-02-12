@@ -13,6 +13,9 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware) {
         
+        // Trust all proxies untuk ngrok
+        $middleware->trustProxies(at: '*');
+        
         // Tambahkan pengecualian di sini:
         $middleware->validateCsrfTokens(except: [
             'api/payment/callback', 

@@ -17,11 +17,17 @@ class ResepForm
                     ->default(null),
                 TextInput::make('catatan_tambahan')
                     ->default(null),
-                 FileUpload::make('image')
+                FileUpload::make('image')
+                    ->label('Resep Image')
                     ->image()
                     ->disk('public')
                     ->directory('reseps')
                     ->visibility('public')
+                    ->maxSize(5120)
+                    ->acceptedFileTypes(['image/jpeg', 'image/png', 'image/jpg'])
+                    ->downloadable()
+                    ->openable()
+                    ->previewable()
                             ]);
     }
 }
