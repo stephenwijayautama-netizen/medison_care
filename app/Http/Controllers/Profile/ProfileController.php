@@ -17,7 +17,7 @@ class ProfileController extends Controller
     {
         $user = Auth::user();
 
-        // ambil alamat TERBARU yang tidak null
+        // ambil lokasi TERBARU (untuk map coordinates)
         $lokasi = Lokasi::where('user_id', $user->id)
             ->whereNotNull('alamat')
             ->latest()
