@@ -120,31 +120,32 @@ class TransactionsTable
                     // --- FORM MODAL (Pop-up) ---
                     ->form([
                         // 1. Pilih Kurir (Pastikan Anda punya tabel 'couriers')
-                        // Jika belum punya tabel kurir, ganti Select ini jadi TextInput biasa
                         Select::make('courier_id')
                             ->label('Pilih Kurir')
-                            ->options(Courier::all()->pluck('name', 'id')) // Ambil data dari tabel couriers
+                            ->options(Courier::all()->pluck('name', 'id'))
                             ->required(),
 
-                        // 3. Status Pengiriman
+                        // 2. Status Pengiriman
                         Select::make('status')
+                            ->label('Status Pengiriman')
                             ->options([
                                 'preparing' => 'Sedang Dipersiapkan',
                                 'shipped' => 'Dikirim (Shipped)',
                                 'delivered' => 'Sampai Tujuan',
                             ])
-                            ->default('shipped')
-                            ->required(),
+                            ->default('preparing')
+                            ->required()
+                            ->reactive(),
 
                         Textarea::make('delivery_address')
                             ->label('Alamat Pengiriman')
                             ->rows(3)
                             ->required()
-                            // Bagian ini yang membuatnya AUTO FILL dari data User
-                            ->default(fn($record) => $record->user->address ?? 'Alamat user tidak ditemukan')
                             ->columnSpanFull(),
+                        
                         Textarea::make('notes')
-                            ->label('Catatan Tambahan (Opsional)'),
+                            ->label('Catatan Tambahan (Opsional)')
+                            ->rows(2),
                     ])
 
                     // --- ISI DATA SAAT MODAL DIBUKA ---
@@ -153,9 +154,8 @@ class TransactionsTable
                         if ($record->delivery) {
                             $form->fill([
                                 'courier_id' => $record->delivery->courier_id,
-                                'tracking_number' => $record->delivery->tracking_number,
                                 'status' => $record->delivery->status,
-                                'delivery_address' => $record->delivery->delivery_address, // Pakai alamat yang sudah disimpan
+                                'delivery_address' => $record->delivery->delivery_address,
                                 'notes' => $record->delivery->notes,
                             ]);
                         } 
@@ -163,8 +163,6 @@ class TransactionsTable
                         else {
                             $form->fill([
                                 'status' => 'preparing',
-                                // 👇 DISINI KITA AMBIL ALAMAT USER 👇
-                                // Pastikan kolom di tabel users Anda bernama 'address'. Kalau 'alamat', ganti jadi ->alamat
                                 'delivery_address' => $record->user->address ?? 'Alamat user tidak ditemukan', 
                             ]);
                         }
@@ -172,26 +170,56 @@ class TransactionsTable
 
                     // --- PROSES SIMPAN KE DATABASE ---
                     ->action(function ($record, array $data) {
-                        // Gunakan updateOrCreate agar tidak duplikat
-                        // Cari delivery berdasarkan transaction_id, kalau gak ada buat baru.
+                        // Ambil delivery yang sudah ada (untuk cek timestamp lama)
+                        $existingDelivery = Delivery::where('transaction_id', $record->id)->first();
+                        
+                        // Tentukan timestamp berdasarkan status
+                        $shippedAt = null;
+                        $deliveredAt = null;
+                        
+                        if ($data['status'] === 'shipped') {
+                            // Jika sudah pernah shipped sebelumnya, pertahankan timestamp lama
+                            $shippedAt = $existingDelivery && $existingDelivery->shipped_at 
+                                ? $existingDelivery->shipped_at 
+                                : now();
+                        } elseif ($data['status'] === 'delivered') {
+                            // Pertahankan shipped_at, tambahkan delivered_at
+                            $shippedAt = $existingDelivery && $existingDelivery->shipped_at 
+                                ? $existingDelivery->shipped_at 
+                                : now();
+                            $deliveredAt = $existingDelivery && $existingDelivery->delivered_at 
+                                ? $existingDelivery->delivered_at 
+                                : now();
+                        }
+
+                        // Update atau buat delivery record
                         $delivery = Delivery::updateOrCreate(
-                            ['transaction_id' => $record->id], // Kunci pencarian
+                            ['transaction_id' => $record->id],
                             [
                                 'courier_id' => $data['courier_id'],
                                 'status' => $data['status'],
                                 'delivery_address' => $data['delivery_address'],
-                                'notes' => $data['notes'],
-                                // Set shipped_at otomatis jika statusnya 'shipped'
-                                'shipped_at' => $data['status'] === 'shipped' ? now() : null,
+                                'notes' => $data['notes'] ?? null,
+                                'shipped_at' => $shippedAt,
+                                'delivered_at' => $deliveredAt,
                             ]
                         );
 
-                        // Opsional: Update status Transaksi utama jadi 'shipped' juga biar sinkron
-                        if ($data['status'] === 'shipped') {
-                            $record->update(['status' => 'shipped']);
-                        }
+                        // Update status Transaction sesuai dengan status delivery
+                        $transactionStatus = match($data['status']) {
+                            'preparing' => 'processing',  // Sedang diproses
+                            'shipped' => 'shipped',       // Sudah dikirim
+                            'delivered' => 'delivered',   // Sudah sampai
+                            default => $record->status,   // Pertahankan status lama
+                        };
 
-                        Notification::make()->title('Data Pengiriman Disimpan')->success()->send();
+                        $record->update(['status' => $transactionStatus]);
+
+                        Notification::make()
+                            ->title('Data Pengiriman Berhasil Disimpan')
+                            ->body("Status transaksi diupdate menjadi: " . ucfirst($transactionStatus))
+                            ->success()
+                            ->send();
                     }),
             ])
             ->bulkActions([
