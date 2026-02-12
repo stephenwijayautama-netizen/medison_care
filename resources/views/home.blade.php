@@ -61,13 +61,13 @@
     </form>
 
    <div class="flex items-center gap-3 md:gap-4 flex-shrink-0">
-    <a href="orders" class="w-9 h-9 md:w-10 md:h-10 flex items-center justify-center hover:scale-110 transition-transform">
+    <a href="orders" class="w-10 h-10 md:w-11 md:h-11 flex items-center justify-center hover:scale-110 transition-transform">
         <img src="photo/keranjang.png" alt="Keranjang" class="w-full h-full object-contain">
     </a>
 
-    <a href="profile" class="w-9 h-9 md:w-10 md:h-10 border-2 border-gray-300 rounded-full overflow-hidden flex items-center justify-center hover:border-green-500 hover:scale-110 transition-all">
-        <img src="photo/user.png" alt="User" class="w-full h-full object-cover">
-    </a>
+     <a href="profile" class="w-6 h-6 md:w-7 md:h-7 border-2 border-gray-300 rounded-full overflow-hidden flex items-center justify-center hover:border-green-500 hover:scale-110 transition-all ml-[-10px] mt-0.5">
+                <img src="photo/user.png" alt="User" class="w-full h-full object-cover object-center">
+            </a>
 </div>
 </header>
     <!-- 🖼️ Slider Container -->
@@ -348,7 +348,7 @@
     </section>
 
     <section>
-        <div class="fixed bottom-20 right-6 z-50">
+        <div class="fixed bottom-20 right-5 z-50">
             <!-- Tombol Chat WhatsApp -->
             <button id="chatButton"
                 class="bg-green-500 w-12 h-12 rounded-full flex items-center justify-center shadow-lg hover:bg-green-600 hover:scale-110 transition-all duration-300">
@@ -379,12 +379,12 @@
                 </script>
 
                 <!-- Isi Pesan -->
-                <div class="p-4 text-gray-700 text-sm bg-gray-50">
+                <div class="p-4 text-gray-700 text-sm bg-gray-50 ">
                     <div class="mb-3 bg-white p-3 rounded-lg shadow-sm border border-gray-100">
                         👋 Halo! Ada yang bisa kami bantu hari ini?
                     </div>
                     <a href="https://wa.me/6281222200640" target="_blank"
-                        class="flex items-center justify-center gap-2 bg-green-500 text-white py-2 rounded-lg hover:bg-green-600 transition font-medium text-sm shadow-md hover:shadow-lg">
+                        class="flex items-center justify-center  bg-green-500 text-white py-2 rounded-lg hover:bg-green-600 transition font-medium text-sm shadow-md hover:shadow-lg ">
                         <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WA"
                             class="w-4 h-4">
                         Chat via WhatsApp

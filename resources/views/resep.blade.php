@@ -9,9 +9,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 
-<body class="bg-gray-100 antialiased min-h-screen">
+<body class="bg-gray-100 antialiased mt-5 ">
 
-    <div class="relative bg-white w-full max-w-[450px] min-h-screen shadow-sm flex flex-col overflow-hidden font-[inter] mx-auto">
+    <div class="relative bg-white w-full max-w-[450px]  shadow-sm flex flex-col overflow-hidden font-[inter] mx-auto rounded-xl">
 
         <header class="bg-gradient-to-r from-[#009345] to-[#008038] p-4 flex items-center gap-3 shadow-md z-50 sticky top-0">
             <a href="javascript:history.back()" class="w-10 h-10 flex items-center justify-center bg-white/20 hover:bg-white/30 rounded-full transition-all hover:scale-110 backdrop-blur-sm">

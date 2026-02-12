@@ -11,9 +11,9 @@
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
     </style>
 </head>
-<body class="bg-gray-100 antialiased min-h-screen font-sans">
+<body class="bg-gray-100 antialiased min-h-screen font-sans mt-3 ">
 
-<div class="relative bg-white w-full max-w-[450px] min-h-screen shadow-sm flex flex-col overflow-hidden mx-auto">
+<div class="relative bg-white w-full max-w-[450px] min-h-screen shadow-sm flex flex-col overflow-hidden mx-auto rounded-xl ">
 
     <header class="w-full flex items-center justify-between px-2 md:px-6 py-3 bg-white shadow-sm rounded-t-2xl gap-2 md:gap-4 sticky top-0 z-30">
     
@@ -51,8 +51,8 @@
                 <img src="photo/keranjang.png" alt="Keranjang" class="w-full h-full object-contain">
             </a>
 
-            <a href="profile" class="w-9 h-9 md:w-10 md:h-10 border-2 border-gray-300 rounded-full overflow-hidden flex items-center justify-center hover:border-green-500 hover:scale-110 transition-all">
-                <img src="photo/user.png" alt="User" class="w-full h-full object-cover">
+            <a href="profile" class="w-6 h-6 md:w-7 md:h-7 border-2 border-gray-300 rounded-full overflow-hidden flex items-center justify-center hover:border-green-500 hover:scale-110 transition-all ml-[-10px] mt-0.5">
+                <img src="photo/user.png" alt="User" class="w-full h-full object-cover object-center">
             </a>
         </div>
     </header>
